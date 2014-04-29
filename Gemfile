@@ -5,7 +5,7 @@ ruby '2.1.1'
 gem 'rails'
 gem 'puma'
 
-#group :assets do
+group :assets do
   gem 'therubyracer', platforms: :ruby
   gem 'coffee-rails'
   gem 'sass-rails'
@@ -14,7 +14,7 @@ gem 'puma'
   gem 'jquery-rails'
   gem 'axis-rails'
   gem 'fotoramajs'
-#end
+end
 
 group :development do
   gem 'pry-rails'

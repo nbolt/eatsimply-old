@@ -17,6 +17,7 @@ config/database.yml
 ## Environment normalisation:
 /.bundle
 /vendor/bundle
+/public/assets/
 
 # these should all be checked in to normalise the environment:
 # Gemfile.lock, .ruby-version, .ruby-gemset
