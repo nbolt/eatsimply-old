@@ -6,7 +6,7 @@ gem 'rails'
 gem 'puma'
 
 group :assets do
-  gem 'therubyracer', platforms: :ruby
+  #gem 'therubyracer', platforms: :ruby
   gem 'coffee-rails'
   gem 'sass-rails'
   gem 'uglifier'
@@ -41,7 +41,7 @@ gem 'stylus',        github: 'lucasmazza/ruby-stylus', group: :assets
 gem 'friendly_id'
 gem 'sentry-raven'
 gem 'jbuilder'
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 gem 'pg'
 gem 'turbolinks'
 gem 'postmark-rails'

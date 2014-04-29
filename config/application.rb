@@ -4,8 +4,7 @@ require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-#Bundler.require(:default, :assets, Rails.env)
-Bundler.require(*Rails.groups(assets: %w(development test)))
+Bundler.require(:default, :assets, Rails.env)
 
 module Eatt
   class Application < Rails::Application
