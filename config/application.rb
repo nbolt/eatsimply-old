@@ -4,11 +4,7 @@ require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-if Rails.env == 'production'
-  Bundler.require(:default, Rails.env)
-else
-  Bundler.require(:default, :assets, Rails.env)
-end
+Bundler.require(:default, :assets, Rails.env)
 
 module Eatt
   class Application < Rails::Application
