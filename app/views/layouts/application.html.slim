@@ -4,11 +4,13 @@ html
     title= content_for?(:title) ? yield(:title) : 'Eatt'
     meta name='description' content='Body management'
 
-    meta property='og:title' content='Eatt'
-    meta property='og:description' content='Body management'
-    /meta property='og:image' content='preview.jpg'
-    meta property='og:url' content='http://www.ea.tt'
+    meta property="og:title" content="Eatt"
+    meta property="og:type" content="company"
+    meta property="og:site_name" content="Eatt"
+    meta property="og:description" content="We are helping people lead healthier lives by taking out all the guesswork of how and what to eat. Interesting in getting complete, personalized daily meal plans? Sign up below and we'll give you exclusive, free access once we launch."
+    meta property="og:url" content="www.ea.tt"
     meta property='og:type' content='website'
+    meta property="og:image" content=""
 
     = stylesheet_link_tag 'application'
     = stylesheet_link_tag 'css_imports'
