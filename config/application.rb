@@ -8,6 +8,6 @@ Bundler.require(:default, :assets, Rails.env)
 
 module Eatt
   class Application < Rails::Application
-    Stylus.setup Sprockets, config.assets rescue nil
+    #Stylus.setup Sprockets, config.assets rescue nil
   end
 end
