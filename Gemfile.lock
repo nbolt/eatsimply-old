@@ -56,6 +56,10 @@ GEM
     angular_rails_csrf (1.0.1)
       rails (>= 3, < 5)
     angularjs-rails (1.2.16)
+    appsignal (0.8.10)
+      activesupport (>= 3.0)
+      rack
+      thread_safe
     arel (5.0.1.20140414130214)
     axis-rails (0.0.1)
     bcrypt (3.1.7)
@@ -86,7 +90,6 @@ GEM
       thor
     decent_exposure (2.3.1)
     diff-lcs (1.2.5)
-    docile (1.1.3)
     erubis (2.7.0)
     excon (0.33.0)
     execjs (2.0.2)
@@ -142,9 +145,9 @@ GEM
     multi_json (1.9.3)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    net-scp (1.2.0)
+    net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (2.8.0)
+    net-ssh (2.9.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)
@@ -222,13 +225,12 @@ GEM
       faraday (>= 0.7.6)
       hashie (>= 1.1.0)
       uuidtools
-    shoulda-matchers (2.6.0)
+    shoulda-matchers (2.6.1)
       activesupport (>= 3.0.0)
-    simplecov (0.8.2)
-      docile (~> 1.1.0)
-      multi_json
-      simplecov-html (~> 0.8.0)
-    simplecov-html (0.8.0)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     slim (2.0.2)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -250,7 +252,7 @@ GEM
       rails (>= 3)
       stripe
     stylus-source (0.42.2)
-    sucker_punch (1.0.3)
+    sucker_punch (1.0.4)
       celluloid (~> 0.15.2)
     temple (0.6.7)
     term-ansicolor (1.3.0)
@@ -279,6 +281,7 @@ DEPENDENCIES
   analytics-ruby
   angular_rails_csrf
   angularjs-rails
+  appsignal
   axis-rails
   bcrypt
   carrierwave
@@ -308,6 +311,7 @@ DEPENDENCIES
   sass-rails
   sentry-raven
   shoulda-matchers
+  simplecov (~> 0.7.1)
   slim
   sorcery!
   stripe

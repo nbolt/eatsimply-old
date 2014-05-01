@@ -1,0 +1,15 @@
+machine:
+  environment:
+    APPSIGNAL_PUSH_API_KEY: 37a90f7d-ebbb-41b6-a776-b26bc061b27b
+
+deployment:
+  staging:
+    branch: develop
+    commands:
+      - git push git@heroku.com:eatt-staging.git $CIRCLE_SHA1:master
+      - heroku run rake db:migrate --app eatt-staging
+  production:
+    branch: master
+    commands:
+      - git push git@heroku.com:eatt.git $CIRCLE_SHA1:master
+      - heroku run rake db:migrate --app eatt

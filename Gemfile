@@ -38,6 +38,9 @@ gem 'sorcery',       github: 'NoamB/sorcery', branch: 'master'
 gem 'rmagick',       github: 'rmagick/rmagick', branch: 'master'
 gem 'stylus',        github: 'lucasmazza/ruby-stylus', group: :assets
 
+
+gem 'simplecov', '~> 0.7.1'
+gem 'appsignal'
 gem 'friendly_id'
 gem 'sentry-raven'
 gem 'jbuilder'
