@@ -1,0 +1,6 @@
+default: &defaults
+  name: "Eatt"
+
+production:
+  <<: *defaults
+  active: true

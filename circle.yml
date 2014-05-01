@@ -1,3 +1,7 @@
+machine:
+  environment:
+    appsignal_push_api_key: 37a90f7d-ebbb-41b6-a776-b26bc061b27b
+
 deployment:
   staging:
     branch: develop
