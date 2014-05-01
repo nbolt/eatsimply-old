@@ -4,3 +4,7 @@ default: &defaults
 production:
   <<: *defaults
   active: true
+
+development:
+  <<: *defaults
+  active: false
