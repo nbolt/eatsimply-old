@@ -40,5 +40,18 @@ html
 
 
   body ng:controller='app'
+    header.admin
+      .logo
+        img src='/assets/eatt-white.png'
+      nav
+        a href='/admin/recipe/selection'
+          .link
+            .text Recipe selection
+        a href='/admin/recipe/entry'
+          .link
+            .text Recipe entry
+        a href='/admin/algorithm'
+          .link 
+            .text Algorithm visualization
     .body= yield
     /= javascript_include_tag :fotorama

@@ -1,3 +1,337 @@
-html, body
+green = #88c425
+dark-green = #689d1b
+darker-green= #4b7912
+light-green = #a0d44a
+lighter-green = #c1ed78
+gray = #d1d0cf
+
+facebook-blue = #3d599b
+twitter-blue  = #00abee
+
+html, body, .body
   height: 100%
   margin: 0
+  font-family: Helvetica Neue
+  color: #222
+  font-size: 100%
+
+header.main
+  width: 960px
+  margin: auto
+  nav
+    display: inline-block
+    .nav
+      display: inline-block
+      vertical-align: top
+      a
+        text-decoration: none
+        .text
+          color: green
+          border-bottom: thin solid green
+          margin: 30px 0
+          font-weight: 500
+        &:hover .text
+          font-weight: bold
+          border-bottom: 2px solid green
+      .vertical-div
+        border-left: thin solid gray
+        height: 30px
+        margin: 25px 20px 0 25px
+      .circle-div
+        background-color: #bbb
+        border-radius: 50px
+        height: 10px
+        width: 10px
+        margin: 36px 5px 0
+    &.left
+      .logo
+        img
+          height: 80px
+    &.right
+      float: right
+      .vertical-div
+        border-left-color: #aaa
+      .nav
+        &.icon
+          padding: 2px 4px
+          margin: 25px 5px
+          border-radius: 5px
+          .typcn
+            font-size: 1.4em
+            color: white
+          &.facebook
+            background-color: facebook-blue
+          &.twitter
+            background-color: twitter-blue
+          &.email
+            background-color: green
+            .typcn::before
+              vertical-align: top
+              margin-top: 1px
+        .flag
+          margin: 25px 5px 0
+          img
+            height: 32px
+          &:hover
+            cursor: pointer
+
+
+#bg
+  position: relative
+  overflow: hidden
+  height: 100%
+  .inner-container
+    background: url(/assets/bg.jpg) no-repeat
+    background-size: cover
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    height: 100%
+    #headline
+      width: 403px
+      margin: 60px 0 0 170px
+      color: #222
+      > .title
+        font-size: 2.5em
+        font-weight: 500
+      .subtitle
+        line-height: 1.6em
+        color: #555
+        margin: 10px 0 20px
+        text-shadow: -1px 1px 1px white
+      .email
+        background-color: green
+        border-radius: 3px
+        padding: 18px 22px
+        > .title
+          color: white
+        .button
+          background-color: green
+          text-transform: uppercase
+        .input
+          position: relative
+          input
+            width: 280px
+            border: thin solid gray
+            border-radius: 3px
+            padding: 10px 65px 10px 10px
+            margin-top: 8px
+            color: #444
+            &:focus
+              box-shadow: none
+              outline: none
+          .button
+            position: absolute
+            top: 15px
+            right: 10px
+            font-size: .9em
+            font-weight: 500
+            background-color: green
+            color: white
+            padding: 4px 4px 5px
+            width: 38px
+            text-align: center
+            border-radius: 3px
+            &:hover
+              cursor: pointer
+              background-color: #a0d44a
+
+.info-section
+  margin: 50px 0
+  > .title
+    font-size: 1.8em
+    font-weight: 500
+    text-align: center
+  .benefits
+    width: 960px
+    margin: 50px auto
+    .benefit
+      width: 200px
+      margin: 0 20px
+      display: inline-block
+      vertical-align: top
+      text-align: center
+      .title
+        font-weight: 600
+        margin: 10px 0
+      .desc
+        line-height: 1.3em
+  > .button
+    background-color: green
+    padding: 15px
+    width: 400px
+    margin: 80px auto
+    border-radius: 3px
+    text-align: center
+    &:hover
+      cursor: pointer
+      .text
+        border-bottom: thin solid white
+    .icon, .text
+      display: inline-block
+      vertical-align: top
+    .text
+      color: white
+      font-size: 1.1em
+      font-weight: 500
+      margin: 2px 0 0 15px
+  .columns
+    width: 960px
+    margin: 45px auto
+    .column
+      display: inline-block
+      width: 350px
+      vertical-align: top
+      overflow: auto
+      &.thin
+        width: 260px
+      .arrow
+        text-align: center
+        .typcn
+          font-size: 4em
+          color: green
+      .title
+        border-bottom: thin solid gray
+        text-align: center
+        padding-bottom: 15px
+        text-transform: uppercase
+        font-size: 1.05em
+        span
+          font-weight: 600
+      .list
+        margin-top: 25px
+        .line
+          margin: 30px 0
+          .icon, .text
+            display: inline-block
+            vertical-align: top
+          .icon
+            float: left
+          .text
+            margin: 7px 0 0 20px
+            color: #696969
+            width: 295px
+
+
+header.admin
+  background-color: green
+  padding: 10px 20px
+  .logo
+    display: inline-block
+    img
+      height: 60px
+  nav
+    display: inline-block
+    float: right
+    .link
+      color: white
+      display: inline-block
+      font-size: 1.2em
+      margin: 15px 0 0 15px
+      &:hover
+        border-bottom: thin solid white
+
+#admin-content
+  width: 768px
+  margin: 60px auto
+  text-align: center
+  > .title
+    font-size: 2.7em
+  .form
+    margin-top: 25px
+    .recipe
+      padding-top: 25px
+      border-top: thin solid #bbb
+    .field
+      margin: 15px 0
+      .input
+        margin: 15px 0
+        width: 500px
+        border: thin solid #bbb
+        padding: 8px 12px
+        outline: none
+        border-radius: 3px
+        vertical-align: top
+      .select2-container
+        border-radius: 3px
+        width: 300px
+        margin-left: 25px
+        .select2-choices
+          border-radius: 3px
+      &.title
+        input
+          width: 300px
+          margin-left: 25px
+    .ingredients
+      > .title
+        font-size: 2em
+        margin: 25px 0
+      .ingredient
+        margin-bottom: 40px
+        .subtitle
+          font-weight: 600
+        .field
+          display: inline-block
+          margin-top: 0
+          .desc
+            font-size: 0.9em
+            color: #999
+          .input
+            padding: 6px
+            border: none
+            border-bottom: thin solid #bbb
+            border-radius: 0
+            text-align: center
+          &.type
+            display: block
+            label
+              margin-right: 10px
+            input:first-of-type
+              margin-right: 25px
+          &.amount
+            margin-right: 15px
+            .input
+              width: 40px
+          &.unit
+            margin-right: 15px
+            .input
+              width: 60px
+            .select2-container a
+              width: 70px
+          &.name, &.profile
+            .input
+              width: 200px
+              text-align: left
+            .desc
+              text-align: left
+          &.profile
+            margin-left: 15px
+            .select2-container a
+              width: 220px
+          &.notes
+            display: block
+            .input
+              width: 340px
+          .select2-container
+            margin-left: 0
+            a
+              padding: 0
+              margin-bottom: -4px
+              border: none
+              background: none
+              outline: none
+              box-shadow: none
+              .select2-arrow
+                display: none
+
+.select2-drop.recipe-creation-unit
+  width: 125px !important
+  border: thin solid #bbb
+  border-top: 0
+
+.select2-drop.recipe-creation-ingredient
+  width: 350px !important
+  border: thin solid #bbb
+  border-top: 0
