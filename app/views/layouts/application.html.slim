@@ -40,5 +40,23 @@ html
 
 
   body ng:controller='app'
-    .body= yield
+    = yield
+    footer
+      .logo
+        a href='/'
+          img src='/images/eatt-gray.png' height='60'
+      .links
+        .link
+          a href='/privacy' Privacy Policy
+        .link
+          a href='/terms' Terms & Conditions
+        .link
+          a href='/contact' Contact us
+      .social
+        .nav.icon.facebook
+          a href='http://facebook.com/eatthealthy' target='_window'
+            .typcn.typcn-social-facebook
+        .nav.icon.twitter
+          a href='http://twitter.com/eatthealthy' target='_window'
+            .typcn.typcn-social-twitter
     /= javascript_include_tag :fotorama

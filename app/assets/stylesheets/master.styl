@@ -4,6 +4,7 @@ darker-green= #4b7912
 light-green = #a0d44a
 lighter-green = #c1ed78
 gray = #d1d0cf
+light-gray = #f4f7f8
 
 facebook-blue = #3d599b
 twitter-blue  = #00abee
@@ -21,8 +22,6 @@ header.main
   nav
     display: inline-block
     .nav
-      display: inline-block
-      vertical-align: top
       a
         text-decoration: none
         .text
@@ -31,7 +30,6 @@ header.main
           margin: 30px 0
           font-weight: 500
         &:hover .text
-          font-weight: bold
           border-bottom: 2px solid green
       .vertical-div
         border-left: thin solid gray
@@ -51,37 +49,56 @@ header.main
       float: right
       .vertical-div
         border-left-color: #aaa
-      .nav
-        &.icon
-          padding: 2px 4px
-          margin: 25px 5px
-          border-radius: 5px
-          .typcn
-            font-size: 1.4em
-            color: white
-          &.facebook
-            background-color: facebook-blue
-          &.twitter
-            background-color: twitter-blue
-          &.email
-            background-color: green
-            .typcn::before
-              vertical-align: top
-              margin-top: 1px
-        .flag
-          margin: 25px 5px 0
-          img
-            height: 32px
-          &:hover
-            cursor: pointer
 
+.nav
+  display: inline-block
+  vertical-align: top
+  &.icon
+    padding: 2px 4px
+    margin: 25px 5px
+    border-radius: 5px
+    .typcn
+      font-size: 1.4em
+      color: white
+    &.facebook
+      background-color: facebook-blue
+    &.twitter
+      background-color: twitter-blue
+    &.email
+      background-color: green
+      .typcn::before
+        vertical-align: top
+        margin-top: 1px
+  .flag
+    margin: 25px 5px 0
+    img
+      height: 32px
+    &:hover
+      cursor: pointer
+
+footer
+  background-color: light-gray
+  text-align: center
+  overflow: auto
+  .logo
+    margin-top: 25px
+  .links
+    margin-top: 15px
+    .link
+      display: inline-block
+      margin: 0 8px
+      a
+        color: #bbb
+        text-decoration: none
+        &:hover
+          border-bottom: thin solid #bbb
 
 #bg
   position: relative
   overflow: hidden
   height: 100%
   .inner-container
-    background: url(/images/bg.jpg) no-repeat
+    background: url(/images/bg.jpg) no-repeat top center
     background-size: cover
     position: absolute
     top: 0
@@ -107,9 +124,6 @@ header.main
         padding: 18px 22px
         > .title
           color: white
-        .button
-          background-color: green
-          text-transform: uppercase
         .input
           position: relative
           input
@@ -134,11 +148,14 @@ header.main
             width: 38px
             text-align: center
             border-radius: 3px
+            text-transform: uppercase
             &:hover
               cursor: pointer
               background-color: #a0d44a
 
 .info-section
+  &.bordered
+    border-top: thin solid #e9e9e9
   margin: 50px 0
   > .title
     font-size: 1.8em
@@ -177,6 +194,9 @@ header.main
       font-size: 1.1em
       font-weight: 500
       margin: 2px 0 0 15px
+  .content
+    width: 960px
+    margin: 45px auto
   .columns
     width: 960px
     margin: 45px auto
@@ -213,6 +233,73 @@ header.main
             margin: 7px 0 0 20px
             color: #696969
             width: 295px
+  .upcoming, .email-box, .email
+    display: inline-block
+    vertical-align: top
+  .email-box
+    width: 580px
+    margin-left: 30px
+  .email
+    width: 280px
+    height: 201px
+    padding: 20px
+    border: thin solid gray
+    border-left: none
+    box-sizing: border-box
+    .text
+      color: #444
+      line-height: 1.4em
+      margin-bottom: 20px
+      width: 250px
+    .input
+      position: relative
+      input
+        width: 170px
+        border: none
+        background-color: #eee
+        border-radius: 3px
+        padding: 10px 65px 10px 10px
+        margin-top: 8px
+        color: #444
+        &:focus
+          box-shadow: none
+          outline: none
+      .button
+        position: absolute
+        top: 14px
+        right: 2px
+        font-size: .9em
+        font-weight: 500
+        background-color: green
+        color: white
+        padding: 4px 4px 5px
+        width: 38px
+        text-align: center
+        border-radius: 3px
+        text-transform: uppercase
+        &:hover
+          cursor: pointer
+          background-color: #a0d44a
+  .upcoming
+    background-color: #f4f4f1
+    padding: 25px
+    width: 350px
+    height: 201px
+    box-sizing: border-box
+    border-radius: 3px
+    .title
+      font-weight: 500
+      text-transform: uppercase
+      margin-bottom: 20px
+    .features
+      .feature
+        margin: 10px 0
+        .icon, .text
+          display: inline-block
+          vertical-align: top
+        .text
+          margin-left: 10px
+          color: #444
 
 
 header.admin
