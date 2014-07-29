@@ -4,6 +4,30 @@ AppCtrl = ($http) ->
 HomeCtrl = ($http) ->
 
 
+MealCtrl = ($scope, $http) ->
+
+  $scope.form =
+    weight: 180
+    height: 180
+
+  $scope.naturalHash = (hash) ->
+    data =
+      switch hash
+        when 'gender'
+          [{ id: 'm', text: 'male' }, { id: 'f', text: 'female' }]
+        when 'diet'
+          [{ id: 'vegan', text: 'vegan' }, { id: 'pescatarian', text: 'pescatarian' }, { id: 'omnivore', text: 'omnivore' }]
+        when 'weight_goal'
+          [{ id: 'maintain', text: 'maintain' }, { id: 'lose', text: 'lose' }, { id: 'gain', text: 'gain' }]
+
+    {
+      minimumResultsForSearch: 10
+      dropdownCssClass: 'meal-plan-natural'
+      data: data
+      initSelection: (elem, cb) -> cb data[0]
+    }
+
+
 RecipeEntry = ($scope, $http, $timeout) ->
 
   $scope.showRecipe = -> $scope.info && $scope.info.name
@@ -80,6 +104,7 @@ app = angular.module('eatt', ['ngCookies', 'ui.select2'])#, 'ui.select2', 'ui.da
   .controller('app',          AppCtrl)
   .controller('home',         HomeCtrl)
   .controller('recipe_entry', RecipeEntry)
+  .controller('meal',         MealCtrl)
   .config ['$httpProvider', ($httpProvider) ->
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = angular.element('meta[name=csrf-token]').attr 'content'
   ]

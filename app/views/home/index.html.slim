@@ -147,6 +147,34 @@
           input type='text' placeholder='Your email' spellcheck='false'
           .button Go
 
+#meal-form ng:controller='meal'
+  .mask
+  .content
+    .title Get your free meal plan in seconds
+    .form
+      .natural
+        .row
+          .text I'm a
+          .input
+            input type='hidden' ui-select2='naturalHash("gender")' ng:model='form.gender'
+          .text weighing
+          .input
+            input type='text' ng:model='form.weight' style='width:60px'
+          .text lbs
+        .row
+          .text and
+          .input
+            input type='text' ng:model='form.height' style='width:60px'
+          .text cm tall. I'm a
+          .input
+            input type='hidden' ui-select2='naturalHash("diet")' ng:model='form.diet'
+        .row
+          .text and am aiming to
+          .input
+            input type='hidden' ui-select2='naturalHash("weight_goal")' ng:model='form.cuisines'
+          .text weight.
+      .classic
+
 javascript:
   $(window).scroll(function(){
     t = $(window).scrollTop()
