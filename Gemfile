@@ -35,11 +35,11 @@ gem 'coveralls', require: false, group: :test
 gem 'rspec-rails', group: [:development, :test]
 
 #gem 'active_nutrition', github: 'saiko-chriskun/active_nutrition', branch: 'master'
-gem 'sorcery',          github: 'NoamB/sorcery', branch: 'master'
-gem 'rmagick',          github: 'rmagick/rmagick', branch: 'master'
 gem 'stylus',           github: 'lucasmazza/ruby-stylus', group: :assets
+gem 'rmagick', require: false
 
 gem 'simplecov', '~> 0.7.1'
+gem 'sorcery'
 gem 'rails_admin'
 gem 'appsignal'
 gem 'pg_search'

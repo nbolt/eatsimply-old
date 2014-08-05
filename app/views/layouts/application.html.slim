@@ -17,10 +17,23 @@ html
     /= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'
     /= javascript_include_tag '//d3nslu0hdya83q.cloudfront.net/dist/1.0/raven.min.js'
     = javascript_include_tag :application, 'data-turbolinks-track' => true
+    = javascript_include_tag 'https://cdn.ravenjs.com/1.1.15/jquery,native/raven.min.js'
+    /= javascript_include_tag 'https://assets.helpful.io/assets/widget.js', async: true
     /= javascript_include_tag 'https://js.stripe.com/v2/'
     /script onload='try{Typekit.load()}catch(e){}' src='//use.typekit.com/sau2fxq.js'
     = csrf_meta_tags
     = yield :head
+
+    javascript:
+      var dsn = "#{Rails.env == 'production' && 'https://79b869d409af4f8199b8519d211a1ee8@app.getsentry.com/28315' || 'https://6faa965d4f6946c1919ffda898de4da6@app.getsentry.com/28313'}"
+      Raven.config(dsn).install()
+
+    - if current_user
+      javascript:
+        Raven.setUser({
+          email: "#{current_user.email}",
+          id: "#{current_user.id}"
+        })
 
     /javascript:
     /  var analytics;
@@ -45,13 +58,13 @@ html
       .logo
         a href='/'
           img src='/images/eatt-gray.png' height='60'
-      .links
-        .link
-          a href='/privacy' Privacy Policy
-        .link
-          a href='/terms' Terms & Conditions
-        .link
-          a href='/contact' Contact us
+      /.links
+      /  .link
+      /    a href='/privacy' Privacy Policy
+      /  .link
+      /    a href='/terms' Terms & Conditions
+      /  .link
+      /    a href='/contact' Contact us
       .social
         .nav.icon.facebook
           a href='http://facebook.com/eatthealthy' target='_window'

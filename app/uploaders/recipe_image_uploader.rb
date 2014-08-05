@@ -41,6 +41,7 @@ class RecipeImageUploader < CarrierWave::Uploader::Base
   def filename
     if original_filename.present?
       name = super.chomp(File.extname(super))
+      name += '__DEV' unless Rails.env == 'production'
       name += '.jpg' unless name[-4..-1] == '.jpg'
       return name
     end

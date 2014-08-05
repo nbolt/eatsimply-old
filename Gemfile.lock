@@ -1,27 +1,10 @@
 GIT
-  remote: git://github.com/NoamB/sorcery.git
-  revision: af9168a0fda602329caa65ab2429f56ac4c6a0f0
-  branch: master
-  specs:
-    sorcery (0.8.5)
-      bcrypt (>= 3.1)
-      oauth (~> 0.4.4)
-      oauth2 (>= 0.8.0, < 1.0.0)
-
-GIT
   remote: git://github.com/lucasmazza/ruby-stylus.git
   revision: 70c2932f8e381db2a13f3b50ce5de87c43fbce3c
   specs:
     stylus (1.0.1)
       execjs
       stylus-source
-
-GIT
-  remote: git://github.com/rmagick/rmagick.git
-  revision: 79e1708c7f6792a3a90cb8cb3ffaeb74c58e092e
-  branch: master
-  specs:
-    rmagick (2.13.2)
 
 GEM
   remote: https://rubygems.org/
@@ -139,8 +122,7 @@ GEM
     jquery-ui-rails (4.2.1)
       railties (>= 3.2.16)
     json (1.8.1)
-    jwt (0.1.11)
-      multi_json (>= 1.5)
+    jwt (1.0.0)
     kaminari (0.15.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -161,9 +143,9 @@ GEM
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)
-    oauth2 (0.9.3)
+    oauth2 (0.9.4)
       faraday (>= 0.8, < 0.10)
-      jwt (~> 0.1.8)
+      jwt (~> 1.0)
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (~> 1.2)
@@ -234,6 +216,7 @@ GEM
     remotipart (1.2.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rmagick (2.13.3)
     rr (1.1.2)
     rspec-core (2.14.8)
     rspec-expectations (2.14.5)
@@ -268,6 +251,10 @@ GEM
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
     slop (3.5.0)
+    sorcery (0.8.6)
+      bcrypt (~> 3.1)
+      oauth (~> 0.4, >= 0.4.4)
+      oauth2 (>= 0.8.0, < 1.0.0)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -341,7 +328,7 @@ DEPENDENCIES
   rails
   rails_12factor
   rails_admin
-  rmagick!
+  rmagick
   rr
   rspec-rails
   sass-rails
@@ -349,7 +336,7 @@ DEPENDENCIES
   shoulda-matchers
   simplecov (~> 0.7.1)
   slim
-  sorcery!
+  sorcery
   stripe
   stripe-rails
   stylus!

@@ -1,3 +1,28 @@
+#modal
+  .container
+    .message Thanks for your interest! We'll notify you when our full service is ready later this year, and in the meantime you can check out our preview below.
+    .form
+      .input
+        input type='text' placeholder='Email' spellcheck='false' ng:model='modal.email'
+      .input
+        input type='text' placeholder='Zip code' ng:model='modal.zip'
+      .input
+        textarea rows='5' placeholder='Comments / suggestions' spellcheck='false' ng:model='modal.comments'
+      .button ng:click='openMealForm()' Get my customized meal plan!
+
+#vegas-modal
+  .container
+    .message Thanks for your interest! We'll notify you when our full service is ready later this year, and in the meantime you can check out our preview below.
+    .form
+      .input
+        input type='text' placeholder='Email' spellcheck='false' ng:model='modal.email'
+      .input
+        input type='text' placeholder='Zip code' ng:model='modal.zip'
+      .input
+        textarea rows='5' placeholder='Comments / suggestions' ng:model='modal.comments'
+      .button ng:click='openMealFormV()' Get my customized meal plan!
+
+
 #bg
   .inner-container
     header.main
@@ -6,11 +31,11 @@
           a href='/'
             .logo
               img src='/images/eatt-green.png'
-        .nav
-          .vertical-div
-        .nav
-          a href='/about'
-            .text What is Eatt?
+        /.nav
+        /  .vertical-div
+        /.nav
+        /  a href='/about'
+        /    .text What is Eatt?
       nav.right
         .nav.icon.facebook
           a href='http://facebook.com/eatthealthy' target='_window'
@@ -23,22 +48,22 @@
         .nav.icon.email
           a href='mailto:support@ea.tt' target='_window'
             .typcn.typcn-mail
-        .nav
-          .vertical-div
-        .nav
-          .flag
-            img src='/images/flags/usa.png'
-        .nav
-          .flag
-            img src='/images/flags/france.png'
+        /.nav
+        /  .vertical-div
+        /.nav
+        /  .flag
+        /    img src='/images/flags/usa.png'
+        /.nav
+        /  .flag
+        /    img src='/images/flags/france.png'
     #headline
       .title Save time and money while eating healthy
-      .subtitle Eatt is the first complete and personalized daily meal planner. We learn continuously from you and take out all the guesswork of how to eat healthy. 
+      .subtitle Eatt is the first complete and personalized daily meal planner. We learn continuously from you and take out all the guesswork involved with eating healthy. 
       .email
         .title Get your free customized meal plan for the week.
         .input
-          input type='text' placeholder='Your email' spellcheck='false'
-          .button Go
+          input type='text' placeholder='Your email' spellcheck='false' ng:model='modal.email'
+          .button ng:click='openModal()' Go
 
 .info-section
   .title How does it work?
@@ -117,7 +142,7 @@
   .button
     .icon
       img src='/images/lightning.png'
-    .text Get my customized meal plan now!
+    .text ng:click='openModal()' Get my customized meal plan now!
 
 .info-section.bordered
   .content
@@ -144,8 +169,8 @@
           strong Las Vegas 
           | later this year.
         .input
-          input type='text' placeholder='Your email' spellcheck='false'
-          .button Go
+          input type='text' placeholder='Your email' spellcheck='false' ng:model='modal.email'
+          .button ng:click='openModalV()' Go
 
 #meal-form ng:controller='meal'
   .mask
@@ -165,15 +190,62 @@
           .text and
           .input
             input type='text' ng:model='form.height' style='width:60px'
-          .text cm tall. I'm a
+          .text#aan cm tall. I'm a
           .input
             input type='hidden' ui-select2='naturalHash("diet")' ng:model='form.diet'
         .row
           .text and am aiming to
           .input
-            input type='hidden' ui-select2='naturalHash("weight_goal")' ng:model='form.cuisines'
+            input type='hidden' ui-select2='naturalHash("weight_goal")' ng:model='form.weight_goal'
           .text weight.
       .classic
+        .row
+          .field.long
+            .label Cuisines I like
+            .input
+              input type='hidden' ui-select2='multiHash("cuisines")' ng:model='form.cuisines'
+        .row
+          .field.long
+            .label Ingredients to avoid
+            .input
+              input type='hidden' ui-select2='multiHash("ingredients")' ng:model='form.avoid'
+      .div
+      .button
+        .icon
+          .typcn.typcn-flash
+        .text ng:click='openMealPlan()' Get my customized meal plan now!
+
+#meal-plan ng:controller='plan'
+  .title
+    .left
+      .icon
+        .typcn.typcn-tick
+      .text Your customized meal plan
+    /.right
+    /  .pdf
+    /    .icon
+    /      img src='/images/pdf.png' height='22'
+    /    .text Download the PDF
+  #meals-container
+    .arrows
+      .arrow.prev arrow-prev=''
+        .typcn.typcn-chevron-left
+      .arrow.next arrow-next=''
+        .typcn.typcn-chevron-right
+    #meals
+      .day ng:repeat='day in days'
+        .title ng:bind='day.name'
+        .meal ng:repeat='meal in day.meals'
+          .top
+            .left
+              .title Meal {{$index+1}}
+          .recipes
+            .recipe ng:repeat='recipe in meal.recipes'
+              .photo
+                img ng:src='{{recipe.photo}}'
+              .info
+                a href='{{recipe.source}}' target='_window'
+                  .title ng:bind='recipe.name'
 
 javascript:
   $(window).scroll(function(){

@@ -6,4 +6,6 @@ Eatt::Application.routes.draw do
   namespace :admin do
     match '/recipe/:action' => 'recipe', via: [:get, :post]
   end
+
+  match '/:controller/:action', via: [:get, :post]
 end

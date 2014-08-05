@@ -3,6 +3,7 @@ dark-green = #689d1b
 darker-green= #4b7912
 light-green = #a0d44a
 lighter-green = #c1ed78
+dark-gray = #555
 gray = #d1d0cf
 light-gray = #f4f7f8
 
@@ -54,9 +55,12 @@ header.main
   display: inline-block
   vertical-align: top
   &.icon
-    padding: 2px 4px
+    padding: 1px 4px
     margin: 25px 5px
     border-radius: 5px
+    width: 32px
+    height: 32px
+    box-sizing: border-box
     .typcn
       font-size: 1.5em
       color: white
@@ -66,9 +70,10 @@ header.main
       background-color: twitter-blue
     &.email
       background-color: green
-      .typcn::before
-        vertical-align: top
-        margin-top: 1px
+      .typcn
+        line-height: 25px
+      &:hover
+        cursor: pointer
   .flag
     margin: 25px 5px 0
     img
@@ -81,7 +86,7 @@ footer
   text-align: center
   overflow: auto
   .logo
-    margin: 60px 0 25px
+    margin: 50px 0 25px
   .links
     margin-top: 15px
     .link
@@ -305,12 +310,13 @@ footer
           color: #444
 
 #meal-form
-  height: 660px
+  height: 700px
   background: url(/images/bg2.jpg) no-repeat center
   background-size: cover
   position: relative
   color: white
   overflow: auto
+  display: none
   .mask
     position: absolute
     top: 0
@@ -323,12 +329,31 @@ footer
     position: relative
     z-index: 10
     > .title
-      margin-top: 80px
+      margin-top: 60px
       font-size: 0.95em
       text-align: center
     .form
       width: 450px
       margin: 25px auto
+      .div
+        margin-top: 25px
+        border-bottom: thin solid white
+      .button
+        padding: 15px
+        background-color: white
+        color: green
+        margin-top: 40px
+        border-radius: 3px
+        text-align: center
+        font-size: 1.2em
+        font-weight: 500
+        .icon, .text
+          display: inline-block
+          vertical-align: top
+        .icon
+          margin-right: 10px
+        &:hover
+          cursor: pointer
       .text, .input
         display: inline-block
         vertical-align: top
@@ -387,6 +412,53 @@ footer
                 a
                   display: none
       .classic
+        margin-top: 45px
+        .row
+          .field
+            display: inline-block
+            margin-right: 25px
+            margin-bottom: 15px
+            .label
+              text-align: center
+            &.long
+              width: 450px
+            &.short
+              width: 110px
+            .label
+              margin-bottom: 10px
+              font-size: 1em
+            .input
+              width: 100%
+              &.standard
+                input
+                  padding: 10px
+                  border: none
+                  border-radius: 3px
+                  outline: none
+                  color: #333
+                  width: 100%
+              .select2-container
+                width: 100%
+                color: #333
+                .select2-choices
+                  border: none
+                  border-radius: 3px
+                  padding: 4px 8px
+                  background: white
+                  .select2-search-choice
+                    background: none
+                    border: none
+                    box-shadow: none
+                    margin: 8px 4px 0
+                    padding: 0
+                    position: relative
+                    a
+                      display: none
+                    &::after
+                      content: ','
+                      position: absolute
+                      right: -4px
+                      bottom: 0
         .select2-container
           a
             background: white
@@ -396,6 +468,174 @@ footer
               display: none
             .select2-chosen
               margin-right: 10px
+
+#meal-plan
+  width: 960px
+  margin: auto
+  padding-top: 50px
+  color: dark-gray
+  display: none
+  > .title
+    .left, .right, .icon, .text
+      display: inline-block
+      vertical-align: top
+    .right
+      float: right
+      font-weight: 500
+      .pdf
+        border: thin solid dark-gray
+        padding: 10px
+        .icon
+          margin-right: 8px
+        &:hover
+          cursor: pointer
+    .left
+      font-size: 1.75em
+      font-weight: 500
+      .icon
+        color: white
+        background-color: green
+        border-radius: 50px
+        padding: 0 3px
+        margin-right: 15px
+  #meals-container
+    margin-top: 50px
+    overflow: hidden
+    position: relative
+    .arrows
+      position: absolute
+      top: 0
+      width: 100%
+      .arrow
+        border-radius: 3px
+        background-color: gray
+        padding: 4px 6px
+        &.next
+          float: right
+        &.prev
+          display: inline-block
+          vertical-align: top
+        &:hover
+          cursor: pointer
+          background-color: green
+        .typcn
+          color: white
+          font-size: 1.4em
+    #meals
+      width: 2880px
+      margin-top: 6px
+      .day
+        width: 290px
+        box-sizing: border-box
+        display: inline-block
+        vertical-align: top
+        margin-right: 45px
+        > .title
+          text-align: center
+          font-weight: 600
+          font-size: 1.1em
+          margin-bottom: 40px
+          text-transform: uppercase
+          color: #909090
+        .meal
+          margin-bottom: 25px
+          &:last-child
+            margin-right: 0
+          .top
+            border-bottom: thin solid gray
+            padding-bottom: 4px
+            margin-bottom: 12px
+            font-size: .9em
+            .left
+              .title
+                font-weight: 600
+          .recipes
+            .recipe
+              margin: 10px 0
+              .photo, .info
+                display: inline-block
+                vertical-align: top
+              .photo
+                width: 120px
+                height: 80px
+                margin-right: 8px
+                img
+                  width: 100%
+                  height: 100%
+              .info
+                a
+                  text-decoration: none
+                  color: hsl(0, 0%, 33%)
+                  .title
+                    font-weight: 500
+                    width: 160px
+                    height: 40px
+                    overflow: hidden
+                  &:hover
+                    color: green
+
+#modal, #vegas-modal
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  background-color: rgba(0,0,0,0.6)
+  z-index: 100
+  opacity: 0
+  display: none
+  transition: opacity .4s ease-in-out
+  .container
+    position: absolute
+    background-color: white
+    border: 5px solid green
+    border-radius: 3px
+    width: 640px
+    height: 380px
+    top: 50%
+    left: 50%
+    margin: -190px 0 0 -320px
+    box-sizing: border-box
+  .message
+    background-color: green
+    color: white
+    padding: 10px
+    font-size: 1.1em
+    font-weight: 500
+  .form
+    padding: 20px
+    .input
+      width: 60%
+      margin: 10px auto
+      input
+        width: 100%
+        border: thin solid gray
+        border-radius: 3px
+        padding: 8px
+        outline: none
+        box-sizing: border-box
+      textarea
+        width: 100%
+        resize: none
+        border: thin solid gray
+        border-radius: 3px
+        box-sizing: border-box
+        outline: none
+        padding: 8px
+    .button
+      text-align: center
+      color: white
+      background-color: green
+      border-radius: 3px
+      margin: 15px auto
+      padding: 10px
+      border: thin solid white
+      width: 75%
+      &:hover
+        cursor: pointer
+        border: thin solid dark-gray
+    
+
 
 .select2-drop.meal-plan-natural
   border: none
@@ -409,8 +649,8 @@ footer
     margin: 0
     .select2-result
       &.select2-highlighted
-        background-color: white
-        color: #222
+        background-color: green
+        color: white
 
 
 header.admin
@@ -533,3 +773,20 @@ header.admin
   width: 350px !important
   border: thin solid #bbb
   border-top: 0
+
+.helpful-embed
+  margin-top: 6px
+  height: 310px !important
+
+.helpful-footer
+  display: none
+
+.select2-drop.meal-plan-classic
+  border: none
+  .select2-results
+    margin: 0 !important
+    padding: 0 !important
+    border: 2px solid white
+    .select2-highlighted
+      background: green !important
+

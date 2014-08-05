@@ -1,4 +1,65 @@
-AppCtrl = ($http) ->
+AppCtrl = ($scope, $http, $timeout) ->
+  $scope.modal = {}
+
+  $scope.openModal = ->
+    angular.element('#modal').css('display', 'block')
+    $timeout(->angular.element('#modal').css('opacity', 1))
+    null
+
+  $scope.openModalV = ->
+    angular.element('#vegas-modal').css('display', 'block').css('opacity', 1)
+    $timeout(->angular.element('#vegas-modal').css('opacity', 1))
+    null
+
+  $scope.openMealForm = ->
+    $http.post(
+      '/data/new_email',
+      {
+        email:
+          email: $scope.modal.email
+          zip: $scope.modal.zip
+          comments: $scope.modal.comments
+      }
+    ).success (rsp) ->
+      if rsp.success
+        angular.element('#modal').css('opacity', 0)
+        angular.element('#meal-form').css('display', 'block')
+        $.scrollTo('#meal-form', 800, 'swing')
+        $timeout(
+          (->
+            angular.element('#modal').css('display', 'none')
+          ), 400
+        )
+
+  $scope.openMealFormV = ->
+    $http.post(
+      '/data/new_vegas_email',
+      {
+        email:
+          email: $scope.modal.email
+          zip: $scope.modal.zip
+          comments: $scope.modal.comments
+          vegas: true
+      }
+    ).success (rsp) ->
+      if rsp.success
+        angular.element('#vegas-modal').css('opacity', 0)
+        angular.element('#meal-form').css('display', 'block')
+        $.scrollTo('#meal-form', 800, 'swing')
+        $timeout(
+          (->
+            angular.element('#vegas-modal').css('display', 'none')
+          ), 400
+        )
+
+  $scope.openMealPlan = ->
+    $http.post(
+      '/data/recipes',
+      {}
+    ).success (rsp) ->
+      $scope.days = rsp
+      angular.element('#meal-plan').css('display', 'block')
+      $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
 
 
 HomeCtrl = ($http) ->
@@ -10,13 +71,19 @@ MealCtrl = ($scope, $http) ->
     weight: 180
     height: 180
 
+  $scope.$watch 'form.diet', (n,o) ->
+    if n && _(['a','e','i','o','u']).indexOf(n.text[0]) == -1
+      angular.element('#aan').text "cm tall. I'm a"
+    else
+      angular.element('#aan').text "cm tall. I'm an"
+
   $scope.naturalHash = (hash) ->
     data =
       switch hash
         when 'gender'
           [{ id: 'm', text: 'male' }, { id: 'f', text: 'female' }]
         when 'diet'
-          [{ id: 'vegan', text: 'vegan' }, { id: 'pescatarian', text: 'pescatarian' }, { id: 'omnivore', text: 'omnivore' }]
+          [{ id: 'omnivore', text: 'omnivore' }, { id: 'vegan', text: 'vegan' }, { id: 'pescatarian', text: 'pescatarian' }]
         when 'weight_goal'
           [{ id: 'maintain', text: 'maintain' }, { id: 'lose', text: 'lose' }, { id: 'gain', text: 'gain' }]
 
@@ -26,6 +93,23 @@ MealCtrl = ($scope, $http) ->
       data: data
       initSelection: (elem, cb) -> cb data[0]
     }
+
+  $scope.multiHash = (hash) ->
+    {
+      multiple: true
+      dropdownCssClass: 'meal-plan-classic'
+      minimumInputLength: 3
+      data: []
+      ajax:
+        url: "/data/#{hash}"
+        data: (term) -> { term: term }
+        quietMillis: 400
+        results: (data) -> { results: _(data).map (i) -> { id: i.id, text: i.name } }
+    }
+
+PlanCtrl = ($scope, $http) ->
+
+  #$http.get('/data/recipes').success (days) -> $scope.days = days
 
 
 RecipeEntry = ($scope, $http, $timeout) ->
@@ -105,8 +189,27 @@ app = angular.module('eatt', ['ngCookies', 'ui.select2'])#, 'ui.select2', 'ui.da
   .controller('home',         HomeCtrl)
   .controller('recipe_entry', RecipeEntry)
   .controller('meal',         MealCtrl)
+  .controller('plan',         PlanCtrl)
   .config ['$httpProvider', ($httpProvider) ->
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = angular.element('meta[name=csrf-token]').attr 'content'
   ]
+  .directive('arrowNext', -> (scope, element) ->
+    element.on 'click', ->
+      if parseInt(angular.element('#meals').css('margin-left')) == -1340
+        angular.element('.day:first').insertAfter '.day:last'
+        angular.element('#meals').css 'margin-left', -1005
+      angular.element('#meals').animate({
+        'margin-left': '-=335'
+      }, 400, 'swing')
+  )
+  .directive('arrowPrev', -> (scope, element) ->
+    element.on 'click', ->
+      if parseInt(angular.element('#meals').css('margin-left')) == 0
+        angular.element('.day:last').insertBefore '.day:first'
+        angular.element('#meals').css 'margin-left', -335
+      angular.element('#meals').animate({
+        'margin-left': '+=335'
+      }, 400, 'swing')
+  )
 
 angular.element(document).on 'ready page:load', -> angular.bootstrap('body', ['eatt'])
