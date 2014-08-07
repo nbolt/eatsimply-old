@@ -1,4 +1,4 @@
-AppCtrl = ($scope, $http, $timeout) ->
+AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
   $scope.modal = {}
 
   $scope.openModal = ->
@@ -60,12 +60,14 @@ AppCtrl = ($scope, $http, $timeout) ->
       $scope.days = rsp
       angular.element('#meal-plan').css('display', 'block')
       $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
+]
+
+HomeCtrl = ['$scope', '$http', ($scope, $http) ->
 
 
-HomeCtrl = ($http) ->
+]
 
-
-MealCtrl = ($scope, $http) ->
+MealCtrl = ['$scope', '$http', ($scope, $http) ->
 
   $scope.form =
     weight: 180
@@ -106,8 +108,10 @@ MealCtrl = ($scope, $http) ->
         quietMillis: 400
         results: (data) -> { results: _(data).map (i) -> { id: i.id, text: i.name } }
     }
+]
 
-PlanCtrl = ($scope, $http, $timeout) ->
+
+PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
   $scope.shuffle = (day, meal) ->
     $http.post(
@@ -123,9 +127,9 @@ PlanCtrl = ($scope, $http, $timeout) ->
           angular.element("##{day.name} .meal").eq(meal).css 'opacity', 1
         ), 400
       )
+]
 
-
-RecipeEntry = ($scope, $http, $timeout) ->
+RecipeEntry = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
   $scope.showRecipe = -> $scope.info && $scope.info.name
 
@@ -194,15 +198,14 @@ RecipeEntry = ($scope, $http, $timeout) ->
             $scope.info.ingredients[i].name = rsp.name
 
         null
+]
 
 
-
-app = angular.module('eatt', ['ngCookies', 'ui.select2'])#, 'ui.select2', 'ui.date', 'ui.mask'])
-  .controller('app',          AppCtrl)
-  .controller('home',         HomeCtrl)
-  .controller('recipe_entry', RecipeEntry)
-  .controller('meal',         MealCtrl)
-  .controller('plan',         PlanCtrl)
+app = angular.module('eatt', ['ngCookies', 'ui.select2'])
+  .controller('app',           AppCtrl)
+  .controller('meal',          MealCtrl)
+  .controller('plan',          PlanCtrl)
+  .controller('recipe_entry',  RecipeEntry)
   .config ['$httpProvider', ($httpProvider) ->
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = angular.element('meta[name=csrf-token]').attr 'content'
   ]
