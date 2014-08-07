@@ -539,6 +539,8 @@ footer
           color: #909090
         .meal
           margin-bottom: 25px
+          opacity: 1
+          transition: opacity .4s ease-in-out
           &:last-child
             margin-right: 0
           .top
@@ -549,6 +551,20 @@ footer
             .left
               .title
                 font-weight: 600
+            .right
+              float: right
+              .action
+                &:hover
+                  cursor: pointer
+                  .text
+                    border-bottom: thin solid #b2b2b2
+                .icon, .text
+                  display: inline-block
+                  vertical-align: top
+                .text
+                  color: #b2b2b2
+                  font-weight: 500
+                  margin: -2px 0 0 5px
           .recipes
             .recipe
               margin: 10px 0
@@ -559,6 +575,10 @@ footer
                 width: 120px
                 height: 80px
                 margin-right: 8px
+                background-size: cover
+                background-repeat: no-repeat
+                background-position: center
+                border: thin solid gray
                 img
                   width: 100%
                   height: 100%

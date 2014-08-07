@@ -8,6 +8,11 @@ class DataController < ApplicationController
     render json: Cuisine.search(params[:term]).as_json
   end
 
+  def new_recipes
+    recipes = Recipe.all.reject {|r| params[:recipes].any? {|n| n==r.id} }
+    render json: recipes.as_json
+  end
+
   def recipes
     days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
     recipes = Recipe.all.shuffle

@@ -107,9 +107,22 @@ MealCtrl = ($scope, $http) ->
         results: (data) -> { results: _(data).map (i) -> { id: i.id, text: i.name } }
     }
 
-PlanCtrl = ($scope, $http) ->
+PlanCtrl = ($scope, $http, $timeout) ->
 
-  #$http.get('/data/recipes').success (days) -> $scope.days = days
+  $scope.shuffle = (day, meal) ->
+    $http.post(
+      '/data/new_recipes',
+      {
+        recipes: _(_(_($scope.days).map( (d) -> _(d.meals).map( (m) -> m.recipes ) )).flatten()).map (r) -> r.id
+      }
+    ).success (rsp) ->
+      angular.element("##{day.name} .meal").eq(meal).css 'opacity', 0
+      $timeout(
+        (->
+          day.meals[meal].recipes = rsp
+          angular.element("##{day.name} .meal").eq(meal).css 'opacity', 1
+        ), 400
+      )
 
 
 RecipeEntry = ($scope, $http, $timeout) ->

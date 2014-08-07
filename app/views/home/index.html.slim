@@ -139,10 +139,10 @@
       .desc Real-time suggestions, offline events and gamification
 
 .info-section
-  .button
+  .button ng:click='openModal()'
     .icon
       img src='/images/lightning.png'
-    .text ng:click='openModal()' Get my customized meal plan now!
+    .text Get my customized meal plan now!
 
 .info-section.bordered
   .content
@@ -233,16 +233,20 @@
       .arrow.next arrow-next=''
         .typcn.typcn-chevron-right
     #meals
-      .day ng:repeat='day in days'
+      .day id='{{day.name}}' ng:repeat='day in days'
         .title ng:bind='day.name'
         .meal ng:repeat='meal in day.meals'
           .top
+            .right
+              .action ng:click='shuffle(day,$index)'
+                .icon
+                  img src='/images/shuffle.png'
+                .text Shuffle
             .left
               .title Meal {{$index+1}}
           .recipes
             .recipe ng:repeat='recipe in meal.recipes'
-              .photo
-                img ng:src='{{recipe.photo}}'
+              .photo style='background-image:url({{recipe.photo}})'
               .info
                 a href='{{recipe.source}}' target='_window'
                   .title ng:bind='recipe.name'
