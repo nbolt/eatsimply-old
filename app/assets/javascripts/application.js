@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require angular
 //= require angular-cookies.min
+//= require select2
 //= require_tree .
 
 
