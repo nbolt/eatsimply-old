@@ -3,28 +3,41 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
   $scope.openModal = ->
     angular.element('#modal').css('display', 'block')
-    $timeout(->angular.element('#modal').css('opacity', 1))
+    $timeout(-> angular.element('#modal').css('opacity', 1))
     null
 
   $scope.openModalV = ->
     angular.element('#vegas-modal').css('display', 'block').css('opacity', 1)
-    $timeout(->angular.element('#vegas-modal').css('opacity', 1))
+    $timeout(-> angular.element('#vegas-modal').css('opacity', 1))
     null
+
+  $scope.showEmail = ->
+    angular.element('.go-button .icon, .go-button .text').css('opacity', 0)
+    $timeout(
+      (->
+        angular.element('.go-button .icon, .go-button .text').css('display', 'none')
+        angular.element('.go-button .button, .go-button input').css('display', 'block')
+      ), 400
+    )
+    $timeout(
+      (->
+        angular.element('.go-button .button, .go-button input').css('opacity', 1)
+      ), 500
+    )
 
   $scope.openMealForm = ->
     $http.post(
       '/data/new_email',
       {
         email:
-          email: $scope.modal.email
-          zip: $scope.modal.zip
-          comments: $scope.modal.comments
+          email: $scope.email
       }
     ).success (rsp) ->
       if rsp.success
         angular.element('#modal').css('opacity', 0)
         angular.element('#meal-form').css('display', 'block')
         $.scrollTo('#meal-form', 800, 'swing')
+        $timeout(-> angular.element('#meal-form').css('opacity', 1))
         $timeout(
           (->
             angular.element('#modal').css('display', 'none')
@@ -36,9 +49,7 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       '/data/new_vegas_email',
       {
         email:
-          email: $scope.modal.email
-          zip: $scope.modal.zip
-          comments: $scope.modal.comments
+          email: $scope.vegas_email
           vegas: true
       }
     ).success (rsp) ->
@@ -46,6 +57,7 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         angular.element('#vegas-modal').css('opacity', 0)
         angular.element('#meal-form').css('display', 'block')
         $.scrollTo('#meal-form', 800, 'swing')
+        $timeout(-> angular.element('#meal-form').css('opacity', 1))
         $timeout(
           (->
             angular.element('#vegas-modal').css('display', 'none')
@@ -59,6 +71,7 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     ).success (rsp) ->
       $scope.days = rsp
       angular.element('#meal-plan').css('display', 'block')
+      $timeout(-> angular.element('#meal-plan').css('opacity', 1))
       $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
 ]
 

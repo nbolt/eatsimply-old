@@ -4,10 +4,6 @@
     .form
       .input
         input type='text' placeholder='Email' spellcheck='false' ng:model='modal.email'
-      .input
-        input type='text' placeholder='Zip code' ng:model='modal.zip'
-      .input
-        textarea rows='5' placeholder='Comments / suggestions' spellcheck='false' ng:model='modal.comments'
       .button ng:click='openMealForm()' Get my customized meal plan!
 
 #vegas-modal
@@ -16,10 +12,6 @@
     .form
       .input
         input type='text' placeholder='Email' spellcheck='false' ng:model='modal.email'
-      .input
-        input type='text' placeholder='Zip code' ng:model='modal.zip'
-      .input
-        textarea rows='5' placeholder='Comments / suggestions' ng:model='modal.comments'
       .button ng:click='openMealFormV()' Get my customized meal plan!
 
 
@@ -62,8 +54,8 @@
       .email
         .title Get your free customized meal plan for the week.
         .input
-          input type='text' placeholder='Your email' spellcheck='false' ng:model='modal.email'
-          .button ng:click='openModal()' Go
+          input type='text' placeholder='Your email' spellcheck='false' ng:model='email'
+          .button ng:click='openMealForm()' Go
 
 .info-section
   .title How does it work?
@@ -139,10 +131,12 @@
       .desc Real-time suggestions, offline events and gamification
 
 .info-section
-  .button ng:click='openModal()'
+  .go-button ng:click='showEmail()'
     .icon
       img src='/images/lightning.png'
     .text Get my customized meal plan now!
+    input type='text' placeholder='Your email' spellcheck='false' ng:model='email'
+    .button ng:click='openMealForm()' Go
 
 .info-section.bordered
   .content
@@ -169,8 +163,8 @@
           strong Las Vegas 
           | later this year.
         .input
-          input type='text' placeholder='Your email' spellcheck='false' ng:model='modal.email'
-          .button ng:click='openModalV()' Go
+          input type='text' placeholder='Your email' spellcheck='false' ng:model='vegas_email'
+          .button ng:click='openMealFormV()' Go
 
 #meal-form ng:controller='meal'
   .mask
@@ -210,10 +204,10 @@
             .input
               input type='hidden' ui-select2='multiHash("ingredients")' ng:model='form.avoid'
       .div
-      .button
+      .button ng:click='openMealPlan()'
         .icon
           .typcn.typcn-flash
-        .text ng:click='openMealPlan()' Get my customized meal plan now!
+        .text Get my customized meal plan now!
 
 #meal-plan ng:controller='plan'
   .title

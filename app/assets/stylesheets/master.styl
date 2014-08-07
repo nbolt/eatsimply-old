@@ -182,13 +182,16 @@ footer
         margin: 10px 0
       .desc
         line-height: 1.3em
-  > .button
+  .go-button
     background-color: green
     padding: 15px
     width: 400px
     margin: 80px auto
     border-radius: 3px
     text-align: center
+    position: relative
+    height: 68px
+    box-sizing: border-box
     &:hover
       cursor: pointer
       .text
@@ -196,11 +199,40 @@ footer
     .icon, .text
       display: inline-block
       vertical-align: top
+      opacity: 1
+      transition: opacity .4s ease-in-out
+    .icon
+      margin-top: 7px
     .text
       color: white
-      font-size: 1.1em
+      font-size: 1.2em
       font-weight: 500
-      margin: 2px 0 0 15px
+      margin: 7px 0 0 15px
+    input, .button
+      display: none
+      opacity: 0
+      transition: opacity .4s ease-in-out
+    input
+      width: 80%
+      padding: 10px
+      border: none
+      border-radius: 3px
+      outline: none
+    .button
+      position: absolute
+      top: 17px
+      right: 16px
+      font-size: 1.2em
+      font-weight: 500
+      color: white
+      padding: 4px 4px 5px
+      width: 38px
+      text-align: center
+      border-radius: 3px
+      text-transform: uppercase
+      &:hover
+        cursor: pointer
+        background-color: #a0d44a
   .content
     width: 960px
     margin: 45px auto
@@ -317,6 +349,8 @@ footer
   color: white
   overflow: auto
   display: none
+  opacity: 0
+  transition: opacity .4s ease-in-out
   .mask
     position: absolute
     top: 0
@@ -475,6 +509,8 @@ footer
   padding-top: 50px
   color: dark-gray
   display: none
+  opacity: 0
+  transition: opacity .4s ease-in-out
   > .title
     .left, .right, .icon, .text
       display: inline-block
@@ -611,10 +647,10 @@ footer
     border: 5px solid green
     border-radius: 3px
     width: 640px
-    height: 380px
+    height: 224px
     top: 50%
     left: 50%
-    margin: -190px 0 0 -320px
+    margin: -112px 0 0 -320px
     box-sizing: border-box
   .message
     background-color: green
