@@ -48,17 +48,18 @@
         /.nav
         /  .flag
         /    img src='/images/flags/france.png'
-    #headline
-      .title Save time and money while eating healthy
-      .subtitle Eatt is the first complete and personalized daily meal planner. We learn continuously from you and take out all the guesswork involved with eating healthy. 
-      .email
-        .title Get your free customized meal plan for the week.
-        .input
-          input type='text' placeholder='Your email' spellcheck='false' ng:model='email'
-          .button ng:click='openMealForm()' Go
+    #headline-container
+      #headline
+        .title Save time and money while eating healthy
+        .subtitle Eatt is the first free and complete solution to eating healthier. We learn continuously from your input and give you personalized weekly meal plans. Our chefs have carefully selected all our recipes and added tips to help you cook healthy and tasty meals. Want to try? Scroll down for more information.
+        .email
+          .title Get your free customized meal plan for the week.
+          .input
+            input type='text' placeholder='Your email' spellcheck='false' ng:model='email'
+            .button ng:click='openMealForm()' Go
 
 .info-section
-  .title How does it work?
+  .title How it works
   .columns
     .column
       .title

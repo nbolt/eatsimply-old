@@ -133,11 +133,11 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         recipes: _(_(_($scope.days).map( (d) -> _(d.meals).map( (m) -> m.recipes ) )).flatten()).map (r) -> r.id
       }
     ).success (rsp) ->
-      angular.element("##{day.name} .meal").eq(meal).css 'opacity', 0
+      angular.element("##{day.name} .meal:eq(#{meal}) .recipes").css 'opacity', 0
       $timeout(
         (->
           day.meals[meal].recipes = rsp
-          angular.element("##{day.name} .meal").eq(meal).css 'opacity', 1
+          angular.element("##{day.name} .meal:eq(#{meal}) .recipes").css 'opacity', 1
         ), 400
       )
 ]
