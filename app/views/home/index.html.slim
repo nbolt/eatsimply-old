@@ -114,22 +114,25 @@
       .icon
         img src='/images/pig.jpg'
       .title Affordable
-      .desc Free and additional features at $10/month
+      .desc
+        | Free &
+        br
+        | additional features at $10/month
     .benefit
       .icon
         img src='/images/puzzle.jpg'
       .title 100% tailored
-      .desc Creation of our own database with chef recipes & ingredients
+      .desc Customized meal plans based your complete nutritional requirements and our exclusive recipes
     .benefit
       .icon
         img src='/images/arrows.jpg'
       .title End-to-end
-      .desc Meal plan, video recipes, coaching, grocery and food delivery
+      .desc Meal plans, video recipes, grocery and food delivery, restaurant suggestions, food tracking
     .benefit
       .icon
         img src='/images/stopwatch.jpg'
       .title Real-time & social
-      .desc Real-time suggestions, offline events and gamification
+      .desc Real-time suggestions, fine-tuning, offline events, and gamification
 
 .info-section
   .go-button ng:click='showEmail()'
@@ -236,7 +239,7 @@
               .action ng:click='shuffle(day,$index)'
                 .icon
                   img src='/images/shuffle.png'
-                .text Shuffle
+                .text Switch recipes
             .left
               .title Meal {{$index+1}}
           .recipes
