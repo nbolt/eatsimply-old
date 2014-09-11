@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '2.1.1'
+ruby '2.1.2'
 
 gem 'rails'
 gem 'puma'
 
 group :assets do
-  #gem 'therubyracer', platforms: :ruby
+  gem 'therubyracer', platforms: :ruby
   gem 'coffee-rails'
   gem 'sass-rails'
   gem 'uglifier'

@@ -13,7 +13,7 @@ twitter-blue  = #00abee
 html, body, .body
   height: 100%
   margin: 0
-  font-family: Helvetica Neue
+  font-family: Open Sans, Helvetica Neue
   color: #222
   font-size: 100%
 
@@ -45,7 +45,7 @@ header.main
     &.left
       .logo
         img
-          height: 80px
+          height: 100px
     &.right
       float: right
       .vertical-div
@@ -55,25 +55,31 @@ header.main
   display: inline-block
   vertical-align: top
   &.icon
-    padding: 1px 4px
+    position: relative
     margin: 25px 5px
     border-radius: 5px
     width: 32px
     height: 32px
     box-sizing: border-box
+    -moz-box-sizing: border-box
     .typcn
       font-size: 1.5em
       color: white
+      position: absolute
+      top: -2px
     &.facebook
       background-color: facebook-blue
+      .typcn
+        left: 3px
     &.twitter
       background-color: twitter-blue
+      .typcn
+        left: 4px
     &.email
       background-color: green
       .typcn
-        line-height: 25px
-      &:hover
-        cursor: pointer
+        top: -4px
+        left: 4px
   .flag
     margin: 25px 5px 0
     img
@@ -194,6 +200,7 @@ footer
     position: relative
     height: 68px
     box-sizing: border-box
+    -moz-box-sizing: border-box
     &:hover
       cursor: pointer
       .text
@@ -288,6 +295,7 @@ footer
     border: thin solid gray
     border-left: none
     box-sizing: border-box
+    -moz-box-sizing: border-box
     .text
       color: #444
       line-height: 1.4em
@@ -328,6 +336,7 @@ footer
     width: 350px
     height: 201px
     box-sizing: border-box
+    -moz-box-sizing: border-box
     border-radius: 3px
     .title
       font-weight: 500
@@ -565,6 +574,7 @@ footer
       .day
         width: 290px
         box-sizing: border-box
+        -moz-box-sizing: border-box
         display: inline-block
         vertical-align: top
         margin-right: 45px
@@ -654,6 +664,7 @@ footer
     left: 50%
     margin: -112px 0 0 -320px
     box-sizing: border-box
+    -moz-box-sizing: border-box
   .message
     background-color: green
     color: white
@@ -672,12 +683,14 @@ footer
         padding: 8px
         outline: none
         box-sizing: border-box
+        -moz-box-sizing: border-box
       textarea
         width: 100%
         resize: none
         border: thin solid gray
         border-radius: 3px
         box-sizing: border-box
+        -moz-box-sizing: border-box
         outline: none
         padding: 8px
     .button
