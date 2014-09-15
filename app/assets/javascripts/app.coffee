@@ -180,7 +180,13 @@ RecipeEntry = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       data: []
       dropdownCssClass: 'recipe-creation-unit'
       formatResultCssClass: -> 'recipe-creation-unit'
-      formatSelection: (obj, con) -> obj.short
+      formatSelection: (obj, con) -> obj.abbr
+      initSelection: (element, callback) -> $http.get('/admin/recipe/unit?id=' + $(element).val()).success (unit) -> callback({id:unit.id,text:unit.name,abbr:unit.abbr})
+      ajax:
+        url: "/admin/recipe/units"
+        data: (term) -> { term: term }
+        quietMillis: 600
+        results: (data) -> { results: _(data).map (h) -> { id: h.id, text: h.name, abbr: h.abbr } }
     }
 
   $scope.genHash = (hash) ->
@@ -190,7 +196,7 @@ RecipeEntry = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
   $http.get('/admin/recipe/courses').success (courses) -> $scope.courses = courses
   $http.get('/admin/recipe/cuisines').success (cuisines) -> $scope.cuisines = cuisines
-  #$http.get('/admin/recipe/units').success (units) -> $scope.units = units
+  $http.get('/admin/recipe/units').success (units) -> $scope.units = units
 
   $scope.$watch 'yummly_url', (n,o) ->
     $scope.info = null
@@ -209,6 +215,7 @@ RecipeEntry = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
             $scope.info.ingredients[i].amount = rsp.amount
             $scope.info.ingredients[i].unit = rsp.unit
             $scope.info.ingredients[i].name = rsp.name
+            $scope.info.ingredients[i].notes = $scope.info.ingredients[i].line
 
         null
 ]

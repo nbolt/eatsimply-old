@@ -1,7 +1,7 @@
 class Recipe < ActiveRecord::Base
-  has_many :ingredients
-  has_many :servings, dependent: :destroy
+  has_one :nutrient_profile
   has_many :recipe_images, dependent: :destroy
+  has_many :ingredients, through: :ingredient_link
   has_and_belongs_to_many :courses
   has_and_belongs_to_many :cuisines
 

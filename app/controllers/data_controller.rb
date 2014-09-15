@@ -19,7 +19,6 @@ class DataController < ApplicationController
     7.times do |d|
       days[d][:meals] = []
       3.times do |m|
-        puts (d*6+(m*2)..d*6+(m*2+1))
         days[d][:meals][m] = {}
         days[d][:meals][m][:recipes] = recipes[d*6+(m*2)..d*6+(m*2+1)]
       end

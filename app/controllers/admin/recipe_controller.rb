@@ -10,12 +10,16 @@ class Admin::RecipeController < AdminController
     end
   end
 
+  def unit
+    render json: Unit.find(params[:id])
+  end
+
   def create
     # process nutritionEstimates
   end
 
   def parse_line
-    matches = params[:line].match(/^(\d+( [\d\/]+)?) (\w+) (.*)/)
+    matches = params[:line].match(/^(\d+( ?[\d\/]+)?) (\w+) (.*)/)
     if matches
       unit = unit?(matches[3])
       results = Ingredient.search matches[4]
@@ -43,7 +47,7 @@ class Admin::RecipeController < AdminController
   end
 
   def units
-    render json: Unit.all.as_json
+    render json: Unit.search(params[:term]).as_json
   end
 
   def ingredients
@@ -77,8 +81,8 @@ private
       "https://api.nutritionix.com/v1_1/search",
       {
         query: {
-          appId: ENV['NUTRITIONIX_API_ID'],
-          appKey: ENV['NUTRITIONIX_API_KEY'],
+          appId: ENV['NUTRI_API_ID'],
+          appKey: ENV['NUTRI_API_KEY'],
           limit: 50,
           fields: ['*'],
           query: query,
