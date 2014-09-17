@@ -183,17 +183,10 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
     }
 
   $scope.submit = ->
-    $http.post(
-      '/admin/recipe/create',
-      $scope.info,
-      (rsp) ->
-        window.rsp = rsp
-        console.log(rsp)
-        console.log(rsp.success)
-        if rsp.success
-          $window.location = "/admin/recipe/manage"
-    )
-  window.w = $window
+    $http.post('/admin/recipe/create', $scope.info).success (rsp) ->
+      if rsp.success
+        $window.location = "/admin/recipe/manage"
+
   $http.get('/admin/recipe/courses').success (courses) -> $scope.courses = courses
   $http.get('/admin/recipe/cuisines').success (cuisines) -> $scope.cuisines = cuisines
   $http.get('/admin/recipe/diets').success (diets) -> $scope.diets = diets

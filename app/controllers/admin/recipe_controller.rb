@@ -137,7 +137,7 @@ class Admin::RecipeController < AdminController
   def unitData
     unitList = []
     params[:units].each do |unit_name|
-      unit = Unit.where(name: unit_name).first || name: unit_name }
+      unit = Unit.where(name: unit_name).first || { name: unit_name }
       unitList.push unit
     end
     render json: unitList
