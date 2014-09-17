@@ -76,11 +76,12 @@ class Admin::RecipeController < AdminController
                 serving.value = usda[nutrient.attr]['value']
                 serving.unit = Unit.where(abbr: usda[nutrient.attr]['uom']).first
               end
+              serving.value = serving.value * i[:amount].to_frac
+              serving.save
               recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient.id }
               recipe_serving.unit = serving.unit
               recipe_serving.value += serving.value
               recipe_serving.save
-              serving.save
             end
           end
           link.save
