@@ -142,60 +142,61 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       )
 ]
 
-RecipeEntry = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
+RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeout, $window) ->
 
   $scope.showRecipe = -> $scope.info && $scope.info.name
 
-  $scope.profileHash = (ingredient) ->
-    $scope.$watch 'ingredient.profile', (n,o) ->
-      $scope.units = _($scope.combinedData[n]).map (h) -> h.fields.nf_serving_size_unit
-
+  $scope.nutriHash = (ingredient) ->
     {
       dropdownCssClass: 'recipe-creation-ingredient'
       minimumInputLength: 3
       data: []
       ajax:
-        url: "/admin/recipe/nutrient_profiles"
+        url: "/admin/recipe/nutritionix"
         data: (term) -> { term: term }
         quietMillis: 600
         results: (data) ->
-          combinedData = _(data).groupBy (h) -> h.fields.item_name.split(' - ')[0]
-          { results: _(combinedData).map (v,k) -> { id: k, text: k } }
+          if (data && data[0])
+            ingredient.combinedData = _(data).groupBy (h) -> h.fields.item_name.split(' - ')[0]
+            { results: _(ingredient.combinedData).map (v,k) -> { id: k, text: k } }
     }
 
-  $scope.ingredientHash = ->
+  $scope.unitHash = (ingredient) ->
     {
-      dropdownCssClass: 'recipe-creation-ingredient'
-      minimumInputLength: 3
-      data: []
-      ajax:
-        url: "/admin/recipe/ingredients"
-        data: (term) -> { term: term }
-        quietMillis: 600
-        results: (data) -> { results: _(data).map (h) -> { id: h.id, text: h.name } }
-    }
-
-  $scope.unitHash = ->
-    {
-      data: []
       dropdownCssClass: 'recipe-creation-unit'
       formatResultCssClass: -> 'recipe-creation-unit'
       formatSelection: (obj, con) -> obj.abbr
-      initSelection: (element, callback) -> $http.get('/admin/recipe/unit?id=' + $(element).val()).success (unit) -> callback({id:unit.id,text:unit.name,abbr:unit.abbr})
-      ajax:
-        url: "/admin/recipe/units"
-        data: (term) -> { term: term }
-        quietMillis: 600
-        results: (data) -> { results: _(data).map (h) -> { id: h.id, text: h.name, abbr: h.abbr } }
+      minimumResultsForSearch: 10
+      initSelection: (element, callback) ->
+        if $(element).val()
+          $http.get('/admin/recipe/unit?id=' + $(element).val()).success (unit) -> callback({id:unit.id,text:unit.name,abbr:unit.abbr})
+      query: (query) -> query.callback({ results: ingredient.units })
     }
 
   $scope.genHash = (hash) ->
-    data = _($scope[hash]).map (h) -> { id: h.id, text: h.name }
-    { multiple: true, tags: data, dropdownCssClass: 'recipe-creation-multi', formatResultCssClass: 'recipe-creation-multi' }
+    {
+      tags: []
+      multiples: true
+      dropdownCssClass: 'recipe-creation-multi'
+      formatResultCssClass: -> 'recipe-creation-multi'
+      query: (query) -> query.callback({ results: _($scope[hash]).map (h) -> { id: h.id, text: h.name } })
+    }
 
-
+  $scope.submit = ->
+    $http.post(
+      '/admin/recipe/create',
+      $scope.info,
+      (rsp) ->
+        window.rsp = rsp
+        console.log(rsp)
+        console.log(rsp.success)
+        if rsp.success
+          $window.location = "/admin/recipe/manage"
+    )
+  window.w = $window
   $http.get('/admin/recipe/courses').success (courses) -> $scope.courses = courses
   $http.get('/admin/recipe/cuisines').success (cuisines) -> $scope.cuisines = cuisines
+  $http.get('/admin/recipe/diets').success (diets) -> $scope.diets = diets
   $http.get('/admin/recipe/units').success (units) -> $scope.units = units
 
   $scope.$watch 'yummly_url', (n,o) ->
@@ -216,6 +217,14 @@ RecipeEntry = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
             $scope.info.ingredients[i].unit = rsp.unit
             $scope.info.ingredients[i].name = rsp.name
             $scope.info.ingredients[i].notes = $scope.info.ingredients[i].line
+            $scope.info.ingredients[i].units = []
+          $scope.$watch (-> $scope.info.ingredients[i].profile), (n,o) ->
+            ingredient = $scope.info.ingredients[i]
+            if ingredient.combinedData
+              units = _(ingredient.combinedData[n.text]).map (h) -> h.fields.nf_serving_size_unit
+              $http.post('/admin/recipe/unitData', { units: units }).success (rsp) ->
+                ingredient.units = _(rsp).map (u) -> { id: u.name, text: u.name }
+                angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('enable', true)
 
         null
 ]

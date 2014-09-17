@@ -19,27 +19,29 @@
         label Cuisines
         input type='hidden' ui-select2='genHash("cuisines")' ng:model='info.attributes.cuisines'
 
+      .field
+        label Diets
+        input type='hidden' ui-select2='genHash("diets")' ng:model='info.attributes.diets'
+
       .ingredients
         .title Ingredients
         .ingredient ng:repeat='ingredient in info.ingredients' id='i{{ingredient.$$hashKey}}'
-          .subtitle ng:bind='ingredient.line'
+          .field.notes
+            input.input type='text' ng:model='ingredient.notes'
+            .desc Description
           /.field.type
           /  label Ingredient
           /  input type='radio' name='wat'
           /  label Equipment
           /  input type='radio' name='wat'
+          .field.profile
+            input.input type='hidden' ui-select2='nutriHash(ingredient)' ng:model='ingredient.profile'
+            .desc Ingredient
           .field.amount
             input.input type='text' ng:model='ingredient.amount'
             .desc Amount
           .field.unit
-            input.input ui-select2='unitHash()' ng:model='ingredient.unit' 
+            input.input ui-select2='unitHash(ingredient)' ng:model='ingredient.unit' disabled='disabled'
             .desc Unit
-          .field.name
-            input.input type='hidden' ui-select2='ingredientHash()' ng:model='ingredient.name'
-            .desc Ingredient
-          .field.profile
-            input.input type='hidden' ui-select2='profileHash(ingredient)' ng:model='ingredient.profile'
-            .desc Nutrient Profile
-          .field.notes
-            input.input type='text' ng:model='ingredient.notes'
-            .desc Description
+      .submit
+        .button ng:click='submit()' Create

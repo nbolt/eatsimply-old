@@ -1,4 +1,15 @@
 GIT
+  remote: git://github.com/Eatt/active_nutrition.git
+  revision: 2aaf85b877a9ed2e86ac89d2b8284a951235d4af
+  branch: master
+  specs:
+    active_nutrition (0.6.1)
+      activerecord (~> 4.0)
+      composite_primary_keys (~> 7.0)
+      pg_search
+      rubyzip (~> 0.9.4)
+
+GIT
   remote: git://github.com/lucasmazza/ruby-stylus.git
   revision: 70c2932f8e381db2a13f3b50ce5de87c43fbce3c
   specs:
@@ -64,6 +75,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    composite_primary_keys (7.0.10)
+      activerecord (~> 4.1.4)
     coveralls (0.7.1)
       multi_json (~> 1.3)
       rest-client
@@ -240,6 +253,7 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.0)
+    rubyzip (0.9.9)
     safe_yaml (1.0.3)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -306,6 +320,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_nutrition!
   analytics-ruby
   angular_rails_csrf
   angularjs-rails

@@ -753,6 +753,16 @@ header.admin
     .recipe
       padding-top: 25px
       border-top: thin solid #bbb
+      .submit
+        .button
+          background-color: green
+          color: white
+          padding: 10px 20px
+          border-radius: 3px
+          display: inline-block
+          &:hover
+            background-color: light-green
+            cursor: pointer
     .field
       margin: 15px 0
       .input
@@ -778,7 +788,7 @@ header.admin
         font-size: 2em
         margin: 25px 0
       .ingredient
-        margin-bottom: 40px
+        margin-bottom: 50px
         .subtitle
           font-weight: 600
         .field
@@ -806,10 +816,14 @@ header.admin
           &.unit
             margin-right: 15px
             .input
-              width: 60px
-            .select2-container a
-              width: 70px
-          &.name, &.profile
+              width: 200px
+            .select2-chosen
+              margin-right: 0
+          &.profile
+            margin-right: 15px
+            .input
+              width: 200px
+          &.name
             .input
               width: 200px
               text-align: left
@@ -822,7 +836,8 @@ header.admin
           &.notes
             display: block
             .input
-              width: 340px
+              width: 470px
+              font-weight: 600
           .select2-container
             margin-left: 0
             a
@@ -834,6 +849,8 @@ header.admin
               box-shadow: none
               .select2-arrow
                 display: none
+            &.select2-container-disabled .select2-chosen
+              color: gray
 
 .select2-drop.recipe-creation-unit
   width: 125px !important
