@@ -179,12 +179,6 @@ ActiveRecord::Schema.define(version: 20140917032056) do
     t.float   "cho_factor"
   end
 
-  create_table "foods", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "footnote", id: false, force: true do |t|
     t.integer "ndb_no",                  null: false
     t.integer "footnt_no"
