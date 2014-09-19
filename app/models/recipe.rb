@@ -7,6 +7,8 @@ class Recipe < ActiveRecord::Base
   has_and_belongs_to_many :cuisines
   has_and_belongs_to_many :diets
 
+  validates_uniqueness_of :yummly_id
+
   def as_json(options = {})
     super options.merge(include: [:recipe_images])
   end

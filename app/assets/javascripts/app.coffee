@@ -165,10 +165,10 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
     {
       dropdownCssClass: 'recipe-creation-unit'
       formatResultCssClass: -> 'recipe-creation-unit'
-      formatSelection: (obj, con) -> obj.abbr
+      formatSelection: (obj, con) -> obj.abbr || obj.text
       minimumResultsForSearch: 10
       initSelection: (element, callback) ->
-        if $(element).val()
+        if $(element).val() && !_(ingredient.units).find((u) -> u.id == $(element).val())
           $http.get('/admin/recipe/unit?id=' + $(element).val()).success (unit) -> callback({id:unit.id,text:unit.name,abbr:unit.abbr})
       query: (query) -> query.callback({ results: ingredient.units })
     }
@@ -179,7 +179,9 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
       multiples: true
       dropdownCssClass: 'recipe-creation-multi'
       formatResultCssClass: -> 'recipe-creation-multi'
-      query: (query) -> query.callback({ results: _($scope[hash]).map (h) -> { id: h.id, text: h.name } })
+      query: (query) ->
+        results = _($scope[hash]).filter (item) -> item.name.match(query.term) || item.name.toLowerCase().match(query.term)
+        query.callback({ results: results.map (h) -> { id: h.id, text: h.name } })
     }
 
   $scope.submit = ->
@@ -211,12 +213,15 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
             $scope.info.ingredients[i].name = rsp.name
             $scope.info.ingredients[i].notes = $scope.info.ingredients[i].line
             $scope.info.ingredients[i].units = []
-          $scope.$watch (-> $scope.info.ingredients[i].profile), (n,o) ->
+          $scope.$watch (-> $scope.info && $scope.info.ingredients[i].profile), (n,o) ->
             ingredient = $scope.info.ingredients[i]
             if ingredient.combinedData
-              units = _(ingredient.combinedData[n.text]).map (h) -> h.fields.nf_serving_size_unit
+              units = _(ingredient.combinedData[n.text]).map (h) -> { id: h._id, multiplier: h.fields.nf_serving_size_qty, name: h.fields.nf_serving_size_unit }
+              units = _(units).uniq (u) -> "#{u.multiplier} - #{u.name}"
               $http.post('/admin/recipe/unitData', { units: units }).success (rsp) ->
-                ingredient.units = _(rsp).map (u) -> { id: u.name, text: u.name }
+                ingredient.units = _(rsp).map (u) ->
+                  text = if u.multiplier == 1 then '' else u.multiplier + ' '
+                  { id: u._id, text: text + u.name, multiplier: u.multiplier, name: u.name }
                 angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('enable', true)
 
         null
