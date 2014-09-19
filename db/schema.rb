@@ -66,10 +66,32 @@ ActiveRecord::Schema.define(version: 20140918032349) do
     t.boolean  "vegas",      default: false
   end
 
-  create_table "foods", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "fd_group", primary_key: "fdgrp_cd", force: true do |t|
+    t.string "fdgrp_desc", limit: 60
+  end
+
+  create_table "food_des", primary_key: "ndb_no", force: true do |t|
+    t.string  "fdgrp_cd",    limit: 4
+    t.string  "long_desc",   limit: 200
+    t.string  "shrt_desc",   limit: 60
+    t.string  "comname",     limit: 100
+    t.string  "manufacname", limit: 65
+    t.string  "survey",      limit: 1
+    t.string  "ref_desc",    limit: 135
+    t.integer "refuse"
+    t.string  "sciname",     limit: 65
+    t.float   "n_factor"
+    t.float   "pro_factor"
+    t.float   "fat_factor"
+    t.float   "cho_factor"
+  end
+
+  create_table "footnote", id: false, force: true do |t|
+    t.integer "ndb_no",                  null: false
+    t.integer "footnt_no"
+    t.string  "footnot_typ", limit: 1
+    t.integer "nutr_no"
+    t.string  "footnot_txt", limit: 200
   end
 
   create_table "ingredient_links", force: true do |t|

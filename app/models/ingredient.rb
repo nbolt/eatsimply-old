@@ -6,5 +6,4 @@ class Ingredient < ActiveRecord::Base
   has_many :recipes, through: :ingredient_links
   has_many :units, through: :ingredients_units, dependent: :destroy, autosave: true
   has_many :ingredients_units, class_name: 'IngredientsUnits'
-  belongs_to :food
 end
