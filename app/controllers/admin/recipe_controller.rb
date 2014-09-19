@@ -57,9 +57,14 @@ class Admin::RecipeController < AdminController
         unit.ingredients.push ingredient
         link = IngredientsUnits.where(ingredient_id: ingredient.id, unit_id: unit.id).first ||
                !unit.id && unit.ingredients_units.first || !ingredient.id && ingredient.ingredients_units.first
+        unless ingredient.id
+          data = i[:combinedData]["#{i[:profile][:text]}"].find{|d|d[:fields][:nf_serving_size_unit] == i[:unit][:text]}
+          [:eggs, :tree_nuts, :shellfish, :peanuts, :wheat, :gluten, :fish, :soybeans, :milk].each do |allergen|
+            ingredient["allergen_contains_#{allergen}"] = data["allergen_contains_#{allergen}"]
+          end       
+        end
         unless link.nutrient_profile
           link.nutrient_profile = NutrientProfile.new
-          #data = i[:combinedData]["#{i[:profile][:text]}"].find{|d|d[:fields][:nf_serving_size_unit] == i[:unit][:text]}
           usda = nutritionix_item(i[:combinedData]["#{i[:profile][:text]}"][0]['_id'])['usda_fields']
           Nutrient.all.each do |nutrient|
             if usda[nutrient.attr]
