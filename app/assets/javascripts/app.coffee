@@ -222,7 +222,8 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
                 ingredient.units = _(rsp).map (u) ->
                   text = if u.multiplier == 1 then '' else u.multiplier + ' '
                   { id: u._id, text: text + u.name, multiplier: u.multiplier, name: u.name }
-                angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('enable', true)
+                unit = _(ingredient.units).find (u) -> u.name == ingredient.unit.abbr
+                angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('data', unit || ingredient.units[0]).select2('enable', true)
 
         null
 ]

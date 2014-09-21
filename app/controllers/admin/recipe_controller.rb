@@ -32,7 +32,7 @@ class Admin::RecipeController < AdminController
         yield: params[:yield],
         portion_size: params[:numberOfServings]
       )
-      params[:attributes].each do |key, attributes|
+      params[:attributes].each do |key, attributes| # courses, cuisines, and diets
         if attributes
           attributes.each do |attribute|
             recipe.send(key).push key[0..-2].capitalize.constantize.find(attribute['id'])
@@ -89,7 +89,6 @@ class Admin::RecipeController < AdminController
                   serving.value = usda[nutrient.attr]['value']
                   serving.unit = Unit.where(abbr: usda[nutrient.attr]['uom']).first
                 end
-                binding.pry if nutrient.name == 'Calories'
                 serving.value *= i[:unit][:multiplier] * i[:amount]
                 serving.save
                 recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient.id}
