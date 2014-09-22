@@ -1,11 +1,11 @@
 class Admin::RecipeController < AdminController
 
   def info
-    if Settings.first.recipe_cache
+    if Settings.first && Settings.first.recipe_cache
       render json: Settings.first.recipe_cache
     else
       rsp = HTTParty.get("http://api.yummly.com/v1/api/recipe/#{params[:recipe_id]}?_app_id=#{ENV['YUM_API_ID']}&_app_key=#{ENV['YUM_API_KEY']}")
-      Settings.first.update_attribute :recipe_cache, rsp.as_json if Rails.env == 'development' && Settings.first.cache_recipe
+      Settings.first.update_attribute :recipe_cache, rsp.as_json if Rails.env == 'development' && Settings.first && Settings.first.cache_recipe
       render json: rsp
     end
   end

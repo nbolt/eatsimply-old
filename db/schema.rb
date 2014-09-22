@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140919030511) do
+ActiveRecord::Schema.define(version: 20140922031407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,10 @@ ActiveRecord::Schema.define(version: 20140919030511) do
     t.boolean  "yummly_supported"
     t.boolean  "nutri_supported"
     t.string   "attr"
+    t.float    "daily_value"
+    t.boolean  "minimize"
+    t.string   "dv_unit"
+    t.string   "unitwise_method"
   end
 
   create_table "recipe_images", force: true do |t|

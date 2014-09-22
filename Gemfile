@@ -18,6 +18,7 @@ end
 
 group :development do
   gem 'pry-rails'
+  gem 'seed_dump'
 end
 
 group :production do
@@ -66,4 +67,5 @@ gem 'sucker_punch'
 gem 'analytics-ruby'
 gem 'angular_rails_csrf'
 gem 'skylight'
+gem 'unitwise'
 #gem 'breach-mitigation-rails'
