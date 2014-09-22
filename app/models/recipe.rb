@@ -48,7 +48,7 @@ class Recipe < ActiveRecord::Base
           if data
             serving = recipe.nutrient_profile.servings.build
             serving.nutrient = nutrient
-            serving.unit = Unit.where(abbr: data['unit']['abbreviation']).first || Unit.where(name: data['unit']['name']).first
+            serving.unit = Unit.where(abbr: data['unit']['abbreviation']).first || Unit.where(abbr_no_period: data['unit']['abbreviation']).first || Unit.where(name: data['unit']['name']).first
             serving.value = data['value']
             serving.save
           end
@@ -65,7 +65,10 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  def self.suggest eaten_recipes
+  def self.suggest num, eaten_recipes
+    top_recipes = []
+    breadth = 1
+
     targets = Nutrient.where(minimize: false).map do |nutrient|
       { id: nutrient.id, unitwise_method: nutrient.unitwise_method, dv_unit: nutrient.dv_unit, value: nutrient.daily_value || 2000 }
     end
@@ -94,7 +97,12 @@ class Recipe < ActiveRecord::Base
         target = targets.find {|t| t[:id] == serving.nutrient.id }
         if target
           begin
-            converted_value = Unitwise(serving.value, serving.unit.abbr_no_period).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
+            converted_value =
+              if serving.unit.name == target[:name]
+                serving.value
+              else
+                Unitwise(serving.value, serving.unit.abbr_no_period).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
+              end
             old_value = target[:value]
             new_value = target[:value]
             new_value -= converted_value
@@ -105,8 +113,20 @@ class Recipe < ActiveRecord::Base
         end
       end
     }.sort_by!{|r| -r[:value] }
-    top_recipes = recipes.select{|r| r[:value] >= recipes[0][:value] * 0.9 }
 
-    top_recipes.shuffle[0][:recipe]
+    while top_recipes.length < num * 2 && breadth > 0
+      breadth -= 0.05
+      top_recipes = recipes.select{|r| r[:value] >= recipes[0][:value] * breadth }
+    end
+
+    if top_recipes.length >= num
+      { success: true, recipes: top_recipes.shuffle[0..num-1].map{|r|r[:recipe]} }
+    elsif top_recipes.length > 0
+      { success: false, message: "Only #{top_recipes.length} recipes found", recipes: top_recipes.map{|r|r[:recipe]} }
+    elsif top_recipes.length == 0
+      { success: false, message: "No recipes found", recipes: [] }
+    else
+      { success: false, message: "Sorry, something seems to have gone wrong.", recipes: [] }
+    end
   end
 end

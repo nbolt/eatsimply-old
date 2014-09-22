@@ -69,22 +69,22 @@ Nutrient.create!([
   {name: "Protein", minimize: false, daily_value: 50, dv_unit: 'g', group: nil, yummly_unit: "gram", yummly_field: "nf_protein", yummly_supported: true, nutri_supported: nil, attr: "PROCNT"},
   {name: "Vitamin C", minimize: false, daily_value: 60, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_vitamin_c_dv", yummly_supported: true, nutri_supported: nil, attr: "VITC"},
   {name: "Manganese", minimize: false, daily_value: 2, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "MN"},
-  {name: "Folate", minimize: false, daily_value: 400, dv_unit: 'mcg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "FOL"},
+  {name: "Folate", minimize: false, daily_value: 400, dv_unit: 'mcg', unitwise_method: 'microgram', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "FOL"},
   {name: "Niacin", minimize: false, daily_value: 20, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "NIA"},
-  {name: "Selenium", minimize: false, daily_value: 70, dv_unit: 'mcg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "SE"},
+  {name: "Selenium", minimize: false, daily_value: 70, dv_unit: 'mcg', unitwise_method: 'microgram', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "SE"},
   {name: "Zinc", minimize: false, daily_value: 15, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "ZN"},
   {name: "Starch", minimize: false, group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "STARCH"},
   {name: "Saturated Fat", minimize: true, daily_value: 20, dv_unit: 'g', group: nil, yummly_unit: "gram", yummly_field: "nf_saturated_fat", yummly_supported: true, nutri_supported: nil, attr: "FASAT"},
   {name: "Thiamin", minimize: false, daily_value: 1.5, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "THIA"},
   {name: "Vitamin B6", minimize: false, daily_value: 2, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "VITB6A"},
-  {name: "Iodine", minimize: false, daily_value: 150, dv_unit: 'mcg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: nil},
+  {name: "Iodine", minimize: false, daily_value: 150, dv_unit: 'mcg', unitwise_method: 'microgram', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: nil},
   {name: "Riboflavin", minimize: false, daily_value: 1.7, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "RIBF"},
   {name: "Pantothenic Acid", minimize: false, daily_value: 10, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "PANTAC"},
   {name: "Phosphorus", minimize: false, daily_value: 1000, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "P"},
-  {name: "Vitamin B12", minimize: false, daily_value: 6, dv_unit: 'mcg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: nil},
+  {name: "Vitamin B12", minimize: false, daily_value: 6, dv_unit: 'mcg', unitwise_method: 'microgram', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: nil},
   {name: "Copper", minimize: false, daily_value: 2, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "CU"},
   {name: "Vitamin E", minimize: false, daily_value: 30, dv_unit: 'IU', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "TOCPHA"},
-  {name: "Vitamin K", minimize: false, daily_value: 80, dv_unit: 'mcg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: nil}
+  {name: "Vitamin K", minimize: false, daily_value: 80, dv_unit: 'mcg', unitwise_method: 'microgram', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: nil}
 ])
 end
 unless Settings.first
