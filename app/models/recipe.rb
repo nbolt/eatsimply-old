@@ -65,20 +65,48 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  def self.suggest recipes
+  def self.suggest eaten_recipes
     targets = Nutrient.where(minimize: false).map do |nutrient|
-      { nutrient: nutrient, value: nutrient.daily_value || 2000 }
+      { id: nutrient.id, unitwise_method: nutrient.unitwise_method, dv_unit: nutrient.dv_unit, value: nutrient.daily_value || 2000 }
     end
 
-    recipes.each do |recipe|
+    eaten_recipes.each do |recipe|
       recipe.nutrient_profile.servings.each do |serving|
-        target = targets.find {|t| t[:nutrient].id == serving.nutrient.id }
+        target = targets.find {|t| t[:id] == serving.nutrient.id }
         if target
-          converted_value = Unitwise(serving.value, serving.unit.abbr_no_period).send("to_#{target[:nutrient].unitwise_method || target[:nutrient].dv_unit}").to_f
-          target[:value] -= converted_value
-          target[:value] = 0 if target[:value] < 0
+          begin
+            converted_value = Unitwise(serving.value, serving.unit.abbr_no_period).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
+            old_value = target[:value]
+            target[:value] -= converted_value
+            target[:value] = 0 if target[:value] < 0
+          rescue Unitwise::ConversionError
+          end
         end
       end
     end
+
+    recipes = (Recipe.includes(nutrient_profile: { servings: [:unit, :nutrient] }) - eaten_recipes).map do |recipe|
+      { recipe: recipe, value: 0 }
+    end
+
+    recipes.each { |r|
+      r[:recipe].nutrient_profile.servings.each do |serving|
+        target = targets.find {|t| t[:id] == serving.nutrient.id }
+        if target
+          begin
+            converted_value = Unitwise(serving.value, serving.unit.abbr_no_period).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
+            old_value = target[:value]
+            new_value = target[:value]
+            new_value -= converted_value
+            new_value = 0 if new_value < 0
+            r[:value] += old_value - new_value
+          rescue Unitwise::ConversionError
+          end
+        end
+      end
+    }.sort_by!{|r| -r[:value] }
+    top_recipes = recipes.select{|r| r[:value] >= recipes[0][:value] * 0.9 }
+
+    top_recipes.shuffle[0][:recipe]
   end
 end
