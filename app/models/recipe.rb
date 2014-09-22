@@ -64,4 +64,21 @@ class Recipe < ActiveRecord::Base
       end
     end
   end
+
+  def self.suggest recipes
+    targets = Nutrient.where(minimize: false).map do |nutrient|
+      { nutrient: nutrient, value: nutrient.daily_value || 2000 }
+    end
+
+    recipes.each do |recipe|
+      recipe.nutrient_profile.servings.each do |serving|
+        target = targets.find {|t| t[:nutrient].id == serving.nutrient.id }
+        if target
+          converted_value = Unitwise(serving.value, serving.unit.abbr_no_period).send("to_#{target[:nutrient].unitwise_method || target[:nutrient].dv_unit}").to_f
+          target[:value] -= converted_value
+          target[:value] = 0 if target[:value] < 0
+        end
+      end
+    end
+  end
 end
