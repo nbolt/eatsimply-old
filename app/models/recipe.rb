@@ -13,14 +13,16 @@ class Recipe < ActiveRecord::Base
     super options.merge(include: [:recipe_images])
   end
 
-  def self.import id
+  def self.import id, attrs
     if Recipe.where(yummly_id: id).first
       { success: false, message: 'Recipe already imported' }
     else
       params = HTTParty.get("http://api.yummly.com/v1/api/recipe/#{id}?_app_id=#{ENV['YUM_API_ID']}&_app_key=#{ENV['YUM_API_KEY']}")
       if !params['id']
         { success: false, message: 'Recipe not found' }
-      elsif !params['nutritionEstimates'][0]
+      elsif Recipe.where(yummly_id: params['id']).first
+        { success: false, message: 'Recipe already imported' }
+      elsif !params['nutritionEstimates'] || !params['nutritionEstimates'][0]
         { success: false, message: 'No nutrition estimates available' }
       else
         recipe = Recipe.new(
@@ -32,10 +34,11 @@ class Recipe < ActiveRecord::Base
           yield: params['yield'],
           portion_size: params['numberOfServings']
         )
-        params['attributes'].each do |key, attributes| # courses, cuisines, and diets
+        params['attributes'].merge(attrs).each do |key, attributes| # courses, cuisines, and diets
           if attributes && key != 'holiday'
             attributes.each do |attribute|
-              recipe.send(key.pluralize).push key.capitalize.constantize.where(name: attribute).first
+              instance = key.capitalize.constantize.where(name: attribute).first
+              recipe.send(key.pluralize).push instance if instance
             end
           end
         end
