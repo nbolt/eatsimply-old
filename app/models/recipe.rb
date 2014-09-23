@@ -65,64 +65,86 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  def self.suggest num, eaten_recipes
-    top_recipes = []
-    breadth = 1
-
-    targets = Nutrient.where(minimize: false).map do |nutrient|
-      { id: nutrient.id, unitwise_method: nutrient.unitwise_method, dv_unit: nutrient.dv_unit, value: nutrient.daily_value || 2000 }
+  def self.meal recipes=[], attrs={}
+    targets = Nutrient.where('dv_unit is not null').map do |nutrient|
+      { id: nutrient.id, unitwise_method: nutrient.unitwise_method, dv_unit: nutrient.dv_unit, daily_value: nutrient.daily_value || 2000, num: 0 }
     end
 
-    eaten_recipes.each do |recipe|
-      recipe.nutrient_profile.servings.each do |serving|
-        target = targets.find {|t| t[:id] == serving.nutrient.id }
-        if target
-          begin
-            converted_value = Unitwise(serving.value, serving.unit.abbr_no_period).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
-            old_value = target[:value]
-            target[:value] -= converted_value
-            target[:value] = 0 if target[:value] < 0
-          rescue Unitwise::ConversionError
-          end
-        end
-      end
-    end
+    all_recipes = Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
+    all_recipes = all_recipes.where('id != ?', recipes.map(&:id)) if recipes[0]
+    all_recipes = all_recipes.where(diets: { name: attrs[:diets] }) if attrs[:diets]
+    all_recipes = all_recipes.where(cuisines: { name: attrs[:cuisines] }) if attrs[:cuisines]
 
-    recipes = (Recipe.includes(nutrient_profile: { servings: [:unit, :nutrient] }) - eaten_recipes).map do |recipe|
-      { recipe: recipe, value: 0 }
-    end
-
-    recipes.each { |r|
+    recipes = all_recipes.map {|recipe| { recipe: recipe, value: 0.0, num: 0 }}
+    recipes.each {|r|
       r[:recipe].nutrient_profile.servings.each do |serving|
-        target = targets.find {|t| t[:id] == serving.nutrient.id }
+        target = targets.find {|t| t[:id] == serving.nutrient.id}
         if target
           begin
-            converted_value =
-              if serving.unit.name == target[:name]
-                serving.value
-              else
-                Unitwise(serving.value, serving.unit.abbr_no_period).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
-              end
-            old_value = target[:value]
-            new_value = target[:value]
-            new_value -= converted_value
-            new_value = 0 if new_value < 0
-            r[:value] += old_value - new_value
+          serving_value = Unitwise(serving.value, serving.unit.name).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
+          r[:value] += serving_value / target[:daily_value]
+          r[:num] += 1
           rescue Unitwise::ConversionError
+            binding.pry
           end
         end
       end
-    }.sort_by!{|r| -r[:value] }
+    }.map!{|r| -r[:value] /= r[:num]}.sort_by!{|r| r[:value] }.select{|r| r[:value] >= recipes[0][:value] * 0.9 }.shuffle[0]
+    binding.pry
+  end
 
-    while top_recipes.length < num * 2 && breadth > 0
-      breadth -= 0.05
-      top_recipes = recipes.select{|r| r[:value] >= recipes[0][:value] * breadth }
+  def self.suggest num, attrs=nil
+    recipes = []
+
+    targets = Nutrient.where("dv_unit is not null and dv_unit != ? and dv_unit != ?", 'IU').map do |nutrient|
+      daily_value = Unitwise(nutrient.daily_value || 2000, nutrient.unitwise_method || nutrient.dv_unit).to_milligram.to_f
+      { id: nutrient.id, unitwise_method: nutrient.unitwise_method, dv_unit: nutrient.dv_unit, value: daily_value, orig_value: daily_value }
     end
 
-    if top_recipes.length >= num
-      { success: true, recipes: top_recipes.shuffle[0..num-1].map{|r|r[:recipe]} }
+    all_recipes = Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] }).where(portion_size: 1)
+    all_recipes = all_recipes.where(diets: { name: attrs[:diets] }) if attrs[:diets]
+    all_recipes = all_recipes.where(cuisines: { name: attrs[:cuisines] }) if attrs[:cuisines]
+    
+    num.times do
+     recipes.each {|r|
+        if r
+          r[:recipe].nutrient_profile.servings.each do |serving|
+            target = targets.find {|t| t[:id] == serving.nutrient.id }
+            if target
+              serving_value = Unitwise(serving.value, serving.unit.abbr_no_period).to_milligram.to_f
+              target[:value] -= serving_value
+              target[:value] = 0 if target[:value] < 0
+            end
+          end
+        end
+      }
+
+      new_recipes = (all_recipes - recipes).map { |recipe| { recipe: recipe, pvalue: 0, nvalue: 0 } }
+      new_recipes.each { |r|
+        r[:recipe].nutrient_profile.servings.each do |serving|
+          target = targets.find {|t| t[:id] == serving.nutrient.id }
+          if r && target
+            serving_value = Unitwise(serving.value, serving.unit.abbr_no_period).to_milligram.to_f
+            target_value  = target[:value]
+            orig_value    = target[:orig_value]
+            recipe_value = target_value < serving_value && target_value || serving_value
+            if serving.nutrient.minimize
+              r[:nvalue] += serving_value
+            else
+              r[:pvalue] += recipe_value
+            end
+            r = nil if serving_value > target[:orig_value] / 2
+          end
+        end
+      }.compact!.sort_by!{|r| -r[:pvalue] }
+      
+      recipes.push new_recipes.select{|r| r[:pvalue] >= new_recipes[0][:value] * 0.9 }.shuffle[0]
+    end
+
+    if recipes.length >= num
+      { success: true, recipes: recipes.map{|r|r[:recipe]} }
     elsif top_recipes.length > 0
-      { success: false, message: "Only #{top_recipes.length} recipes found", recipes: top_recipes.map{|r|r[:recipe]} }
+      { success: false, message: "Only #{recipes.length} recipes found", recipes: recipes.map{|r|r[:recipe]} }
     elsif top_recipes.length == 0
       { success: false, message: "No recipes found", recipes: [] }
     else

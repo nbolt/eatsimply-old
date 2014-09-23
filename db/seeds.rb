@@ -102,7 +102,7 @@ Unit.create!([
   {name: "pint", abbr: "pt.", generic: true, abbr_no_period: "pt"},
   {name: "quart", abbr: "qt.", generic: nil, abbr_no_period: "qt"},
   {name: "gallon", abbr: "gal.", generic: nil, abbr_no_period: "gal"},
-  {name: "litre", abbr: "L", generic: nil, abbr_no_period: "L"},
+  {name: "liter", abbr: "L", generic: nil, abbr_no_period: "L"},
   {name: "pound", abbr: "lb.", generic: true, abbr_no_period: "lb"},
   {name: "milligram", abbr: "mg.", generic: true, abbr_no_period: "mg"},
   {name: "microgram", abbr: "mcg.", generic: true, abbr_no_period: "mcg"},
@@ -127,6 +127,7 @@ Cuisine.all.each do |cuisine|
             url += "&allowedCourse[]=#{course.yummly_attr}" if course
             converted_value = Unitwise(nutrient.daily_value, nutrient.dv_unit).send("to_#{nutrient.unitwise_method || nutrient.yummly_unit}").to_f
             url += "&nutrition.#{nutrient.attr}.min=#{converted_value / 5}"
+            url += "&nutrition.#{nutrient.attr}.max=#{converted_value}"
             rsp = HTTParty.get(URI::escape url)
             if rsp['matches']
               rsp['matches'].each do |recipe|
