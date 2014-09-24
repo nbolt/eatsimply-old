@@ -65,7 +65,7 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  def self.meal divider, all_recipes, eaten_recipes=[], attrs={}
+  def self.meal divider, nums, all_recipes, eaten_recipes=[], attrs={}
     breadth = 1
     recipes = []
 
@@ -101,24 +101,27 @@ class Recipe < ActiveRecord::Base
 
     recipe = recipes.shuffle[0][:recipe]
     if recipe
-      { success: true, recipe: recipe }
+      rsp = { success: true, recipe: recipe }
     else
-      { success: false, message: 'No recipes found' }
+      rsp = { success: false, message: 'No recipes found' }
     end
+
+    yield(rsp, nums) if block_given?
+    rsp
   end
 
-  def self.suggest days, meals, attrs={}
+  def self.meals days, meals, attrs={}
     recipes = []
 
     all_recipes = Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
     all_recipes = all_recipes.where(diets: { name: attrs[:diets] }) if attrs[:diets]
     all_recipes = all_recipes.where(cuisines: { name: attrs[:cuisines] }) if attrs[:cuisines]
 
-    days.times do
+    days.times do |d|
       days_recipes = []
       recipes.push []
-      meals.times do
-        recipe = self.meal(meals, all_recipes, days_recipes, attrs)[:recipe]
+      meals.times do |m|
+        recipe = self.meal(meals, [d,m], all_recipes, days_recipes, attrs, &Proc.new)[:recipe]
         all_recipes = all_recipes.reject {|r| r == recipe}
         days_recipes.push recipe
         recipes.last.push recipe
