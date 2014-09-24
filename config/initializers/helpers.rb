@@ -9,3 +9,17 @@ class String
     end
   end
 end
+
+class Object
+  def then method=nil
+    if block_given?
+      self && yield(self)
+    else
+      self && self.send(method)
+    end
+  end
+
+  def chain *methods
+    methods.reduce(self, :then)
+  end
+end
