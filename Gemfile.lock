@@ -117,6 +117,7 @@ GEM
     httparty (0.13.1)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
+    httpclient (2.4.0)
     i18n (0.6.11)
     inflecto (0.0.2)
     ipaddress (0.8.0)
@@ -180,6 +181,10 @@ GEM
       pry (>= 0.9.10)
     puma (2.9.1)
       rack (>= 1.1, < 2.0)
+    pusher (0.14.1)
+      httpclient (~> 2.3)
+      multi_json (~> 1.0)
+      signature (~> 0.1.6)
     rack (1.5.2)
     rack-pjax (0.8.0)
       nokogiri (~> 1.5)
@@ -261,6 +266,7 @@ GEM
       uuidtools
     shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
+    signature (0.1.7)
     signed_multiset (0.2.1)
     simplecov (0.7.1)
       multi_json (~> 1.0)
@@ -346,6 +352,7 @@ DEPENDENCIES
   postmark-rails
   pry-rails
   puma
+  pusher
   rack-rewrite
   rack-ssl
   rails

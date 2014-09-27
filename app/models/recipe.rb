@@ -102,7 +102,7 @@ class Recipe < ActiveRecord::Base
 
     all_recipes = all_recipes.map {|recipe|
       link = ValueLink.where(recipe_id: recipe.id, recipe1_id: eaten_recipes[0].then(:id), recipe2_id: eaten_recipes[1].then(:id))[0]
-      { recipe: recipe, value: link.value }
+      { recipe: recipe, value: link[:value] }
     }.sort_by{|r| -r[:value] }
 
     while recipes.length < Recipe.count * 0.01 && breadth > 0.1

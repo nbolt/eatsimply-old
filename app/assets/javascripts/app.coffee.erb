@@ -70,14 +70,14 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     $timeout(-> angular.element('#meal-plan').css('opacity', 1))
     $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
 
-    source = new EventSource('/data/recipes')
-    source.addEventListener('new-recipe', new_recipe, false)
-    source.addEventListener('close', close, false)
+    pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>")
+    channel = pusher.subscribe('recipes')
+    channel.bind('new-recipe', new_recipe)
+    channel.bind('close', close)
 
-  new_recipe = (rsp) ->
-    $scope.$apply ->
-      $scope.days = JSON.parse rsp.data
+    $http.post('/data/recipes')
 
+  new_recipe = (rsp) -> $scope.$apply -> $scope.days = rsp
   close = -> source.close()
 ]
 
