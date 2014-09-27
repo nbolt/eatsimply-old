@@ -20,9 +20,9 @@ class DataController < ApplicationController
       days[nums[0]][:meals] ||= []
       days[nums[0]][:meals][nums[1]] ||= {}
       days[nums[0]][:meals][nums[1]][:recipes] = [rsp[:recipe]]
-      Pusher.trigger('recipes', 'new-recipe', days.as_json)
+      Pusher.trigger('recipes', 'new-recipe', { recipe: rsp[:recipe], nums: nums })
       if nums[0] == 6 && nums[1] == 2
-        Pusher.trigger('recipes', 'close')
+        Pusher.trigger('recipes', 'close', {})
       end
     end
 

@@ -1,6 +1,7 @@
 AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
   source = null
   $scope.modal = {}
+  $scope.days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
 
   $scope.openModal = ->
     angular.element('#modal').css('display', 'block')
@@ -73,12 +74,16 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>")
     channel = pusher.subscribe('recipes')
     channel.bind('new-recipe', new_recipe)
-    channel.bind('close', close)
+    channel.bind('close', -> pusher.disconnect())
+    channel.bind('pusher:subscription_succeeded', -> $http.post('/data/recipes'))
 
-    $http.post('/data/recipes')
-
-  new_recipe = (rsp) -> $scope.$apply -> $scope.days = rsp
-  close = -> source.close()
+  new_recipe = (rsp) ->
+    nums = rsp.nums
+    $scope.$apply ->
+      $scope.days[nums[0]].meals = [] unless $scope.days[nums[0]].meals
+      $scope.days[nums[0]].meals[nums[1]] = {} unless $scope.days[nums[0]].meals[nums[1]]
+      $scope.days[nums[0]].meals[nums[1]].recipes = [] unless $scope.days[nums[0]].meals[nums[1]].recipes
+      $scope.days[nums[0]].meals[nums[1]].recipes.push rsp.recipe
 ]
 
 HomeCtrl = ['$scope', '$http', ($scope, $http) ->
