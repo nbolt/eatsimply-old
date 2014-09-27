@@ -5,5 +5,5 @@ class NutrientProfile < ActiveRecord::Base
   belongs_to :recipe
   belongs_to :ingredient_unit, foreign_key: 'ingredients_units', class_name: 'IngredientsUnits'
   has_many :servings, dependent: :destroy
-  has_many :nutrients, through: :servings, dependent: :destroy
+  has_many :nutrients, through: :servings
 end

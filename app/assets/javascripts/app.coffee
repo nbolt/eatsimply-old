@@ -1,4 +1,5 @@
 AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
+  source = null
   $scope.modal = {}
 
   $scope.openModal = ->
@@ -65,14 +66,20 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         )
 
   $scope.openMealPlan = ->
-    $http.post(
-      '/data/recipes',
-      {}
-    ).success (rsp) ->
-      $scope.days = rsp
-      angular.element('#meal-plan').css('display', 'block')
-      $timeout(-> angular.element('#meal-plan').css('opacity', 1))
-      $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
+    angular.element('#meal-plan').css('display', 'block')
+    $timeout(-> angular.element('#meal-plan').css('opacity', 1))
+    $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
+
+    source = new EventSource('/data/recipes')
+    source.addEventListener('new-recipe', new_recipe, false)
+    source.addEventListener('close', close, false)
+
+  new_recipe = (rsp) ->
+    console.log(rsp)
+    $scope.$apply ->
+      $scope.days = JSON.parse rsp.data
+
+  close = -> console.log('closed');source.close()
 ]
 
 HomeCtrl = ['$scope', '$http', ($scope, $http) ->

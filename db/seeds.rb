@@ -110,6 +110,13 @@ Unit.create!([
 ])
 end
 
+profile = DvProfile.create
+Nutrient.where('daily_value is not null').each do |nutrient|
+  serving = profile.servings.build
+  serving.nutrient = nutrient
+  serving.value = nutrient.daily_value
+  serving.save
+end
 
 MAXRESULT = 6
 Cuisine.all.each do |cuisine|
@@ -134,7 +141,9 @@ Cuisine.all.each do |cuisine|
                 attrs = { 'diet' => [] }
                 attrs['diet'].push diet.name if diet
                 attrs['diet'].push 'Vegetarian' if diet && diet.name == 'Vegan'
-                Recipe.import recipe['id'], attrs
+                rsp = Recipe.import recipe['id'], attrs
+                rsp[:recipe].dv_profiles.push profile
+                rsp[:recipe].calculate_values
               end
             end
           end

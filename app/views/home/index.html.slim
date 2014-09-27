@@ -244,7 +244,7 @@
               .title Meal {{$index+1}}
           .recipes
             .recipe ng:repeat='recipe in meal.recipes'
-              .photo style='background-image:url({{recipe.photo}})'
+              .photo style='background-image:url({{recipe.recipe_images[0].image.url}})'
               .info
                 a href='{{recipe.source}}' target='_window'
                   .title ng:bind='recipe.name'

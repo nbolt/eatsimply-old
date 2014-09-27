@@ -1,4 +1,6 @@
 class DataController < ApplicationController
+  include ActionController::Live
+  Mime::Type.register "text/event-stream", :stream
 
   def ingredients
     render json: Ingredient.search(params[:term]).as_json
@@ -14,16 +16,20 @@ class DataController < ApplicationController
   end
 
   def recipes
+    response.headers["Content-Type"] = "text/event-stream"
     days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
-    recipes = Recipe.all.shuffle
-    7.times do |d|
-      days[d][:meals] = []
-      3.times do |m|
-        days[d][:meals][m] = {}
-        days[d][:meals][m][:recipes] = recipes[d*6+(m*2)..d*6+(m*2+1)]
+    sse = SSE.new(response.stream, retry: 250, event: "new-recipe")
+
+    Recipe.meals(7,3) do |rsp, nums|
+      days[nums[0]][:meals] ||= []
+      days[nums[0]][:meals][nums[1]] ||= {}
+      days[nums[0]][:meals][nums[1]][:recipes] = [rsp[:recipe]]
+      sse.write days.as_json.to_json
+      if nums[0] == 6 && nums[1] == 2
+        sse.write({}, event: 'close')
+        sse.close
       end
     end
-    render json: days.as_json
   end
 
   def new_email
