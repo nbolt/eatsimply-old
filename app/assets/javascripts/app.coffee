@@ -75,11 +75,10 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     source.addEventListener('close', close, false)
 
   new_recipe = (rsp) ->
-    console.log(rsp)
     $scope.$apply ->
       $scope.days = JSON.parse rsp.data
 
-  close = -> console.log('closed');source.close()
+  close = -> source.close()
 ]
 
 HomeCtrl = ['$scope', '$http', ($scope, $http) ->
