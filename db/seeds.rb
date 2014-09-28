@@ -118,33 +118,33 @@ Nutrient.where('daily_value is not null').each do |nutrient|
   serving.save
 end
 
-MAXRESULT = 6
-Cuisine.all.each do |cuisine|
-  (Course.where(name:['Main Dishes', 'Side Dishes', 'Lunch and Snacks', 'Appetizers', 'Breakfast and Brunch', 'Salads']) + [nil]).each do |course|
-    Nutrient.where(yummly_supported: true, minimize: false).each do |nutrient|
-      unless nutrient.name == 'Calories'
-        (Diet.where(name: ['Vegan', 'Vegetarian']) + [nil]).each do |diet|
-          recipes = Recipe.includes([:cuisines, :courses, :diets, nutrient_profile: :servings]).where(
-            cuisines: {id:cuisine && cuisine.id}, diets: {id:diet && diet.id}, courses: {id:course && course.id}, servings: {nutrient_id:nutrient && nutrient.id}
-          )
-          if recipes.count < MAXRESULT
-            url = "http://api.yummly.com/v1/api/recipes?_app_id=#{ENV['YUM_API_ID']}&_app_key=#{ENV['YUM_API_KEY']}&requirePictures=true&maxResult=#{MAXRESULT}"
-            url += "&allowedCuisine[]=#{cuisine.yummly_attr}"
-            url += "&allowedDiet[]=#{diet.yummly_attr}" if diet
-            url += "&allowedCourse[]=#{course.yummly_attr}" if course
-            converted_value = Unitwise(nutrient.daily_value, nutrient.dv_unit).send("to_#{nutrient.unitwise_method || nutrient.yummly_unit}").to_f
-            url += "&nutrition.#{nutrient.attr}.min=#{converted_value / 5}"
-            url += "&nutrition.#{nutrient.attr}.max=#{converted_value}"
-            rsp = HTTParty.get(URI::escape url)
-            if rsp['matches']
-              rsp['matches'].each do |recipe|
-                attrs = { 'diet' => [] }
-                attrs['diet'].push diet.name if diet
-                attrs['diet'].push 'Vegetarian' if diet && diet.name == 'Vegan'
-                rsp = Recipe.import recipe['id'], attrs
-                rsp[:recipe].dv_profiles.push profile
-                rsp[:recipe].calculate_values
-              end
+
+MAXRESULT = Rails.env == 'production' && 7 || 3
+
+Course.where(name:['Main Dishes', 'Lunch and Snacks', 'Breakfast and Brunch']).each do |course|
+  Nutrient.where(yummly_supported: true, minimize: false).each do |nutrient|
+    unless nutrient.name == 'Calories'
+      (Diet.where(name: 'Vegan') + [nil]).each do |diet|
+        recipes = Recipe.includes([:cuisines, :courses, :diets, nutrient_profile: :servings]).where(
+          cuisines: {id:cuisine && cuisine.id}, diets: {id:diet && diet.id}, courses: {id:course && course.id}, servings: {nutrient_id:nutrient && nutrient.id}
+        )
+        if recipes.count < MAXRESULT
+          url = "http://api.yummly.com/v1/api/recipes?_app_id=#{ENV['YUM_API_ID']}&_app_key=#{ENV['YUM_API_KEY']}&requirePictures=true&maxResult=#{MAXRESULT}"
+          url += "&allowedCuisine[]=#{cuisine.yummly_attr}"
+          url += "&allowedDiet[]=#{diet.yummly_attr}" if diet
+          url += "&allowedCourse[]=#{course.yummly_attr}" if course
+          converted_value = Unitwise(nutrient.daily_value, nutrient.dv_unit).send("to_#{nutrient.unitwise_method || nutrient.yummly_unit}").to_f
+          url += "&nutrition.#{nutrient.attr}.min=#{converted_value / 3.5}"
+          url += "&nutrition.#{nutrient.attr}.max=#{converted_value}"
+          rsp = HTTParty.get(URI::escape url)
+          if rsp['matches']
+            rsp['matches'].each do |recipe|
+              attrs = { 'diet' => [] }
+              attrs['diet'].push diet.name if diet
+              attrs['diet'].push 'Vegetarian' if diet && diet.name == 'Vegan'
+              rsp = Recipe.import recipe['id'], attrs
+              rsp[:recipe].dv_profiles.push profile
+              rsp[:recipe].calculate_values
             end
           end
         end
