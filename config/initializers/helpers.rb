@@ -15,7 +15,11 @@ class Object
     if block_given?
       self && yield(self)
     else
-      self && self.send(method)
+      if self && self.respond_to?(method)
+        self.send method
+      else
+        nil
+      end
     end
   end
 

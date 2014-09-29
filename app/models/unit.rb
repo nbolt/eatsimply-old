@@ -7,6 +7,6 @@ class Unit < ActiveRecord::Base
   end
 	
 	has_many :servings, dependent: :destroy
-  has_many :ingredients, through: :ingredients_units
-  has_many :ingredients_units, class_name: 'IngredientsUnits'
+	has_many :ingredients, through: :ingredients_units
+	has_many :ingredients_units, class_name: 'IngredientsUnits'
 end

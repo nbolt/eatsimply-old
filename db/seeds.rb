@@ -57,7 +57,7 @@ Nutrient.create!([
   {name: "Calcium", minimize: false, daily_value: 1000, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_calcium_dv", yummly_supported: true, nutri_supported: nil, attr: "CA"},
   {name: "Potassium", minimize: false, daily_value: 3500, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: true, nutri_supported: nil, attr: "K"},
   {name: "Iron", minimize: false, daily_value: 18, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_iron_dv", yummly_supported: true, nutri_supported: nil, attr: "FE"},
-  {name: "Calories", minimize: false, daily_value: 2000, group: nil, yummly_unit: "kcal", yummly_field: "nf_calories", yummly_supported: true, nutri_supported: nil, attr: "ENERC_KCAL"},
+  {name: "Calories", minimize: false, daily_value: 2000, dv_unit: 'kcal', group: nil, yummly_unit: "kcal", yummly_field: "nf_calories", yummly_supported: true, nutri_supported: nil, attr: "ENERC_KCAL"},
   {name: "Fat", minimize: true, daily_value: 65, dv_unit: 'g', group: nil, yummly_unit: "gram", yummly_field: "nf_total_fat", yummly_supported: true, nutri_supported: nil, attr: "FAT"},
   {name: "Trans Fat", minimize: true, group: nil, yummly_unit: "gram", yummly_field: "nf_trans_fatty_acid", yummly_supported: true, nutri_supported: nil, attr: "FATRN"},
   {name: "Cholesterol", minimize: true, daily_value: 300, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_cholesterol", yummly_supported: true, nutri_supported: nil, attr: "CHOLE"},
@@ -106,46 +106,61 @@ Unit.create!([
   {name: "pound", abbr: "lb.", generic: true, abbr_no_period: "lb"},
   {name: "milligram", abbr: "mg.", generic: true, abbr_no_period: "mg"},
   {name: "microgram", abbr: "mcg.", generic: true, abbr_no_period: "mcg"},
-  {name: "gram", abbr: "g.", generic: true, abbr_no_period: "g"}
+  {name: "gram", abbr: "g.", generic: true, abbr_no_period: "g"},
+  {name: "international unit", abbr: "IU", generic: true, abbr_no_period: "IU"},
+  {name: "kilocalorie", abbr: "kcal.", generic: true, abbr_no_period: "kcal"}
 ])
 end
 
-profile = DvProfile.create
-Nutrient.where('daily_value is not null').each do |nutrient|
-  serving = profile.servings.build
-  serving.nutrient = nutrient
-  serving.value = nutrient.daily_value
-  serving.save
+unless DvProfile.first
+  [1300.0, 1700.0, 2100.0, 2500.0, 2900.0].each do |num|
+    profile = DvProfile.create
+    Nutrient.where('daily_value is not null').each do |nutrient|
+      serving = profile.servings.build
+      serving.nutrient = nutrient
+      serving.value = num / 2000 * nutrient.daily_value
+      serving.unit = Unit.where(abbr_no_period: nutrient.dv_unit)[0]
+      serving.save
+    end
+  end
 end
 
 
-MAXRESULT = Rails.env == 'production' && 7 || 3
+MAXRESULT = 8
 
-Course.where(name:['Main Dishes', 'Lunch and Snacks', 'Breakfast and Brunch']).each do |course|
+cuisine = nil
+(Course.where(name:['Main Dishes', 'Lunch and Snacks', 'Breakfast and Brunch']) + [nil]).each do |course|
   Nutrient.where(yummly_supported: true, minimize: false).each do |nutrient|
     unless nutrient.name == 'Calories'
-      (Diet.where(name: 'Vegan') + [nil]).each do |diet|
-        recipes = Recipe.includes([:cuisines, :courses, :diets, nutrient_profile: :servings]).where(
-          cuisines: {id:cuisine && cuisine.id}, diets: {id:diet && diet.id}, courses: {id:course && course.id}, servings: {nutrient_id:nutrient && nutrient.id}
-        )
-        if recipes.count < MAXRESULT
-          url = "http://api.yummly.com/v1/api/recipes?_app_id=#{ENV['YUM_API_ID']}&_app_key=#{ENV['YUM_API_KEY']}&requirePictures=true&maxResult=#{MAXRESULT}"
-          url += "&allowedCuisine[]=#{cuisine.yummly_attr}"
-          url += "&allowedDiet[]=#{diet.yummly_attr}" if diet
-          url += "&allowedCourse[]=#{course.yummly_attr}" if course
-          converted_value = Unitwise(nutrient.daily_value, nutrient.dv_unit).send("to_#{nutrient.unitwise_method || nutrient.yummly_unit}").to_f
-          url += "&nutrition.#{nutrient.attr}.min=#{converted_value / 3.5}"
-          url += "&nutrition.#{nutrient.attr}.max=#{converted_value}"
-          rsp = HTTParty.get(URI::escape url)
-          if rsp['matches']
-            rsp['matches'].each do |recipe|
-              attrs = { 'diet' => [] }
-              attrs['diet'].push diet.name if diet
-              attrs['diet'].push 'Vegetarian' if diet && diet.name == 'Vegan'
-              rsp = Recipe.import recipe['id'], attrs
-              rsp[:recipe].dv_profiles.push profile
-              rsp[:recipe].calculate_values
+      (Diet.where(name: ['Vegan', 'Vegetarian']) + [nil]).each do |diet|
+        url = "http://api.yummly.com/v1/api/recipes?_app_id=#{ENV['YUM_API_ID']}&_app_key=#{ENV['YUM_API_KEY']}&requirePictures=true&maxResult=20&start=0"
+        url += "&allowedCuisine[]=#{cuisine.yummly_attr}" if cuisine
+        url += "&allowedDiet[]=#{diet.yummly_attr}" if diet
+        url += "&allowedCourse[]=#{course.yummly_attr}" if course
+        converted_value = Unitwise(nutrient.daily_value, nutrient.dv_unit).send("to_#{nutrient.unitwise_method || nutrient.yummly_unit}").to_f
+        url += "&nutrition.#{nutrient.attr}.min=#{converted_value / 3.5}"
+        url += "&nutrition.#{nutrient.attr}.max=#{converted_value}"
+        yum = HTTParty.get(URI::escape url)
+        imports = 0; tries = 0; start = 0
+        while imports < MAXRESULT && yum['matches']
+          if yum['matches'][tries]
+            attrs = { 'diet' => [] }
+            attrs['diet'].push diet.name if diet
+            attrs['diet'].push 'Vegetarian' if diet && diet.name == 'Vegan'
+            rsp = Recipe.import yum['matches'][tries]['id'], attrs
+            tries += 1
+            puts '------------'
+            if rsp[:success]
+              imports += 1
+              puts "#{Recipe.count}: #{rsp[:recipe].name}"
+            else
+              puts rsp[:message]
             end
+            puts '------------'
+          else
+            start += tries
+            tries = 0
+            yum = HTTParty.get(URI::escape url.gsub(/start=\d+/, "start=#{start}"))
           end
         end
       end

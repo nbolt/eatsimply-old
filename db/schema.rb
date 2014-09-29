@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140927004936) do
+ActiveRecord::Schema.define(version: 20140929022701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,12 +72,6 @@ ActiveRecord::Schema.define(version: 20140927004936) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "vegas",      default: false
-  end
-
-  create_table "foods", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "ingredient_links", force: true do |t|
@@ -194,19 +188,5 @@ ActiveRecord::Schema.define(version: 20140927004936) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at", using: :btree
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
-
-  create_table "value_links", force: true do |t|
-    t.integer  "recipe_id"
-    t.integer  "dv_profile_id"
-    t.float    "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "recipe1_id"
-    t.integer  "recipe2_id"
-  end
-
-  add_index "value_links", ["recipe1_id"], name: "index_value_links_on_recipe1_id", using: :btree
-  add_index "value_links", ["recipe2_id"], name: "index_value_links_on_recipe2_id", using: :btree
-  add_index "value_links", ["recipe_id"], name: "index_value_links_on_recipe_id", using: :btree
 
 end

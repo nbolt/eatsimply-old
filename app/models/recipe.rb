@@ -3,8 +3,6 @@ class Recipe < ActiveRecord::Base
   has_many :recipe_images, dependent: :destroy
   has_many :ingredient_links, dependent: :destroy
   has_many :ingredients, through: :ingredient_links, dependent: :destroy
-  has_many :dv_profiles, through: :value_links
-  has_many :value_links, dependent: :destroy
   has_and_belongs_to_many :courses
   has_and_belongs_to_many :cuisines
   has_and_belongs_to_many :diets
@@ -67,45 +65,43 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  def calculate_values!
-    targets = Nutrient.where('dv_unit is not null').map do |nutrient|
-      { id: nutrient.id, unitwise_method: nutrient.unitwise_method, dv_unit: nutrient.dv_unit, daily_value: nutrient.daily_value / 3, num: 0 }
-    end
-
-    r = { recipe: self, value: 0.0, num: 0 }
-
-    r[:recipe].nutrient_profile.servings.each do |serving|
-      target = targets.find {|t| t[:id] == serving.nutrient.id}
-      if target
-        serving_value = Unitwise(serving.value, serving.unit.name).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
-        if serving_value < target[:daily_value]
-          r[:value] += serving_value / target[:daily_value] unless target[:daily_value] == 0
-        else
-          r[:value] += target[:daily_value] / serving_value unless serving_value == 0
-        end
-        r[:num] += 1
-      end
-    end
-
-    value = r[:value] /= r[:num]
-    link = r[:recipe].value_links[0]
-    link.update_attribute :value, value
-  end
-
-  def self.calculate_values!
-    Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] }).each {|r| r.calculate_values!}
-  end
-
-  def self.meal divider, nums, all_recipes, eaten_recipes=[], attrs={}
+  def self.meal profile, divider, nums, all_recipes, eaten_recipes=[], attrs={}
     breadth = 1
     recipes = []
 
-    all_recipes = all_recipes.map {|recipe|
-      link = ValueLink.where(recipe_id: recipe.id, recipe1_id: eaten_recipes[0].then(:id), recipe2_id: eaten_recipes[1].then(:id))[0]
-      { recipe: recipe, value: link[:value] }
-    }.sort_by{|r| -r[:value] }
+    targets = Nutrient.where('dv_unit is not null').map do |nutrient|
+      orig_daily_value = profile.servings.find{|s| s.nutrient_id == nutrient.id}.value
+      serving_value = eaten_recipes.compact.map{|r| r.nutrient_profile.servings.find{|s|s.nutrient_id == nutrient.id}.then(:value)}.compact.sum
+      remaining_value = orig_daily_value - serving_value
+      remaining_value = 0 if remaining_value < 0
+      meal_value = orig_daily_value / divider
+      daily_value = [meal_value, remaining_value].min
+      { id: nutrient.id, unitwise_method: nutrient.unitwise_method, dv_unit: nutrient.dv_unit, daily_value: daily_value, num: 0 }
+    end
 
-    while recipes.length < Recipe.count * 0.01 && breadth > 0.1
+    all_recipes = all_recipes.map {|recipe| { recipe: recipe, value: 0.0, num: 0 }}
+    all_recipes.each {|r|
+      r[:recipe].nutrient_profile.servings.each do |serving|
+        target = targets.find {|t| t[:id] == serving.nutrient.id}
+        if target
+          if serving.unit.abbr_no_period == target[:dv_unit]
+            serving_value = serving.value
+          else
+            serving_value = Unitwise(serving.value, serving.unit.name).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
+          end
+
+          if serving_value < target[:daily_value]
+            r[:value] += serving_value / target[:daily_value] unless target[:daily_value] == 0
+          else
+            r[:value] += target[:daily_value] / serving_value unless serving_value == 0
+          end
+          r[:num] += 1
+        end
+      end
+      r[:value] /= r[:num]
+    }.sort_by!{|r| -r[:value]}
+
+    while recipes.length < Recipe.count * 0.1 && breadth > 0.1
       breadth -= 0.1
       recipes = all_recipes.select do |recipe|
         recipe[:value] >= all_recipes[0][:value] * breadth &&
@@ -124,10 +120,10 @@ class Recipe < ActiveRecord::Base
     rsp
   end
 
-  def self.meals days, meals, attrs={}
+  def self.meals days, meals, profile, attrs={}
     recipes = []
 
-    all_recipes = Recipe.includes(:diets, :cuisines, value_links: :dv_profile)
+    all_recipes = Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
     all_recipes = all_recipes.where(diets: { name: attrs[:diets] }) if attrs[:diets]
     all_recipes = all_recipes.where(cuisines: { name: attrs[:cuisines] }) if attrs[:cuisines]
 
@@ -136,9 +132,9 @@ class Recipe < ActiveRecord::Base
       recipes.push []
       meals.times do |m|
         if block_given?
-          recipe = self.meal(meals, [d,m], all_recipes, days_recipes, attrs, &Proc.new)[:recipe]
+          recipe = self.meal(profile, meals, [d,m], all_recipes, days_recipes, attrs, &Proc.new)[:recipe]
         else
-          recipe = self.meal(meals, [d,m], all_recipes, days_recipes, attrs)[:recipe]
+          recipe = self.meal(profile, meals, [d,m], all_recipes, days_recipes, attrs)[:recipe]
         end
         days_recipes.push recipe
         recipes.last.push recipe
