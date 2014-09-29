@@ -243,6 +243,8 @@
             .left
               .title Meal {{$index+1}}
           .recipes
+            #progress ng:if='!meal.recipes[0]'
+              .bar
             .recipe ng:repeat='recipe in meal.recipes'
               .photo style='background-image:url({{recipe.recipe_images[0].image.url}})'
               .info

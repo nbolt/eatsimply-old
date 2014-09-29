@@ -65,7 +65,7 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  def self.meal profile, divider, nums, all_recipes, eaten_recipes=[], attrs={}
+  def self.meal key, profile, divider, nums, all_recipes, eaten_recipes=[], attrs={}
     breadth = 1
     recipes = []
 
@@ -80,7 +80,9 @@ class Recipe < ActiveRecord::Base
     end
 
     all_recipes = all_recipes.map {|recipe| { recipe: recipe, value: 0.0, num: 0 }}
-    all_recipes.each {|r|
+    all_recipes.each_with_index {|r, i|
+      progress = (i.to_f / all_recipes.count * 100).round
+      Pusher.trigger("recipes-#{key}", 'recipe-progress', { nums: nums, progress: progress }) if i % 25 == 0
       r[:recipe].nutrient_profile.servings.each do |serving|
         target = targets.find {|t| t[:id] == serving.nutrient.id}
         if target
@@ -120,7 +122,7 @@ class Recipe < ActiveRecord::Base
     rsp
   end
 
-  def self.meals days, meals, profile, attrs={}
+  def self.meals days, meals, profile, key, attrs={}
     recipes = []
 
     all_recipes = Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
@@ -132,9 +134,9 @@ class Recipe < ActiveRecord::Base
       recipes.push []
       meals.times do |m|
         if block_given?
-          recipe = self.meal(profile, meals, [d,m], all_recipes, days_recipes, attrs, &Proc.new)[:recipe]
+          recipe = self.meal(key, profile, meals, [d,m], all_recipes, days_recipes, attrs, &Proc.new)[:recipe]
         else
-          recipe = self.meal(profile, meals, [d,m], all_recipes, days_recipes, attrs)[:recipe]
+          recipe = self.meal(key, profile, meals, [d,m], all_recipes, days_recipes, attrs)[:recipe]
         end
         days_recipes.push recipe
         recipes.last.push recipe

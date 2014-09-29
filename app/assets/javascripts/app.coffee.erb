@@ -75,16 +75,19 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>")
     channel = pusher.subscribe("recipes-#{key}")
     channel.bind('new-recipe', new_recipe)
+    channel.bind('recipe-progress', recipe_progress)
     channel.bind('close', -> pusher.disconnect())
     channel.bind('pusher:subscription_succeeded', -> $http.post('/data/recipes',{key:key}))
 
-  new_recipe = (rsp) ->
+  new_recipe = (rsp) -> $scope.$apply -> $scope.days[rsp.nums[0]].meals[rsp.nums[1]].recipes.push rsp.recipe
+
+  recipe_progress = (rsp) ->
     nums = rsp.nums
     $scope.$apply ->
+      angular.element('#progress .bar').css('width', "#{rsp.progress}%")
       $scope.days[nums[0]].meals = [] unless $scope.days[nums[0]].meals
       $scope.days[nums[0]].meals[nums[1]] = {} unless $scope.days[nums[0]].meals[nums[1]]
       $scope.days[nums[0]].meals[nums[1]].recipes = [] unless $scope.days[nums[0]].meals[nums[1]].recipes
-      $scope.days[nums[0]].meals[nums[1]].recipes.push rsp.recipe
 ]
 
 HomeCtrl = ['$scope', '$http', ($scope, $http) ->
