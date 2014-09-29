@@ -16,7 +16,7 @@ class DataController < ApplicationController
   def recipes
     days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
 
-    Recipe.meals(7,3) do |rsp, nums|
+    Recipe.meals(7,3,DvProfile.find(3)) do |rsp, nums|
       days[nums[0]][:meals] ||= []
       days[nums[0]][:meals][nums[1]] ||= {}
       days[nums[0]][:meals][nums[1]][:recipes] = [rsp[:recipe]]

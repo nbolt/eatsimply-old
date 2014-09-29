@@ -126,7 +126,7 @@ unless DvProfile.first
 end
 
 
-MAXRESULT = 8
+MAXRESULT = 5
 
 cuisine = nil
 (Course.where(name:['Main Dishes', 'Lunch and Snacks', 'Breakfast and Brunch']) + [nil]).each do |course|
