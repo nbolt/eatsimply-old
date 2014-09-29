@@ -71,11 +71,12 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     $timeout(-> angular.element('#meal-plan').css('opacity', 1))
     $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
 
+    key = ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).slice(-4)
     pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>")
-    channel = pusher.subscribe('recipes')
+    channel = pusher.subscribe("recipes-#{key}")
     channel.bind('new-recipe', new_recipe)
     channel.bind('close', -> pusher.disconnect())
-    channel.bind('pusher:subscription_succeeded', -> $http.post('/data/recipes'))
+    channel.bind('pusher:subscription_succeeded', -> $http.post('/data/recipes',{key:key}))
 
   new_recipe = (rsp) ->
     nums = rsp.nums

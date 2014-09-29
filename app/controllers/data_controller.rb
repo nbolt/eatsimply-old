@@ -14,18 +14,7 @@ class DataController < ApplicationController
   end
 
   def recipes
-    days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
-
-    Recipe.meals(7,3,DvProfile.find(3)) do |rsp, nums|
-      days[nums[0]][:meals] ||= []
-      days[nums[0]][:meals][nums[1]] ||= {}
-      days[nums[0]][:meals][nums[1]][:recipes] = [rsp[:recipe]]
-      Pusher.trigger('recipes', 'new-recipe', { recipe: rsp[:recipe], nums: nums })
-      if nums[0] == 6 && nums[1] == 2
-        Pusher.trigger('recipes', 'close', {})
-      end
-    end
-
+    RecipeJob.new.async.perform params[:key]
     render nothing: true
   end
 
