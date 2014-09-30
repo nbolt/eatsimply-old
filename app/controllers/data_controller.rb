@@ -14,7 +14,19 @@ class DataController < ApplicationController
   end
 
   def recipes
-    RecipeJob.new.async.perform params[:key]
+    profile = 
+
+    attrs = {}
+
+    opts = {
+      days: 7,
+      meals: 3,
+      profile: profile,
+      key: params[:key],
+      attrs: attrs
+    }
+    
+    RecipeJob.new.async.perform opts
     render nothing: true
   end
 

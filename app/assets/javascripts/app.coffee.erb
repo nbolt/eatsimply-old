@@ -77,7 +77,13 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     channel.bind('new-recipe', new_recipe)
     channel.bind('recipe-progress', recipe_progress)
     channel.bind('close', -> pusher.disconnect())
-    channel.bind('pusher:subscription_succeeded', -> $http.post('/data/recipes',{key:key}))
+    channel.bind('pusher:subscription_succeeded', ->
+      $http.post('/data/recipes',
+        {
+          key: key
+        }
+      )
+    )
 
   new_recipe = (rsp) -> $scope.$apply -> $scope.days[rsp.nums[0]].meals[rsp.nums[1]].recipes.push rsp.recipe
 

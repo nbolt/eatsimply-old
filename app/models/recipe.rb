@@ -65,25 +65,25 @@ class Recipe < ActiveRecord::Base
     end
   end
 
-  def self.meal key, profile, divider, nums, all_recipes, eaten_recipes=[], attrs={}
+  def self.meal opts
     breadth = 1
     recipes = []
 
     targets = Nutrient.where('dv_unit is not null').map do |nutrient|
-      orig_daily_value = profile.servings.find{|s| s.nutrient_id == nutrient.id}.value
-      serving_value = eaten_recipes.compact.map{|r| r.nutrient_profile.servings.find{|s|s.nutrient_id == nutrient.id}.then(:value)}.compact.sum
+      orig_daily_value = opts[:profile].servings.find{|s| s.nutrient_id == nutrient.id}.value
+      serving_value = opts[:eaten_recipes].compact.map{|r| r.nutrient_profile.servings.find{|s|s.nutrient_id == nutrient.id}.then(:value)}.compact.sum
       remaining_value = orig_daily_value - serving_value
       remaining_value = 0 if remaining_value < 0
-      meal_value = orig_daily_value / divider
+      meal_value = orig_daily_value / opts[:meals]
       daily_value = [meal_value, remaining_value].min
       { id: nutrient.id, unitwise_method: nutrient.unitwise_method, dv_unit: nutrient.dv_unit, daily_value: daily_value, num: 0 }
     end
 
-    all_recipes = all_recipes.map {|recipe| { recipe: recipe, value: 0.0, num: 0 }}
+    all_recipes = opts[:all_recipes].map {|recipe| { recipe: recipe, value: 0.0, num: 0 }}
     all_recipes.each_with_index {|r, i|
       if r[:recipe].nutrient_profile
         progress = (i.to_f / all_recipes.count * 100).round
-        Pusher.trigger("recipes-#{key}", 'recipe-progress', { nums: nums, progress: progress }) if i % 25 == 0 && key
+        Pusher.trigger("recipes-#{opts[:key]}", 'recipe-progress', { nums: opts[:nums], progress: progress }) if i % 25 == 0 && opts[:key]
         r[:recipe].nutrient_profile.servings.each do |serving|
           target = targets.find {|t| t[:id] == serving.nutrient.id}
           if target
@@ -109,7 +109,7 @@ class Recipe < ActiveRecord::Base
       breadth -= 0.1
       recipes = all_recipes.select do |recipe|
         recipe[:value] >= all_recipes[0][:value] * breadth &&
-        !eaten_recipes.map(&:id).index(recipe[:recipe].id)
+        !opts[:eaten_recipes].map(&:id).index(recipe[:recipe].id)
       end
     end
 
@@ -120,26 +120,36 @@ class Recipe < ActiveRecord::Base
       rsp = { success: false, message: 'No recipes found' }
     end
 
-    yield(rsp, nums) if block_given?
+    yield(rsp, opts[:nums]) if block_given?
     rsp
   end
 
-  def self.meals days, meals, profile, key, attrs={}
+  def self.meals opts
     recipes = []
 
     all_recipes = Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
-    all_recipes = all_recipes.where(diets: { name: attrs[:diets] }) if attrs[:diets]
-    all_recipes = all_recipes.where(cuisines: { name: attrs[:cuisines] }) if attrs[:cuisines]
+    all_recipes = all_recipes.where(diets: { name: attrs[:diets] }) if opts[:attrs][:diets]
+    all_recipes = all_recipes.where(cuisines: { name: attrs[:cuisines] }) if opts[:attrs][:cuisines]
 
-    days.times do |d|
+    opts[:days].times do |d|
       days_recipes = []
       recipes.push []
-      meals.times do |m|
+      opts[:meals].times do |m|
+        meal_opts = {
+          key: opts[:key],
+          profile: opts[:profile],
+          meals: opts[:meals],
+          nums: [d,m],
+          all_recipes: all_recipes,
+          eaten_recipes: days_recipes || []
+        }
+
         if block_given?
-          recipe = self.meal(key, profile, meals, [d,m], all_recipes, days_recipes, attrs, &Proc.new)[:recipe]
+          recipe = self.meal(meal_opts, &Proc.new)[:recipe]
         else
-          recipe = self.meal(key, profile, meals, [d,m], all_recipes, days_recipes, attrs)[:recipe]
+          recipe = self.meal(meal_opts)[:recipe]
         end
+
         days_recipes.push recipe
         recipes.last.push recipe
       end
