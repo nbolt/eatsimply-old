@@ -81,27 +81,29 @@ class Recipe < ActiveRecord::Base
 
     all_recipes = all_recipes.map {|recipe| { recipe: recipe, value: 0.0, num: 0 }}
     all_recipes.each_with_index {|r, i|
-      progress = (i.to_f / all_recipes.count * 100).round
-      Pusher.trigger("recipes-#{key}", 'recipe-progress', { nums: nums, progress: progress }) if i % 25 == 0
-      r[:recipe].nutrient_profile.servings.each do |serving|
-        target = targets.find {|t| t[:id] == serving.nutrient.id}
-        if target
-          if serving.unit.abbr_no_period == target[:dv_unit]
-            serving_value = serving.value
-          else
-            serving_value = Unitwise(serving.value, serving.unit.name).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
-          end
+      if r[:recipe].nutrient_profile
+        progress = (i.to_f / all_recipes.count * 100).round
+        Pusher.trigger("recipes-#{key}", 'recipe-progress', { nums: nums, progress: progress }) if i % 25 == 0 && key
+        r[:recipe].nutrient_profile.servings.each do |serving|
+          target = targets.find {|t| t[:id] == serving.nutrient.id}
+          if target
+            if serving.unit.abbr_no_period == target[:dv_unit]
+              serving_value = serving.value
+            else
+              serving_value = Unitwise(serving.value, serving.unit.name).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
+            end
 
-          if serving_value < target[:daily_value]
-            r[:value] += serving_value / target[:daily_value] unless target[:daily_value] == 0
-          else
-            r[:value] += target[:daily_value] / serving_value unless serving_value == 0
+            if serving_value < target[:daily_value]
+              r[:value] += serving_value / target[:daily_value] unless target[:daily_value] == 0
+            else
+              r[:value] += target[:daily_value] / serving_value unless serving_value == 0
+            end
+            r[:num] += 1
           end
-          r[:num] += 1
         end
       end
       r[:value] /= r[:num]
-    }.sort_by!{|r| -r[:value]}
+    }.reject{|r| r[:value].nan? || !r[:recipe].nutrient_profile}.sort_by!{|r| -r[:value]}
 
     while recipes.length < Recipe.count * 0.1 && breadth > 0.1
       breadth -= 0.1
