@@ -5,7 +5,7 @@ class DataController < ApplicationController
   end
 
   def cuisines
-    render json: Cuisine.search(params[:term]).as_json
+    render json: Cuisine.search(params[:term]).map{|c| c if c.recipes[0]}.compact.as_json
   end
 
   def diets
@@ -25,11 +25,11 @@ class DataController < ApplicationController
         88.362 + (13.397 * params[:weight].to_i) + (4.799 * params[:height].to_i) - (5.677 * params[:age].to_i)
       end
 
-    bmr *= 1.2 if params[:activity_level] == '0'
-    bmr *= 1.375 if params[:activity_level] == '1'
-    bmr *= 1.55 if params[:activity_level] == '2'
-    bmr *= 1.725 if params[:activity_level] == '3'
-    bmr *= 1.9 if params[:activity_level] == '4'
+    bmr *= 1.2 if params[:activity_level][:id].to_i == 0
+    bmr *= 1.375 if params[:activity_level][:id].to_i == 1
+    bmr *= 1.55 if params[:activity_level][:id].to_i == 2
+    bmr *= 1.725 if params[:activity_level][:id].to_i == 3
+    bmr *= 1.9 if params[:activity_level][:id].to_i == 4
 
     if params[:goal][:text] == 'lose'
       bmr -= 500
@@ -42,7 +42,7 @@ class DataController < ApplicationController
 
     attrs = {}
     attrs[:diets] = params[:diet][:id] if params[:diet] && params[:diet][:id].to_i != 0
-    attrs[:cuisines] = params[:cuisines] if params[:cuisines]
+    attrs[:cuisines] = params[:cuisines].map {|c| Cuisine.find c[:id]} if params[:cuisines]
     attrs[:allergies] = params[:allergies] if params[:allergies]
 
     opts = {
@@ -50,6 +50,7 @@ class DataController < ApplicationController
       meals: 3,
       profile: profile,
       key: params[:key],
+      cuisines: params[:cuisines] && params[:cuisines].map {|c| Cuisine.find c[:id]} || [],
       attrs: attrs
     }
 

@@ -71,7 +71,7 @@ class Recipe < ActiveRecord::Base
 
     targets = Nutrient.where('dv_unit is not null').map do |nutrient|
       orig_daily_value = opts[:profile].servings.find{|s| s.nutrient_id == nutrient.id}.value
-      serving_value = opts[:eaten_recipes].compact.map{|r| r.nutrient_profile.servings.find{|s|s.nutrient_id == nutrient.id}.then(:value)}.compact.sum
+      serving_value = opts[:days_eaten_recipes].compact.map{|r| r.nutrient_profile.servings.find{|s|s.nutrient_id == nutrient.id}.then(:value)}.compact.sum
       remaining_value = orig_daily_value - serving_value
       remaining_value = 0 if remaining_value < 0
       meal_value = orig_daily_value / opts[:meals]
@@ -80,7 +80,7 @@ class Recipe < ActiveRecord::Base
     end
 
     all_recipes = opts[:all_recipes].map {|recipe| { recipe: recipe, value: 0.0, num: 0 }}
-    all_recipes.each_with_index {|r, i|
+    all_recipes.each_with_index do |r, i|
       if r[:recipe].nutrient_profile
         progress = (i.to_f / all_recipes.count * 100).round
         Pusher.trigger("recipes-#{opts[:key]}", 'recipe-progress', { nums: opts[:nums], progress: progress }) if i % 25 == 0 && opts[:key]
@@ -103,17 +103,24 @@ class Recipe < ActiveRecord::Base
         end
       end
       r[:value] /= r[:num]
-    }.reject{|r| r[:value].nan? || !r[:recipe].nutrient_profile}.sort_by!{|r| -r[:value]}
+    end
+    all_recipes = all_recipes.reject{|r| r[:value].nan? || !r[:recipe].nutrient_profile}.sort_by{|r| -r[:value]}
 
     while recipes.length < Recipe.count * 0.1 && breadth > 0.1
       breadth -= 0.1
       recipes = all_recipes.select do |recipe|
         recipe[:value] >= all_recipes[0][:value] * breadth &&
-        !opts[:eaten_recipes].map(&:id).index(recipe[:recipe].id)
+        (opts[:all_eaten_recipes].empty? && true || !opts[:all_eaten_recipes].map(&:id).index(recipe[:recipe].id))
       end
     end
 
+    if opts[:cuisines].present?
+      _recipes = recipes.reject {|r| (r[:recipe].cuisines & opts[:cuisines]).empty?}
+      recipes = _recipes if _recipes[0]
+    end
+
     recipe = recipes.shuffle[0].then(:recipe)
+    binding.pry
     if recipe
       rsp = { success: true, recipe: recipe }
     else
@@ -129,7 +136,6 @@ class Recipe < ActiveRecord::Base
 
     all_recipes = Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
     all_recipes = all_recipes.where(diets: { id: opts[:attrs][:diets] }) if opts[:attrs][:diets]
-    all_recipes = all_recipes.where(cuisines: { name: opts[:attrs][:cuisines] }) if opts[:attrs][:cuisines]
 
     opts[:days].times do |d|
       days_recipes = []
@@ -140,8 +146,11 @@ class Recipe < ActiveRecord::Base
           profile: opts[:profile],
           meals: opts[:meals],
           nums: [d,m],
+          cuisines: opts[:attrs][:cuisines],
           all_recipes: all_recipes,
-          eaten_recipes: days_recipes || []
+          days_eaten_recipes: days_recipes || [],
+          all_eaten_recipes: recipes.flatten || []
+
         }
 
         if block_given?
