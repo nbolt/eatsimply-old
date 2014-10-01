@@ -120,7 +120,6 @@ class Recipe < ActiveRecord::Base
     end
 
     recipe = recipes.shuffle[0].then(:recipe)
-    binding.pry
     if recipe
       rsp = { success: true, recipe: recipe }
     else
