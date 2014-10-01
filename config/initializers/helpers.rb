@@ -15,8 +15,14 @@ class Object
     if block_given?
       self && yield(self)
     else
-      if self && self.respond_to?(method)
-        self.send method
+      if self
+        if self.class == Hash
+          self[method]
+        elsif self.respond_to?(method)
+          self.send method
+        else
+          nil
+        end
       else
         nil
       end

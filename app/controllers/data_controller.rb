@@ -8,15 +8,42 @@ class DataController < ApplicationController
     render json: Cuisine.search(params[:term]).as_json
   end
 
+  def diets
+    render json: Diet.all.select{|d| d.recipes[0]}.as_json + [{'id' => 0, 'name' => 'Omnivore'}]
+  end
+
   def new_recipes
     recipes = Recipe.all.reject {|r| params[:recipes].any? {|n| n==r.id} }
     render json: recipes.as_json
   end
 
   def recipes
-    profile = 
+    bmr =
+      if params[:gender][:id] == 'f'
+        447.593 + (9.247 * params[:weight].to_i) + (3.098 * params[:height].to_i) - (4.330 * params[:age].to_i)
+      else
+        88.362 + (13.397 * params[:weight].to_i) + (4.799 * params[:height].to_i) - (5.677 * params[:age].to_i)
+      end
+
+    bmr *= 1.2 if params[:activity_level] == '0'
+    bmr *= 1.375 if params[:activity_level] == '1'
+    bmr *= 1.55 if params[:activity_level] == '2'
+    bmr *= 1.725 if params[:activity_level] == '3'
+    bmr *= 1.9 if params[:activity_level] == '4'
+
+    if params[:goal][:text] == 'lose'
+      bmr -= 500
+    elsif params[:goal][:text] == 'gain'
+      bmr += 500
+    end
+
+    calories = Nutrient.where(name:'Calories')[0]
+    profile = DvProfile.all.sort_by{|p| (bmr - p.servings.where(nutrient_id: calories.id)[0].value).abs}[0]
 
     attrs = {}
+    attrs[:diets] = params[:diet][:id] if params[:diet] && params[:diet][:id].to_i != 0
+    attrs[:cuisines] = params[:cuisines] if params[:cuisines]
+    attrs[:allergies] = params[:allergies] if params[:allergies]
 
     opts = {
       days: 7,
@@ -25,7 +52,7 @@ class DataController < ApplicationController
       key: params[:key],
       attrs: attrs
     }
-    
+
     RecipeJob.new.async.perform opts
     render nothing: true
   end

@@ -2,6 +2,10 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
   source = null
   $scope.modal = {}
   $scope.days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
+  $scope.form =
+    weight: 60
+    height: 180
+    age: 24
 
   $scope.openModal = ->
     angular.element('#modal').css('display', 'block')
@@ -80,7 +84,14 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     channel.bind('pusher:subscription_succeeded', ->
       $http.post('/data/recipes',
         {
-          key: key
+          key: key,
+          diet: $scope.form.diet,
+          gender: $scope.form.gender,
+          goal: $scope.form.weight_goal,
+          activity_level: $scope.form.activity_level,
+          weight: $scope.form.weight,
+          height: $scope.form.height,
+          age: $scope.form.age
         }
       )
     )
@@ -103,31 +114,47 @@ HomeCtrl = ['$scope', '$http', ($scope, $http) ->
 
 MealCtrl = ['$scope', '$http', ($scope, $http) ->
 
-  $scope.form =
-    weight: 180
-    height: 180
-
   $scope.$watch 'form.diet', (n,o) ->
     if n && _(['a','e','i','o','u']).indexOf(n.text[0]) == -1
       angular.element('#aan').text "cm tall. I'm a"
     else
       angular.element('#aan').text "cm tall. I'm an"
 
-  $scope.naturalHash = (hash) ->
-    data =
-      switch hash
-        when 'gender'
-          [{ id: 'm', text: 'male' }, { id: 'f', text: 'female' }]
-        when 'diet'
-          [{ id: 'omnivore', text: 'omnivore' }, { id: 'vegan', text: 'vegan' }, { id: 'pescatarian', text: 'pescatarian' }]
-        when 'weight_goal'
-          [{ id: 'maintain', text: 'maintain' }, { id: 'lose', text: 'lose' }, { id: 'gain', text: 'gain' }]
-
+  $scope.goalHash = ->
     {
-      minimumResultsForSearch: 10
+      minimumResultsForSearch: 8
       dropdownCssClass: 'meal-plan-natural'
-      data: data
-      initSelection: (elem, cb) -> cb data[0]
+      data: [{ id: 'maintain', text: 'maintain' }, { id: 'lose', text: 'lose' }, { id: 'gain', text: 'gain' }]
+      initSelection: (elem, cb) -> cb { id: 'maintain', text: 'maintain' }
+    }
+    
+  $scope.genderHash = ->
+    {
+      minimumResultsForSearch: 8
+      dropdownCssClass: 'meal-plan-natural'
+      data: [{ id: 'm', text: 'male' }, { id: 'f', text: 'female' }]
+      initSelection: (elem, cb) -> cb { id: 'f', text: 'female' }
+    }
+
+  $scope.activityHash = ->
+    {
+      minimumResultsForSearch: 8
+      dropdownCssClass: 'meal-plan-natural'
+      data: [{ id: 0, text: 'not active' }, { id: 1, text: 'lightly active' }, { id: 2, text: 'moderately active' }, { id: 3, text: 'heavily active' }, { id: 4, text: 'very heavily active' }]
+      initSelection: (elem, cb) -> cb { id: 1, text: 'lightly active' }
+    }
+
+  $scope.dietHash = ->
+    {
+      minimumResultsForSearch: 8
+      dropdownCssClass: 'meal-plan-natural'
+      data: []
+      initSelection: (el, cb) -> $http.get('/data/diets').success (rsp) -> cb { id: rsp[rsp.length-1].id, text: rsp[rsp.length-1].name.toLowerCase() }
+      ajax:
+        url: "/data/diets"
+        data: (term) -> { term: term }
+        quietMillis: 400
+        results: (data) -> { results: _(data).map (i) -> { id: i.id, text: i.name.toLowerCase() } }
     }
 
   $scope.multiHash = (hash) ->

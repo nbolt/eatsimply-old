@@ -113,7 +113,7 @@ class Recipe < ActiveRecord::Base
       end
     end
 
-    recipe = recipes.shuffle[0][:recipe]
+    recipe = recipes.shuffle[0].then(:recipe)
     if recipe
       rsp = { success: true, recipe: recipe }
     else
@@ -128,8 +128,8 @@ class Recipe < ActiveRecord::Base
     recipes = []
 
     all_recipes = Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
-    all_recipes = all_recipes.where(diets: { name: attrs[:diets] }) if opts[:attrs][:diets]
-    all_recipes = all_recipes.where(cuisines: { name: attrs[:cuisines] }) if opts[:attrs][:cuisines]
+    all_recipes = all_recipes.where(diets: { id: opts[:attrs][:diets] }) if opts[:attrs][:diets]
+    all_recipes = all_recipes.where(cuisines: { name: opts[:attrs][:cuisines] }) if opts[:attrs][:cuisines]
 
     opts[:days].times do |d|
       days_recipes = []

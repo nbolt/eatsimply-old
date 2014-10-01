@@ -179,23 +179,31 @@
         .row
           .text I'm a
           .input
-            input type='hidden' ui-select2='naturalHash("gender")' ng:model='form.gender'
+            input id='gender' type='hidden' ui-select2='genderHash()' ng:model='form.gender'
           .text weighing
           .input
-            input type='text' ng:model='form.weight' style='width:60px'
-          .text lbs
+            input id='weight' type='text' ng:model='form.weight' style='width:40px'
+          .text kgs and
         .row
-          .text and
+          .text and am
           .input
-            input type='text' ng:model='form.height' style='width:60px'
+            input id='height' type='text' ng:model='form.height' style='width:60px'
           .text#aan cm tall. I'm a
           .input
-            input id='diet' type='hidden' ui-select2='naturalHash("diet")' ng:model='form.diet'
+            input id='diet' type='hidden' ui-select2='dietHash()' ng:model='form.diet'
         .row
           .text and am aiming to
           .input
-            input type='hidden' ui-select2='naturalHash("weight_goal")' ng:model='form.weight_goal'
+            input id='weight-goal' type='hidden' ui-select2='goalHash()' ng:model='form.weight_goal'
           .text weight.
+        .row
+          .text I'm
+          .input
+            input id='activity-level' type='hidden' ui-select2='activityHash()' ng:model='form.activity_level'
+          .text and am
+          .input
+            input id='age' type='text' ng:model='form.age' style='width:40px'
+          .text years old.
       .classic
         .row
           .field.long
