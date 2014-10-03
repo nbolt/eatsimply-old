@@ -65,12 +65,32 @@ class Recipe < ActiveRecord::Base
     end
   end
 
+  def self.nutrient_values bmr, recipes
+    targets = Nutrient.where('dv_unit is not null').map do |nutrient|
+      { nutrient: nutrient, value: bmr / 2000 * nutrient.daily_value }
+    end
+
+    targets.map! do |target|
+      values = recipes.map do |recipe|
+        serving = recipe.nutrient_profile.servings.find{|s| s.nutrient_id == target[:nutrient].id}
+        if serving && serving.unit.abbr != 'IU'
+          Unitwise(serving.value, serving.unit.abbr_no_period).send("to_#{target[:nutrient].unitwise_method || target[:nutrient].dv_unit}").to_f
+        else
+          nil
+        end
+      end
+      [(values.compact.sum / target[:value]).round(2) * 100, target[:nutrient].name]
+    end
+
+    targets
+  end
+
   def self.meal opts
     breadth = 1
     recipes = []
 
     targets = Nutrient.where('dv_unit is not null').map do |nutrient|
-      orig_daily_value = opts[:profile].servings.find{|s| s.nutrient_id == nutrient.id}.value
+      orig_daily_value = opts[:bmr] / 2000 * nutrient.daily_value
       serving_value = opts[:days_eaten_recipes].compact.map{|r| r.nutrient_profile.servings.find{|s|s.nutrient_id == nutrient.id}.then(:value)}.compact.sum
       remaining_value = orig_daily_value - serving_value
       remaining_value = 0 if remaining_value < 0
@@ -141,15 +161,14 @@ class Recipe < ActiveRecord::Base
       recipes.push []
       opts[:meals].times do |m|
         meal_opts = {
+          bmr: opts[:bmr],
           key: opts[:key],
-          profile: opts[:profile],
           meals: opts[:meals],
           nums: [d,m],
           cuisines: opts[:attrs][:cuisines],
           all_recipes: all_recipes,
           days_eaten_recipes: days_recipes || [],
           all_eaten_recipes: recipes.flatten || []
-
         }
 
         if block_given?
@@ -162,7 +181,7 @@ class Recipe < ActiveRecord::Base
         recipes.last.push recipe
       end
     end
-
+    #binding.pry
     { success: true, recipes: recipes }
   end
 end

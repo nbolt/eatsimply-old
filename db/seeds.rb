@@ -112,19 +112,6 @@ Unit.create!([
 ])
 end
 
-unless DvProfile.first
-  [1300.0, 1700.0, 2100.0, 2500.0, 2900.0].each do |num|
-    profile = DvProfile.create
-    Nutrient.where('daily_value is not null').each do |nutrient|
-      serving = profile.servings.build
-      serving.nutrient = nutrient
-      serving.value = num / 2000 * nutrient.daily_value
-      serving.unit = Unit.where(abbr_no_period: nutrient.dv_unit)[0]
-      serving.save
-    end
-  end
-end
-
 
 MAXRESULT = 10
 

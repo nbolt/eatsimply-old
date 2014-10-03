@@ -38,7 +38,6 @@ class DataController < ApplicationController
     end
 
     calories = Nutrient.where(name:'Calories')[0]
-    profile = DvProfile.all.sort_by{|p| (bmr - p.servings.where(nutrient_id: calories.id)[0].value).abs}[0]
 
     attrs = {}
     attrs[:diets] = params[:diet][:id] if params[:diet] && params[:diet][:id].to_i != 0
@@ -46,9 +45,9 @@ class DataController < ApplicationController
     attrs[:allergies] = params[:allergies] if params[:allergies]
 
     opts = {
+      bmr: bmr,
       days: 7,
       meals: 3,
-      profile: profile,
       key: params[:key],
       cuisines: params[:cuisines] && params[:cuisines].map {|c| Cuisine.find c[:id]} || [],
       attrs: attrs
