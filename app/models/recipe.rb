@@ -89,7 +89,7 @@ class Recipe < ActiveRecord::Base
     breadth = 1
     recipes = []
 
-    targets = Nutrient.where('dv_unit is not null').map do |nutrient|
+    targets = Nutrient.where('dv_unit is not null').where(yummly_supported: true).map do |nutrient|
       orig_daily_value = opts[:bmr] / 2000 * nutrient.daily_value
       serving_value = opts[:days_eaten_recipes].compact.map{|r| r.nutrient_profile.servings.find{|s|s.nutrient_id == nutrient.id}.then(:value)}.compact.sum
       remaining_value = orig_daily_value - serving_value
@@ -106,18 +106,21 @@ class Recipe < ActiveRecord::Base
         Pusher.trigger("recipes-#{opts[:key]}", 'recipe-progress', { nums: opts[:nums], progress: progress }) if i % 25 == 0 && opts[:key]
         r[:recipe].nutrient_profile.servings.each do |serving|
           target = targets.find {|t| t[:id] == serving.nutrient.id}
-          if target
+          if target && serving.nutrient.prime
             if serving.unit.abbr_no_period == target[:dv_unit]
               serving_value = serving.value
             else
               serving_value = Unitwise(serving.value, serving.unit.name).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
             end
 
-            if serving_value < target[:daily_value]
-              r[:value] += serving_value / target[:daily_value] unless target[:daily_value] == 0
-            else
-              r[:value] += target[:daily_value] / serving_value unless serving_value == 0
+            unless serving.nutrient.minimize
+              if serving_value < target[:daily_value]
+                r[:value] += serving_value / target[:daily_value] unless target[:daily_value] == 0
+              else
+                r[:value] += target[:daily_value] / serving_value unless serving_value == 0
+              end
             end
+
             r[:num] += 1
           end
         end
@@ -139,7 +142,42 @@ class Recipe < ActiveRecord::Base
       recipes = _recipes if _recipes[0]
     end
 
-    recipe = recipes.shuffle[0].then(:recipe)
+    recipes.each do |r|
+      r[:value] = 0
+      r[:recipe].nutrient_profile.servings.each do |serving|
+        target = targets.find {|t| t[:id] == serving.nutrient.id}
+        if target && !serving.nutrient.prime
+          if serving.unit.abbr_no_period == target[:dv_unit]
+            serving_value = serving.value
+          else
+            serving_value = Unitwise(serving.value, serving.unit.name).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
+          end
+
+          unless serving.nutrient.minimize
+            if serving_value < target[:daily_value]
+              r[:value] += serving_value / target[:daily_value] unless target[:daily_value] == 0
+            else
+              r[:value] += target[:daily_value] / serving_value unless serving_value == 0
+            end
+          end
+
+          r[:num] += 1
+        end
+      end
+      r[:value] /= r[:num]
+    end
+    recipes = recipes.sort_by{|r| -r[:value]}
+
+    final_recipes = []
+    breadth = 1
+    while final_recipes.length < recipes.length * 0.1 && breadth > 0.1
+      breadth -= 0.1
+      final_recipes = recipes.select do |recipe|
+        recipe[:value] >= recipes[0][:value] * breadth
+      end
+    end
+
+    recipe = final_recipes.shuffle[0].then(:recipe)
     if recipe
       rsp = { success: true, recipe: recipe }
     else

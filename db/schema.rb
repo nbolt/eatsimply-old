@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141002193927) do
+ActiveRecord::Schema.define(version: 20141003224050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20141002193927) do
     t.boolean  "minimize"
     t.string   "dv_unit"
     t.string   "unitwise_method"
+    t.boolean  "prime"
   end
 
   create_table "recipe_images", force: true do |t|
