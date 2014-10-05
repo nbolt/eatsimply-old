@@ -13,7 +13,7 @@ twitter-blue  = #00abee
 html, body, .body
   height: 100%
   margin: 0
-  font-family: Open Sans, Helvetica Neue
+  font-family: Open Sans, Helvetica Neue,HelveticaNeue,Helvetica, Arial, sans-serif
   color: #222
   font-size: 100%
 
@@ -759,19 +759,27 @@ header.admin
     font-size: 2.7em
   .form
     margin-top: 25px
+    .row
+      .text
+        text-transform: uppercase
+        margin-bottom: 25px
+    .button
+      background-color: green
+      color: white
+      padding: 10px 20px
+      border-radius: 3px
+      display: inline-block
+      margin-bottom: 25px
+      &:hover
+        background-color: light-green
+        cursor: pointer
     .recipe
       padding-top: 25px
       border-top: thin solid #bbb
       .submit
         .button
-          background-color: green
-          color: white
-          padding: 10px 20px
-          border-radius: 3px
-          display: inline-block
-          &:hover
-            background-color: light-green
-            cursor: pointer
+          &:first-child
+            margin-right: 25px
     .field
       margin: 15px 0
       .input
@@ -789,6 +797,15 @@ header.admin
         .select2-choices
           border-radius: 3px
       &.title
+        .photo
+          width: 90px
+          height: 60px
+          background-color: #ccc
+          display: inline-block
+          vertical-align: top
+          background-size: cover
+          &:hover
+            cursor: pointer
         input
           width: 300px
           margin-left: 25px
@@ -797,7 +814,23 @@ header.admin
         font-size: 2em
         margin: 25px 0
       .ingredient
+        position: relative
         margin-bottom: 50px
+        .remove
+          position: absolute
+          right: 0
+          top: 70px
+          .typcn
+            font-size: 2em
+            color: #ccc
+            &::before
+              content:'\e121'
+          &:hover
+            cursor: pointer
+            .typcn::before
+              content:'\e122'
+              font-size: 1.1em
+              color: rgb(107,43,26)
         .subtitle
           font-weight: 600
         .field

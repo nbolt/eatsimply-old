@@ -81,19 +81,17 @@ class Recipe < ActiveRecord::Base
       end
       [(values.compact.sum / target[:value]).round(2) * 100, target[:nutrient].name]
     end
-
-    targets
   end
 
   def self.meal opts
     breadth = 1
     recipes = []
+    final_recipes = []
 
     targets = Nutrient.where('dv_unit is not null').where(yummly_supported: true).map do |nutrient|
       orig_daily_value = opts[:bmr] / 2000 * nutrient.daily_value
       serving_value = opts[:days_eaten_recipes].compact.map{|r| r.nutrient_profile.servings.find{|s|s.nutrient_id == nutrient.id}.then(:value)}.compact.sum
       remaining_value = orig_daily_value - serving_value
-      remaining_value = 0 if remaining_value < 0
       meal_value = orig_daily_value / opts[:meals]
       daily_value = [meal_value, remaining_value].min
       { id: nutrient.id, unitwise_method: nutrient.unitwise_method, dv_unit: nutrient.dv_unit, daily_value: daily_value, num: 0 }
@@ -120,7 +118,6 @@ class Recipe < ActiveRecord::Base
                 r[:value] += target[:daily_value] / serving_value unless serving_value == 0
               end
             end
-
             r[:num] += 1
           end
         end
@@ -142,6 +139,7 @@ class Recipe < ActiveRecord::Base
       recipes = _recipes if _recipes[0]
     end
 
+    targets.each {|target| target[:daily_value] = 0 if target[:daily_value] < 0}
     recipes.each do |r|
       r[:value] = 0
       r[:recipe].nutrient_profile.servings.each do |serving|
@@ -168,7 +166,6 @@ class Recipe < ActiveRecord::Base
     end
     recipes = recipes.sort_by{|r| -r[:value]}
 
-    final_recipes = []
     breadth = 1
     while final_recipes.length < recipes.length * 0.1 && breadth > 0.1
       breadth -= 0.1
@@ -178,6 +175,7 @@ class Recipe < ActiveRecord::Base
     end
 
     recipe = final_recipes.shuffle[0].then(:recipe)
+    recipe = recipes.shuffle[0].then(:recipe) unless recipe
     if recipe
       rsp = { success: true, recipe: recipe }
     else
@@ -214,7 +212,7 @@ class Recipe < ActiveRecord::Base
         else
           recipe = self.meal(meal_opts)[:recipe]
         end
-
+        # handle recipe not found
         days_recipes.push recipe
         recipes.last.push recipe
       end

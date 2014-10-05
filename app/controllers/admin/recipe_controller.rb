@@ -27,8 +27,8 @@ class Admin::RecipeController < AdminController
         name: params[:name],
         yummly_id: params[:id],
         time: params[:totalTimeInSeconds],
-        source: params[:source][:sourceRecipeUrl],
-        source_name: params[:source][:sourceDisplayName],
+        source: params[:source].then(:sourceRecipeUrl),
+        source_name: params[:source].then(:sourceDisplayName),
         yield: params[:yield],
         portion_size: params[:numberOfServings]
       )
@@ -45,17 +45,18 @@ class Admin::RecipeController < AdminController
         serving.nutrient = nutrient
         serving.value = 0
       end
+      binding.pry
       params[:ingredients].each do |i|
         if i[:profile]
           i[:amount] = i[:amount].to_frac
           ingredient = Ingredient.where(name: i[:profile][:text]).first ||
                        Ingredient.new(name: i[:profile][:text])
           ingredient.recipes.push recipe
-          unit = Unit.where(id: i[:unit][:id]).first
+          unit = Unit.where(id: i[:unit].then(:id)).first
           unless unit
-            unit = Unit.where(name: i[:unit][:name]).first ||
-                   Unit.where(abbr: i[:unit][:name]).first ||
-                   Unit.where(abbr_no_period: i[:unit][:name]).first
+            unit = Unit.where(name: i[:unit].then(:name)).first ||
+                   Unit.where(abbr: i[:unit].then(:name)).first ||
+                   Unit.where(abbr_no_period: i[:unit].then(:name)).first
             if unit
               i[:amount] *= i[:unit][:multiplier]
               i[:unit][:multiplier] = 1
@@ -102,9 +103,17 @@ class Admin::RecipeController < AdminController
           ingredient.save
         end
       end
-      recipe_image = recipe.recipe_images.build
-      recipe_image.remote_image_url = params[:images][0][:hostedLargeUrl]
-      recipe_image.save
+      if params[:images].chain(:first, :hostedLargeUrl)
+        recipe_image = recipe.recipe_images.build
+        recipe_image.remote_image_url = params[:images][0][:hostedLargeUrl]
+        recipe_image.save
+      elsif params[:photo]
+        recipe_image = recipe.recipe_images.build
+        recipe_image.remote_image_url = params[:photo]
+        if recipe_image.save
+          HTTParty.post("#{params[:photo]}/remove?key=#{ENV['FILEPICKER_KEY']}")
+        end
+      end
       if recipe.save
         render json: { success: true }
       else

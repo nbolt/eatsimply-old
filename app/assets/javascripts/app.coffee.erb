@@ -233,10 +233,47 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
         query.callback({ results: results.map (h) -> { id: h.id, text: h.name } })
     }
 
+  $scope.remove = (ingredient) ->
+    ingredient.unwatch()
+    $scope.info.ingredients.splice $scope.info.ingredients.indexOf(ingredient), 1
+
+  $scope.add = ->
+    ingredient = {}
+    $scope.info.ingredients.push ingredient
+    ingredient.unwatch =
+      $scope.$watch (-> ingredient.profile), (n,o) ->
+        if ingredient.combinedData
+          units = _(ingredient.combinedData[n.text]).map (h) -> { id: h._id, multiplier: h.fields.nf_serving_size_qty, name: h.fields.nf_serving_size_unit }
+          units = _(units).uniq (u) -> "#{u.multiplier} - #{u.name}"
+          $http.post('/admin/recipe/unitData', { units: units }).success (rsp) ->
+            ingredient.units = _(rsp).map (u) ->
+              text = if u.multiplier == 1 then '' else u.multiplier + ' '
+              { id: u._id, text: text + u.name, multiplier: u.multiplier, name: u.name }
+            unit = _(ingredient.units).find (u) -> u.name == ingredient.unit.abbr if ingredient.unit
+            angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('data', unit || ingredient.units[0]).select2('enable', true)
+
+  $scope.manual = ->
+    $scope.info = {}
+    $scope.info.ingredients = []
+    $scope.info.name = '[ Recipe name ]'
+
   $scope.submit = ->
     $http.post('/admin/recipe/create', $scope.info).success (rsp) ->
       if rsp.success
         $window.location = "/admin/recipe/manage"
+
+  $scope.uploadPhoto = ->
+    filepicker.pick(
+      {
+        mimetypes: ['image/*']
+        services:['COMPUTER', 'URL', 'INSTAGRAM', 'DROPBOX', 'GOOGLE_DRIVE', 'FACEBOOK', 'IMAGE_SEARCH', 'WEBCAM']
+        openTo: 'BOX'
+      },
+      (blob) ->
+        $scope.info.images = [{}]
+        $scope.info.images[0].hostedLargeUrl = blob.url
+        angular.element('.recipe .photo').css 'background-image', "url(#{blob.url})"
+    )
 
   $http.get('/admin/recipe/courses').success (courses) -> $scope.courses = courses
   $http.get('/admin/recipe/cuisines').success (cuisines) -> $scope.cuisines = cuisines
@@ -254,25 +291,26 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
         $timeout((->angular.element('.recipe .field.title img').attr 'src', $scope.info.images[0].hostedSmallUrl))
         $scope.info.ingredients = []
         _($scope.info.ingredientLines).each (line, i) ->
-          $scope.info.ingredients[i] = {}
-          $scope.info.ingredients[i].line = line
+          ingredient = {}
+          $scope.info.ingredients.push ingredient
+          ingredient.line = line
           $http.post('/admin/recipe/parse_line', { line: line }).success (rsp) ->
-            $scope.info.ingredients[i].amount = rsp.amount
-            $scope.info.ingredients[i].unit = rsp.unit
-            $scope.info.ingredients[i].name = rsp.name
-            $scope.info.ingredients[i].notes = $scope.info.ingredients[i].line
-            $scope.info.ingredients[i].units = []
-          $scope.$watch (-> $scope.info && $scope.info.ingredients[i].profile), (n,o) ->
-            ingredient = $scope.info.ingredients[i]
-            if ingredient.combinedData
-              units = _(ingredient.combinedData[n.text]).map (h) -> { id: h._id, multiplier: h.fields.nf_serving_size_qty, name: h.fields.nf_serving_size_unit }
-              units = _(units).uniq (u) -> "#{u.multiplier} - #{u.name}"
-              $http.post('/admin/recipe/unitData', { units: units }).success (rsp) ->
-                ingredient.units = _(rsp).map (u) ->
-                  text = if u.multiplier == 1 then '' else u.multiplier + ' '
-                  { id: u._id, text: text + u.name, multiplier: u.multiplier, name: u.name }
-                unit = _(ingredient.units).find (u) -> u.name == ingredient.unit.abbr
-                angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('data', unit || ingredient.units[0]).select2('enable', true)
+            ingredient.amount = rsp.amount
+            ingredient.unit = rsp.unit
+            ingredient.name = rsp.name
+            ingredient.notes = ingredient.line
+            ingredient.units = []
+          ingredient.unwatch =
+            $scope.$watch (-> ingredient.profile), (n,o) ->
+              if ingredient.combinedData
+                units = _(ingredient.combinedData[n.text]).map (h) -> { id: h._id, multiplier: h.fields.nf_serving_size_qty, name: h.fields.nf_serving_size_unit }
+                units = _(units).uniq (u) -> "#{u.multiplier} - #{u.name}"
+                $http.post('/admin/recipe/unitData', { units: units }).success (rsp) ->
+                  ingredient.units = _(rsp).map (u) ->
+                    text = if u.multiplier == 1 then '' else u.multiplier + ' '
+                    { id: u._id, text: text + u.name, multiplier: u.multiplier, name: u.name }
+                  unit = _(ingredient.units).find (u) -> u.name == ingredient.unit.abbr if ingredient.unit
+                  angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('data', unit || ingredient.units[0]).select2('enable', true)
 
         null
 ]

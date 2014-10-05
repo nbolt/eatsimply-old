@@ -4,11 +4,15 @@
     .row
       .field
         input.input type='text' placeholder='Yummly URL' ng:model='yummly_url'
+    .row
+      .text Or
+    .row
+      .button ng:click='manual()' Manual Entry
 
     .recipe ng:if='showRecipe()'
 
       .field.title
-        img ng:src='{{$scope.info.images[0].hostedLargeUrl}}'
+        .photo ng:click='uploadPhoto()' style='background-image:url({{$scope.info.images[0].hostedLargeUrl}})'
         input.input type='text' ng:model='info.name'
 
       .field
@@ -26,6 +30,8 @@
       .ingredients
         .title Ingredients
         .ingredient ng:repeat='ingredient in info.ingredients' id='i{{ingredient.$$hashKey}}'
+          .remove ng:click='ingredient.unwatch();remove(ingredient)'
+            .typcn
           .field.notes
             input.input type='text' ng:model='ingredient.notes'
             .desc Description
@@ -44,4 +50,5 @@
             input.input ui-select2='unitHash(ingredient)' ng:model='ingredient.unit' disabled='disabled'
             .desc Unit
       .submit
+        .button ng:click='add()' Add Ingredient
         .button ng:click='submit()' Create
