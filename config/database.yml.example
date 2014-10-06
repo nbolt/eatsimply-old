@@ -13,7 +13,7 @@ test:
   encoding: unicode
   database: eatt_test
   pool: 5
-  username: angie
+  username: postgres
   password:
   host: <%= ENV.fetch('DB_1_PORT_5432_TCP_ADDR', 'localhost') %>
   port: <%= ENV.fetch('DB_1_PORT_5432_TCP_PORT', '5432') %>
@@ -23,7 +23,7 @@ production:
   encoding: unicode
   database: eatt_production
   pool: 5
-  username: angie
+  username: postgres
   password:
   host: <%= ENV.fetch('DB_1_PORT_5432_TCP_ADDR', 'localhost') %>
   port: <%= ENV.fetch('DB_1_PORT_5432_TCP_PORT', '5432') %>

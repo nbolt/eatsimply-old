@@ -1,4 +1,4 @@
-url = "https://quay.io/api/v1/repository/eatt/eatt/trigger/2737c4a0-76fd-4697-a05a-ac1b2301844c/start"
+url = "https://quay.io/api/v1/repository/eatt/eatt/trigger/d8a0663b-8564-428e-a576-519621ed379e/start"
 
 namespace :quay do
   namespace :build do

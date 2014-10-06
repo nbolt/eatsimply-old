@@ -3,6 +3,7 @@ RUN apt-get update -qq && apt-get install -y build-essential git nodejs libpq-de
 RUN mkdir /eatt
 WORKDIR /eatt
 ADD . /eatt
+RUN cp config/database.yml.example config/database.yml
 RUN bundle install
 
 ENV RAILS_ENV production
