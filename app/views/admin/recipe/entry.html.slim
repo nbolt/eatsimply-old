@@ -12,7 +12,7 @@
     .recipe ng:if='showRecipe()'
 
       .field.title
-        .photo ng:click='uploadPhoto()' style='background-image:url({{$scope.info.images[0].hostedLargeUrl}})'
+        .photo ng:click='uploadPhoto()'
         input.input type='text' ng:model='info.name'
 
       .field
@@ -51,4 +51,4 @@
             .desc Unit
       .submit
         .button ng:click='add()' Add Ingredient
-        .button ng:click='submit()' Create
+        .button ng:click='submit()' Submit Recipe

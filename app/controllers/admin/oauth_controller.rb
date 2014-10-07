@@ -1,7 +1,7 @@
 class Admin::OauthController < AdminController
 
 	def quay
-   render nothing: true
+    render nothing: true
 	end
 
 end

@@ -5,6 +5,7 @@ Eatt::Application.routes.draw do
   get '/admin' => 'admin#index'
   namespace :admin do
     match '/recipe/:action' => 'recipe', via: [:get, :post]
+    match '/recipe/:id/:action' => 'recipe', via: [:get, :post]
     match '/oauth/:action' => 'oauth', via: [:get, :post]
   end
 

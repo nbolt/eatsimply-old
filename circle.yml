@@ -4,10 +4,10 @@ deployment:
     commands:
       - git push git@heroku.com:eatt-staging.git $CIRCLE_SHA1:master
       - heroku run rake db:migrate --app eatt-staging
-      - bundle exec rake quay:build:develop
+      # - bundle exec rake quay:build:develop
   production:
     branch: master
     commands:
       - git push git@heroku.com:eatt.git $CIRCLE_SHA1:master
       - heroku run rake db:migrate --app eatt
-      - bundle exec rake quay:build:master
+      # - bundle exec rake quay:build:master

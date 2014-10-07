@@ -16,12 +16,10 @@ class Object
       self && yield(self)
     else
       if self
-        if self.class == Hash
-          self[method]
-        elsif self.respond_to?(method)
+        if self.respond_to?(method)
           self.send method
         else
-          nil
+          self[method]
         end
       else
         nil

@@ -1,11 +1,13 @@
 class Admin::RecipeController < AdminController
 
+  expose(:recipe) { Recipe.where(id: params[:id])[0] }
+
   def info
     if Settings.first && Settings.first.recipe_cache
       render json: Settings.first.recipe_cache
     else
       rsp = HTTParty.get("http://api.yummly.com/v1/api/recipe/#{params[:recipe_id]}?_app_id=#{ENV['YUM_API_ID']}&_app_key=#{ENV['YUM_API_KEY']}")
-      Settings.first.update_attribute :recipe_cache, rsp.as_json if Rails.env == 'development' && Settings.first && Settings.first.cache_recipe
+      Settings.first.update_attribute :recipe_cache, rsp.as_json if Rails.env == 'development' && Settings.chain(:first, :cache_recipe)
       render json: rsp
     end
   end
@@ -16,6 +18,22 @@ class Admin::RecipeController < AdminController
       render json: u
     else
       render json: { _id: params[:id], name: params[:id], abbr: params[:id] }
+    end
+  end
+
+  def view
+  end
+
+  def destroy
+    recipe.destroy
+    render nothing: true
+  end
+
+  def recipes
+    if params[:page]
+      render json: Kaminari.paginate_array(Recipe.all.sort_by(&:algo_count).reverse).page(params[:page]).per(30)
+    else
+      render json: Recipe.all.sort_by(&:algo_count).reverse
     end
   end
 
@@ -33,9 +51,9 @@ class Admin::RecipeController < AdminController
         portion_size: params[:numberOfServings]
       )
       params[:attributes].each do |key, attributes| # courses, cuisines, and diets
-        if attributes
+        if attributes && ['diets', 'cuisines', 'courses'].index(key)
           attributes.each do |attribute|
-            recipe.send(key).push key[0..-2].capitalize.constantize.find(attribute['id'])
+            recipe.send(key).push key[0..-2].capitalize.constantize.where(name: attribute['text'])[0]
           end
         end
       end
@@ -45,18 +63,17 @@ class Admin::RecipeController < AdminController
         serving.nutrient = nutrient
         serving.value = 0
       end
-      binding.pry
       params[:ingredients].each do |i|
         if i[:profile]
           i[:amount] = i[:amount].to_frac
           ingredient = Ingredient.where(name: i[:profile][:text]).first ||
                        Ingredient.new(name: i[:profile][:text])
           ingredient.recipes.push recipe
-          unit = Unit.where(id: i[:unit].then(:id)).first
+          unit = Unit.where(id: i.chain(:unit, :id)).first
           unless unit
-            unit = Unit.where(name: i[:unit].then(:name)).first ||
-                   Unit.where(abbr: i[:unit].then(:name)).first ||
-                   Unit.where(abbr_no_period: i[:unit].then(:name)).first
+            unit = Unit.where(name: i.chain(:unit, :text)).first ||
+                   Unit.where(abbr: i.chain(:unit, :abbr)).first ||
+            unit = Unit.where(abbr_no_period: i.chain(:unit, :abbr)).first if i.chain(:unit, :abbr)
             if unit
               i[:amount] *= i[:unit][:multiplier]
               i[:unit][:multiplier] = 1
@@ -85,12 +102,12 @@ class Admin::RecipeController < AdminController
                   fapu  = usda['FAPU']['value']
                   fat   = usda['FAT']['value']
                   serving.value = fat - (fapu + fams + fasat)
-                  serving.unit = Unit.where(abbr: usda['FAT']['uom']).first
+                  serving.unit = Unit.where(abbr: usda['FAT']['uom']).first || Unit.where(abbr_no_period: usda['FAT']['uom']).first
                 else
                   serving.value = usda[nutrient.attr]['value']
-                  serving.unit = Unit.where(abbr: usda[nutrient.attr]['uom']).first
+                  serving.unit = Unit.where(abbr: usda[nutrient.attr]['uom'])[0] || Unit.where(abbr_no_period: usda[nutrient.attr]['uom'])[0]
                 end
-                serving.value *= i[:unit][:multiplier] * i[:amount]
+                serving.value *= i[:unit][:multiplier] * i[:amount] if i.chain(:unit, :multiplier)
                 serving.save
                 recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient.id}
                 recipe_serving.unit = serving.unit
@@ -109,13 +126,11 @@ class Admin::RecipeController < AdminController
         recipe_image.save
       elsif params[:photo]
         recipe_image = recipe.recipe_images.build
-        recipe_image.remote_image_url = params[:photo]
-        if recipe_image.save
-          HTTParty.post("#{params[:photo]}/remove?key=#{ENV['FILEPICKER_KEY']}")
-        end
+        recipe_image.remote_image_url = params[:photo]        
+        HTTParty.post("#{params[:photo]}/remove?key=#{ENV['FILEPICKER_KEY']}") if recipe_image.save
       end
       if recipe.save
-        render json: { success: true }
+        render json: { success: true, id: recipe.id }
       else
         render json: { success: false, message: recipe.errors.full_messages[0] }
       end

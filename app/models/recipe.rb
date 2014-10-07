@@ -177,6 +177,7 @@ class Recipe < ActiveRecord::Base
     recipe = final_recipes.shuffle[0].then(:recipe)
     recipe = recipes.shuffle[0].then(:recipe) unless recipe
     if recipe
+      recipe.update_attribute :algo_count, recipe.algo_count + 1
       rsp = { success: true, recipe: recipe }
     else
       rsp = { success: false, message: 'No recipes found' }

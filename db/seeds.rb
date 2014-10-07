@@ -59,7 +59,7 @@ Nutrient.create!([
   {name: "Iron", minimize: false, prime: true, daily_value: 18, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_iron_dv", yummly_supported: true, nutri_supported: nil, attr: "FE"},
   {name: "Calories", minimize: prime: true, false, daily_value: 2000, dv_unit: 'kcal', group: nil, yummly_unit: "kcal", yummly_field: "nf_calories", yummly_supported: true, nutri_supported: nil, attr: "ENERC_KCAL"},
   {name: "Fat", minimize: true, daily_value: 65, dv_unit: 'g', group: nil, yummly_unit: "gram", yummly_field: "nf_total_fat", yummly_supported: true, nutri_supported: nil, attr: "FAT"},
-  {name: "Trans Fat", minimize: true, group: nil, yummly_unit: "gram", yummly_field: "nf_trans_fatty_acid", yummly_supported: true, nutri_supported: nil, attr: "FATRN"},
+  {name: "Trans Fat", minimize: true, group: nil, dv_unit:'g', yummly_unit: "gram", yummly_field: "nf_trans_fatty_acid", yummly_supported: true, nutri_supported: nil, attr: "FATRN"},
   {name: "Cholesterol", minimize: true, daily_value: 300, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_cholesterol", yummly_supported: true, nutri_supported: nil, attr: "CHOLE"},
   {name: "Sodium", minimize: true, daily_value: 2400, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_sodium", yummly_supported: true, nutri_supported: nil, attr: "NA"},
   {name: "Carbohydrates", minimize: false, prime: true, daily_value: 300, dv_unit: 'g', group: nil, yummly_unit: "gram", yummly_field: "nf_total_carbohydrate", yummly_supported: true, nutri_supported: nil, attr: "CHOCDF"},
@@ -73,7 +73,7 @@ Nutrient.create!([
   {name: "Niacin", minimize: false, daily_value: 20, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "NIA"},
   {name: "Selenium", minimize: false, daily_value: 70, dv_unit: 'mcg', unitwise_method: 'microgram', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "SE"},
   {name: "Zinc", minimize: false, daily_value: 15, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "ZN"},
-  {name: "Starch", minimize: false, group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "STARCH"},
+  {name: "Starch", minimize: false, group: nil, dv:unit: 'g', yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "STARCH"},
   {name: "Saturated Fat", minimize: true, daily_value: 20, dv_unit: 'g', group: nil, yummly_unit: "gram", yummly_field: "nf_saturated_fat", yummly_supported: true, nutri_supported: nil, attr: "FASAT"},
   {name: "Thiamin", minimize: false, daily_value: 1.5, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "THIA"},
   {name: "Vitamin B6", minimize: false, daily_value: 2, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "VITB6A"},
@@ -110,47 +110,4 @@ Unit.create!([
   {name: "international unit", abbr: "IU", generic: true, abbr_no_period: "IU"},
   {name: "kilocalorie", abbr: "kcal.", generic: true, abbr_no_period: "kcal"}
 ])
-end
-
-
-MAXRESULT = 10
-
-cuisine = nil
-(Course.where(name:['Main Dishes', 'Lunch and Snacks', 'Breakfast and Brunch']) + [nil]).each do |course|
-  Nutrient.where(yummly_supported: true, minimize: false).each do |nutrient|
-    unless nutrient.name == 'Calories'
-      (Diet.where(name: ['Vegan', 'Vegetarian']) + [nil]).each do |diet|
-        url = "http://api.yummly.com/v1/api/recipes?_app_id=#{ENV['YUM_API_ID']}&_app_key=#{ENV['YUM_API_KEY']}&requirePictures=true&maxResult=20&start=0"
-        url += "&allowedCuisine[]=#{cuisine.yummly_attr}" if cuisine
-        url += "&allowedDiet[]=#{diet.yummly_attr}" if diet
-        url += "&allowedCourse[]=#{course.yummly_attr}" if course
-        converted_value = Unitwise(nutrient.daily_value, nutrient.dv_unit).send("to_#{nutrient.unitwise_method || nutrient.yummly_unit}").to_f
-        url += "&nutrition.#{nutrient.attr}.min=#{converted_value / 3.5}"
-        url += "&nutrition.#{nutrient.attr}.max=#{converted_value}"
-        yum = HTTParty.get(URI::escape url)
-        imports = 0; tries = 0; start = 0
-        while imports < MAXRESULT && yum['matches']
-          if yum['matches'][tries]
-            attrs = { 'diet' => [] }
-            attrs['diet'].push diet.name if diet
-            attrs['diet'].push 'Vegetarian' if diet && diet.name == 'Vegan'
-            rsp = Recipe.import yum['matches'][tries]['id'], attrs
-            tries += 1
-            puts '------------'
-            if rsp[:success]
-              imports += 1
-              puts "#{Recipe.count}: #{rsp[:recipe].name}"
-            else
-              puts rsp[:message]
-            end
-            puts '------------'
-          else
-            start += tries
-            tries = 0
-            yum = HTTParty.get(URI::escape url.gsub(/start=\d+/, "start=#{start}"))
-          end
-        end
-      end
-    end
-  end
 end

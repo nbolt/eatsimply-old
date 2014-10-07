@@ -191,6 +191,27 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       )
 ]
 
+RecipeManage = ['$scope', '$http', ($scope, $http) ->
+
+  $scope.page = 1
+
+  $http.get('/admin/recipe/recipes?page=1').success (recipes) -> $scope.recipes = recipes
+
+  $scope.next = ->
+    $scope.page += 1
+    $http.get("/admin/recipe/recipes?page=#{$scope.page}").success (recipes) -> $scope.recipes = recipes
+
+  $scope.prev = ->
+    if $scope.page > 1
+      $scope.page -= 1
+      $http.get("/admin/recipe/recipes?page=#{$scope.page}").success (recipes) -> $scope.recipes = recipes
+
+  $scope.destroy = (id) ->
+    angular.element("#recipe-#{id}").fadeOut()
+    $http.post("/admin/recipe/#{id}/destroy")
+
+]
+
 RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeout, $window) ->
 
   $scope.showRecipe = -> $scope.info && $scope.info.name
@@ -250,7 +271,7 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
               text = if u.multiplier == 1 then '' else u.multiplier + ' '
               { id: u._id, text: text + u.name, multiplier: u.multiplier, name: u.name }
             unit = _(ingredient.units).find (u) -> u.name == ingredient.unit.abbr if ingredient.unit
-            angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('data', unit || ingredient.units[0]).select2('enable', true)
+            angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('data', []).select2('enable', true)
 
   $scope.manual = ->
     $scope.info = {}
@@ -258,9 +279,10 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
     $scope.info.name = '[ Recipe name ]'
 
   $scope.submit = ->
+    angular.element('.recipe .submit .button:eq(1)').text('Submitting...')
     $http.post('/admin/recipe/create', $scope.info).success (rsp) ->
       if rsp.success
-        $window.location = "/admin/recipe/manage"
+        $window.location = "/admin/recipe/#{rsp.id}/view"
 
   $scope.uploadPhoto = ->
     filepicker.pick(
@@ -285,10 +307,10 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
     if n && n.match(/yummly/)
       recipe_id = n.split('/')[n.split('/').length-1].split('?')[0]
       $http.get("/admin/recipe/info?recipe_id=#{recipe_id}").success (rsp) ->
-        rsp.attributes.courses  = _(rsp.attributes.courses).map (c) -> { id: c, text: c }
-        rsp.attributes.cuisines = _(rsp.attributes.cuisines).map (c) -> { id: c, text: c }
+        rsp.attributes.courses  = _(rsp.attributes.course).map (c) -> { id: c, text: c }
+        rsp.attributes.cuisines = _(rsp.attributes.cuisine).map (c) -> { id: c, text: c }
         $scope.info = rsp
-        $timeout((->angular.element('.recipe .field.title img').attr 'src', $scope.info.images[0].hostedSmallUrl))
+        $timeout((->angular.element('.recipe .field.title .photo').css 'background-image', "url(#{$scope.info.images[0].hostedSmallUrl})"))
         $scope.info.ingredients = []
         _($scope.info.ingredientLines).each (line, i) ->
           ingredient = {}
@@ -310,7 +332,7 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
                     text = if u.multiplier == 1 then '' else u.multiplier + ' '
                     { id: u._id, text: text + u.name, multiplier: u.multiplier, name: u.name }
                   unit = _(ingredient.units).find (u) -> u.name == ingredient.unit.abbr if ingredient.unit
-                  angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('data', unit || ingredient.units[0]).select2('enable', true)
+                  angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('data', []).select2('enable', true)
 
         null
 ]
@@ -321,6 +343,7 @@ app = angular.module('eatt', ['ngCookies', 'ui.select2'])
   .controller('meal',          MealCtrl)
   .controller('plan',          PlanCtrl)
   .controller('recipe_entry',  RecipeEntry)
+  .controller('recipe_manage', RecipeManage)
   .config ['$httpProvider', ($httpProvider) ->
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = angular.element('meta[name=csrf-token]').attr 'content'
   ]
