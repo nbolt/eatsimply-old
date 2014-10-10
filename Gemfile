@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.1'
+ruby '2.1.2'
 
 gem 'rails'
 gem 'puma'
@@ -18,6 +18,7 @@ end
 
 group :development do
   gem 'pry-rails'
+  gem 'seed_dump'
 end
 
 group :production do
@@ -34,13 +35,16 @@ gem 'coveralls', require: false, group: :test
 
 gem 'rspec-rails', group: [:development, :test]
 
-gem 'sorcery',       github: 'NoamB/sorcery', branch: 'master'
-gem 'rmagick',       github: 'rmagick/rmagick', branch: 'master'
-gem 'stylus',        github: 'lucasmazza/ruby-stylus', group: :assets
-
+#gem 'active_nutrition', github: 'Eatt/active_nutrition', branch: 'master'
+gem 'stylus',           github: 'lucasmazza/ruby-stylus', group: :assets
+gem 'rmagick', require: false
 
 gem 'simplecov', '~> 0.7.1'
+gem 'sorcery'
+gem 'rails_admin'
 gem 'appsignal'
+gem 'pg_search'
+gem 'httparty'
 gem 'friendly_id'
 gem 'sentry-raven'
 gem 'jbuilder'
@@ -62,4 +66,7 @@ gem 'rack-rewrite'
 gem 'sucker_punch'
 gem 'analytics-ruby'
 gem 'angular_rails_csrf'
+gem 'skylight'
+gem 'unitwise'
+gem 'pusher'
 #gem 'breach-mitigation-rails'

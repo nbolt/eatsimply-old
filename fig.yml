@@ -1,0 +1,13 @@
+db:
+  image: postgres
+  ports:
+    - "5432"
+web:
+  build: .
+  command: bundle exec puma -p 3000
+  volumes:
+    - .:/eatt
+  ports:
+    - "3000:3000"
+  links:
+    - db

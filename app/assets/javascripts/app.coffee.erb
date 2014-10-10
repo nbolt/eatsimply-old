@@ -1,0 +1,369 @@
+AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
+  source = null
+  $scope.modal = {}
+  $scope.days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
+  $scope.form =
+    weight: 60
+    height: 180
+    age: 24
+
+  $scope.openModal = ->
+    angular.element('#modal').css('display', 'block')
+    $timeout(-> angular.element('#modal').css('opacity', 1))
+    null
+
+  $scope.openModalV = ->
+    angular.element('#vegas-modal').css('display', 'block').css('opacity', 1)
+    $timeout(-> angular.element('#vegas-modal').css('opacity', 1))
+    null
+
+  $scope.showEmail = ->
+    angular.element('.go-button .icon, .go-button .text').css('opacity', 0)
+    $timeout(
+      (->
+        angular.element('.go-button .icon, .go-button .text').css('display', 'none')
+        angular.element('.go-button .button, .go-button input').css('display', 'block')
+      ), 400
+    )
+    $timeout(
+      (->
+        angular.element('.go-button .button, .go-button input').css('opacity', 1)
+      ), 500
+    )
+
+  $scope.openMealForm = ->
+    $http.post(
+      '/data/new_email',
+      {
+        email:
+          email: $scope.email
+      }
+    ).success (rsp) ->
+      if rsp.success
+        angular.element('#modal').css('opacity', 0)
+        angular.element('#meal-form').css('display', 'block')
+        $.scrollTo('#meal-form', 800, 'swing')
+        $timeout(-> angular.element('#meal-form').css('opacity', 1))
+        $timeout(
+          (->
+            angular.element('#modal').css('display', 'none')
+          ), 400
+        )
+
+  $scope.openMealFormV = ->
+    $http.post(
+      '/data/new_vegas_email',
+      {
+        email:
+          email: $scope.vegas_email
+          vegas: true
+      }
+    ).success (rsp) ->
+      if rsp.success
+        angular.element('#vegas-modal').css('opacity', 0)
+        angular.element('#meal-form').css('display', 'block')
+        $.scrollTo('#meal-form', 800, 'swing')
+        $timeout(-> angular.element('#meal-form').css('opacity', 1))
+        $timeout(
+          (->
+            angular.element('#vegas-modal').css('display', 'none')
+          ), 400
+        )
+
+  $scope.openMealPlan = ->
+    angular.element('#meal-plan').css('display', 'block')
+    $timeout(-> angular.element('#meal-plan').css('opacity', 1))
+    $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
+
+    key = ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).slice(-4)
+    pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>")
+    channel = pusher.subscribe("recipes-#{key}")
+    channel.bind('new-recipe', new_recipe)
+    channel.bind('recipe-progress', recipe_progress)
+    channel.bind('close', -> pusher.disconnect())
+    channel.bind('pusher:subscription_succeeded', ->
+      $http.post('/data/recipes',
+        {
+          key: key,
+          diet: $scope.form.diet,
+          gender: $scope.form.gender,
+          goal: $scope.form.weight_goal,
+          activity_level: $scope.form.activity_level,
+          weight: $scope.form.weight,
+          height: $scope.form.height,
+          age: $scope.form.age,
+          cuisines: $scope.form.cuisines
+        }
+      )
+    )
+
+  new_recipe = (rsp) -> $scope.$apply -> $scope.days[rsp.nums[0]].meals[rsp.nums[1]].recipes.push rsp.recipe
+
+  recipe_progress = (rsp) ->
+    nums = rsp.nums
+    $scope.$apply ->
+      angular.element('#progress .bar').css('width', "#{rsp.progress}%")
+      $scope.days[nums[0]].meals = [] unless $scope.days[nums[0]].meals
+      $scope.days[nums[0]].meals[nums[1]] = {} unless $scope.days[nums[0]].meals[nums[1]]
+      $scope.days[nums[0]].meals[nums[1]].recipes = [] unless $scope.days[nums[0]].meals[nums[1]].recipes
+]
+
+HomeCtrl = ['$scope', '$http', ($scope, $http) ->
+
+
+]
+
+MealCtrl = ['$scope', '$http', ($scope, $http) ->
+
+  $scope.$watch 'form.diet', (n,o) ->
+    if n && _(['a','e','i','o','u']).indexOf(n.text[0]) == -1
+      angular.element('#aan').text "cm tall. I'm a"
+    else
+      angular.element('#aan').text "cm tall. I'm an"
+
+  $scope.goalHash = ->
+    {
+      minimumResultsForSearch: 8
+      dropdownCssClass: 'meal-plan-natural'
+      data: [{ id: 'maintain', text: 'maintain' }, { id: 'lose', text: 'lose' }, { id: 'gain', text: 'gain' }]
+      initSelection: (elem, cb) -> cb { id: 'maintain', text: 'maintain' }
+    }
+    
+  $scope.genderHash = ->
+    {
+      minimumResultsForSearch: 8
+      dropdownCssClass: 'meal-plan-natural'
+      data: [{ id: 'm', text: 'male' }, { id: 'f', text: 'female' }]
+      initSelection: (elem, cb) -> cb { id: 'f', text: 'female' }
+    }
+
+  $scope.activityHash = ->
+    {
+      minimumResultsForSearch: 8
+      dropdownCssClass: 'meal-plan-natural'
+      data: [{ id: 0, text: 'not active' }, { id: 1, text: 'lightly active' }, { id: 2, text: 'moderately active' }, { id: 3, text: 'heavily active' }, { id: 4, text: 'very heavily active' }]
+      initSelection: (elem, cb) -> cb { id: 1, text: 'lightly active' }
+    }
+
+  $scope.dietHash = ->
+    {
+      minimumResultsForSearch: 8
+      dropdownCssClass: 'meal-plan-natural'
+      data: []
+      initSelection: (el, cb) -> $http.get('/data/diets').success (rsp) -> cb { id: rsp[rsp.length-1].id, text: rsp[rsp.length-1].name.toLowerCase() }
+      ajax:
+        url: "/data/diets"
+        data: (term) -> { term: term }
+        quietMillis: 400
+        results: (data) -> { results: _(data).map (i) -> { id: i.id, text: i.name.toLowerCase() } }
+    }
+
+  $scope.multiHash = (hash) ->
+    {
+      multiple: true
+      dropdownCssClass: 'meal-plan-classic'
+      minimumInputLength: 3
+      data: []
+      ajax:
+        url: "/data/#{hash}"
+        data: (term) -> { term: term }
+        quietMillis: 400
+        results: (data) -> { results: _(data).map (i) -> { id: i.id, text: i.name } }
+    }
+]
+
+
+PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
+
+  $scope.shuffle = (day, meal) ->
+    $http.post(
+      '/data/new_recipes',
+      {
+        recipes: _(_(_($scope.days).map( (d) -> _(d.meals).map( (m) -> m.recipes ) )).flatten()).map (r) -> r.id
+      }
+    ).success (rsp) ->
+      angular.element("##{day.name} .meal:eq(#{meal}) .recipes").css 'opacity', 0
+      $timeout(
+        (->
+          day.meals[meal].recipes = rsp
+          angular.element("##{day.name} .meal:eq(#{meal}) .recipes").css 'opacity', 1
+        ), 400
+      )
+]
+
+RecipeManage = ['$scope', '$http', ($scope, $http) ->
+
+  $scope.page = 1
+
+  $http.get('/admin/recipe/recipes?page=1').success (recipes) -> $scope.recipes = recipes
+
+  $scope.next = ->
+    $scope.page += 1
+    $http.get("/admin/recipe/recipes?page=#{$scope.page}").success (recipes) -> $scope.recipes = recipes
+
+  $scope.prev = ->
+    if $scope.page > 1
+      $scope.page -= 1
+      $http.get("/admin/recipe/recipes?page=#{$scope.page}").success (recipes) -> $scope.recipes = recipes
+
+  $scope.destroy = (id) ->
+    angular.element("#recipe-#{id}").fadeOut()
+    $http.post("/admin/recipe/#{id}/destroy")
+
+]
+
+RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeout, $window) ->
+
+  $scope.showRecipe = -> $scope.info && $scope.info.name
+
+  $scope.nutriHash = (ingredient) ->
+    {
+      dropdownCssClass: 'recipe-creation-ingredient'
+      minimumInputLength: 3
+      data: []
+      ajax:
+        url: "/admin/recipe/nutritionix"
+        data: (term) -> { term: term }
+        quietMillis: 600
+        results: (data) ->
+          if (data && data[0])
+            ingredient.combinedData = _(data).groupBy (h) -> h.fields.item_name.split(' - ')[0]
+            { results: _(ingredient.combinedData).map (v,k) -> { id: k, text: k } }
+    }
+
+  $scope.unitHash = (ingredient) ->
+    {
+      dropdownCssClass: 'recipe-creation-unit'
+      formatResultCssClass: -> 'recipe-creation-unit'
+      formatSelection: (obj, con) -> obj.abbr || obj.text
+      minimumResultsForSearch: 10
+      initSelection: (element, callback) ->
+        if $(element).val() && !_(ingredient.units).find((u) -> u.id == $(element).val())
+          $http.get('/admin/recipe/unit?id=' + $(element).val()).success (unit) -> callback({id:unit.id,text:unit.name,abbr:unit.abbr})
+      query: (query) -> query.callback({ results: ingredient.units })
+    }
+
+  $scope.genHash = (hash) ->
+    {
+      tags: []
+      multiples: true
+      dropdownCssClass: 'recipe-creation-multi'
+      formatResultCssClass: -> 'recipe-creation-multi'
+      query: (query) ->
+        results = _($scope[hash]).filter (item) -> item.name.match(query.term) || item.name.toLowerCase().match(query.term)
+        query.callback({ results: results.map (h) -> { id: h.id, text: h.name } })
+    }
+
+  $scope.remove = (ingredient) ->
+    ingredient.unwatch()
+    $scope.info.ingredients.splice $scope.info.ingredients.indexOf(ingredient), 1
+
+  $scope.add = ->
+    ingredient = {}
+    $scope.info.ingredients.push ingredient
+    ingredient.unwatch =
+      $scope.$watch (-> ingredient.profile), (n,o) ->
+        if ingredient.combinedData
+          units = _(ingredient.combinedData[n.text]).map (h) -> { id: h._id, multiplier: h.fields.nf_serving_size_qty, name: h.fields.nf_serving_size_unit }
+          units = _(units).uniq (u) -> "#{u.multiplier} - #{u.name}"
+          $http.post('/admin/recipe/unitData', { units: units }).success (rsp) ->
+            ingredient.units = _(rsp).map (u) ->
+              text = if u.multiplier == 1 then '' else u.multiplier + ' '
+              { id: u._id, text: text + u.name, multiplier: u.multiplier, name: u.name }
+            unit = _(ingredient.units).find (u) -> u.name == ingredient.unit.abbr if ingredient.unit
+            angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('data', []).select2('enable', true)
+
+  $scope.manual = ->
+    $scope.info = {}
+    $scope.info.ingredients = []
+    $scope.info.name = '[ Recipe name ]'
+
+  $scope.submit = ->
+    angular.element('.recipe .submit .button:eq(1)').text('Submitting...')
+    $http.post('/admin/recipe/create', $scope.info).success (rsp) ->
+      if rsp.success
+        $window.location = "/admin/recipe/#{rsp.id}/view"
+
+  $scope.uploadPhoto = ->
+    filepicker.pick(
+      {
+        mimetypes: ['image/*']
+        services:['COMPUTER', 'URL', 'INSTAGRAM', 'DROPBOX', 'GOOGLE_DRIVE', 'FACEBOOK', 'IMAGE_SEARCH', 'WEBCAM']
+        openTo: 'BOX'
+      },
+      (blob) ->
+        $scope.info.images = [{}]
+        $scope.info.images[0].hostedLargeUrl = blob.url
+        angular.element('.recipe .photo').css 'background-image', "url(#{blob.url})"
+    )
+
+  $http.get('/admin/recipe/courses').success (courses) -> $scope.courses = courses
+  $http.get('/admin/recipe/cuisines').success (cuisines) -> $scope.cuisines = cuisines
+  $http.get('/admin/recipe/diets').success (diets) -> $scope.diets = diets
+  $http.get('/admin/recipe/units').success (units) -> $scope.units = units
+
+  $scope.$watch 'yummly_url', (n,o) ->
+    $scope.info = null
+    if n && n.match(/yummly/)
+      recipe_id = n.split('/')[n.split('/').length-1].split('?')[0]
+      $http.get("/admin/recipe/info?recipe_id=#{recipe_id}").success (rsp) ->
+        rsp.attributes.courses  = _(rsp.attributes.course).map (c) -> { id: c, text: c }
+        rsp.attributes.cuisines = _(rsp.attributes.cuisine).map (c) -> { id: c, text: c }
+        $scope.info = rsp
+        $timeout((->angular.element('.recipe .field.title .photo').css 'background-image', "url(#{$scope.info.images[0].hostedSmallUrl})"))
+        $scope.info.ingredients = []
+        _($scope.info.ingredientLines).each (line, i) ->
+          ingredient = {}
+          $scope.info.ingredients.push ingredient
+          ingredient.line = line
+          $http.post('/admin/recipe/parse_line', { line: line }).success (rsp) ->
+            ingredient.amount = rsp.amount
+            ingredient.unit = rsp.unit
+            ingredient.name = rsp.name
+            ingredient.notes = ingredient.line
+            ingredient.units = []
+          ingredient.unwatch =
+            $scope.$watch (-> ingredient.profile), (n,o) ->
+              if ingredient.combinedData
+                units = _(ingredient.combinedData[n.text]).map (h) -> { id: h._id, multiplier: h.fields.nf_serving_size_qty, name: h.fields.nf_serving_size_unit }
+                units = _(units).uniq (u) -> "#{u.multiplier} - #{u.name}"
+                $http.post('/admin/recipe/unitData', { units: units }).success (rsp) ->
+                  ingredient.units = _(rsp).map (u) ->
+                    text = if u.multiplier == 1 then '' else u.multiplier + ' '
+                    { id: u._id, text: text + u.name, multiplier: u.multiplier, name: u.name }
+                  unit = _(ingredient.units).find (u) -> u.name == ingredient.unit.abbr if ingredient.unit
+                  angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('data', []).select2('enable', true)
+
+        null
+]
+
+
+app = angular.module('eatt', ['ngCookies', 'ui.select2'])
+  .controller('app',           AppCtrl)
+  .controller('meal',          MealCtrl)
+  .controller('plan',          PlanCtrl)
+  .controller('recipe_entry',  RecipeEntry)
+  .controller('recipe_manage', RecipeManage)
+  .config ['$httpProvider', ($httpProvider) ->
+    $httpProvider.defaults.headers.common['X-CSRF-Token'] = angular.element('meta[name=csrf-token]').attr 'content'
+  ]
+  .directive('arrowNext', -> (scope, element) ->
+    element.on 'click', ->
+      if parseInt(angular.element('#meals').css('margin-left')) == -1340
+        angular.element('.day:first').insertAfter '.day:last'
+        angular.element('#meals').css 'margin-left', -1005
+      angular.element('#meals').animate({
+        'margin-left': '-=335'
+      }, 400, 'swing')
+  )
+  .directive('arrowPrev', -> (scope, element) ->
+    element.on 'click', ->
+      if parseInt(angular.element('#meals').css('margin-left')) == 0
+        angular.element('.day:last').insertBefore '.day:first'
+        angular.element('#meals').css 'margin-left', -335
+      angular.element('#meals').animate({
+        'margin-left': '+=335'
+      }, 400, 'swing')
+  )
+
+angular.element(document).on 'ready page:load', -> angular.bootstrap('body', ['eatt'])

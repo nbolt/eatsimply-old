@@ -15,6 +15,11 @@
 //= require turbolinks
 //= require angular
 //= require angular-cookies.min
+//= require select2.min
+//= require select2
+//= require underscore-min
+//= require jquery.scrollTo
+//= require jquery.cookie
 //= require_tree .
 
 

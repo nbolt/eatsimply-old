@@ -1,0 +1,20 @@
+#admin-content ng:controller='recipe_manage'
+  .nav
+    .arrow.right ng:click='next()'
+      .typcn.typcn-arrow-right
+    .arrow.left ng:click='prev()'
+      .typcn.typcn-arrow-left
+  .recipes
+    .recipe id="recipe-{{recipe.id}}" ng:repeat='recipe in recipes'
+      .right
+        .item.count
+          .text ng:bind='recipe.algo_count'
+        .item.remove ng:click="destroy(recipe.id)"
+          .typcn
+      .name
+        a href="/admin/recipe/{{recipe.id}}/view" target='_window' ng:bind='recipe.name'
+  .nav
+    .arrow.right ng:click='next()'
+      .typcn.typcn-arrow-right
+    .arrow.left ng:click='prev()'
+      .typcn.typcn-arrow-left
