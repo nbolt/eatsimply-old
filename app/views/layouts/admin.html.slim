@@ -46,15 +46,16 @@ html
   body ng:controller='app'
     header.admin
       .logo
-        img src='/images/eatt-white.png'
+        a href='/'
+          img src='/images/eatt-white.png'
       nav
-        a href='/admin/recipe/manage'
+        a href='/recipe/manage'
           .link
             .text Recipe management
-        a href='/admin/recipe/entry'
+        a href='/recipe/entry'
           .link
             .text Recipe creation
-        a href='/admin/algorithm'
+        a href='/algorithm'
           .link 
             .text Algorithm visualization
     .body= yield

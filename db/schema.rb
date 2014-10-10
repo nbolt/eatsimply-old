@@ -69,6 +69,12 @@ ActiveRecord::Schema.define(version: 20141006041658) do
     t.boolean  "vegas",      default: false
   end
 
+  create_table "foods", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "ingredient_links", force: true do |t|
     t.integer "ingredient_id"
     t.integer "recipe_id"
