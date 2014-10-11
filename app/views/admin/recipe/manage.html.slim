@@ -12,7 +12,7 @@
         .item.remove ng:click="destroy(recipe.id)"
           .typcn
       .name
-        a href="/admin/recipe/{{recipe.id}}/view" target='_window' ng:bind='recipe.name'
+        a href="/recipe/{{recipe.id}}/view" target='_window' ng:bind='recipe.name'
   .nav
     .arrow.right ng:click='next()'
       .typcn.typcn-arrow-right
