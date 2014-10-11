@@ -57,7 +57,7 @@ Nutrient.create!([
   {name: "Calcium", minimize: false, prime: true, daily_value: 1000, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_calcium_dv", yummly_supported: true, nutri_supported: nil, attr: "CA"},
   {name: "Potassium", minimize: false, prime: true, daily_value: 3500, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: true, nutri_supported: nil, attr: "K"},
   {name: "Iron", minimize: false, prime: true, daily_value: 18, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_iron_dv", yummly_supported: true, nutri_supported: nil, attr: "FE"},
-  {name: "Calories", minimize: prime: true, false, daily_value: 2000, dv_unit: 'kcal', group: nil, yummly_unit: "kcal", yummly_field: "nf_calories", yummly_supported: true, nutri_supported: nil, attr: "ENERC_KCAL"},
+  {name: "Calories", minimize: false, prime: true, daily_value: 2000, dv_unit: 'kcal', group: nil, yummly_unit: "kcal", yummly_field: "nf_calories", yummly_supported: true, nutri_supported: nil, attr: "ENERC_KCAL"},
   {name: "Fat", minimize: true, daily_value: 65, dv_unit: 'g', group: nil, yummly_unit: "gram", yummly_field: "nf_total_fat", yummly_supported: true, nutri_supported: nil, attr: "FAT"},
   {name: "Trans Fat", minimize: true, group: nil, dv_unit:'g', yummly_unit: "gram", yummly_field: "nf_trans_fatty_acid", yummly_supported: true, nutri_supported: nil, attr: "FATRN"},
   {name: "Cholesterol", minimize: true, daily_value: 300, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_cholesterol", yummly_supported: true, nutri_supported: nil, attr: "CHOLE"},
