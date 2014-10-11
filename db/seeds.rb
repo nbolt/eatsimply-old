@@ -73,7 +73,7 @@ Nutrient.create!([
   {name: "Niacin", minimize: false, daily_value: 20, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "NIA"},
   {name: "Selenium", minimize: false, daily_value: 70, dv_unit: 'mcg', unitwise_method: 'microgram', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "SE"},
   {name: "Zinc", minimize: false, daily_value: 15, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "ZN"},
-  {name: "Starch", minimize: false, group: nil, dv:unit: 'g', yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "STARCH"},
+  {name: "Starch", minimize: false, group: nil, dv_unit: 'g', yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "STARCH"},
   {name: "Saturated Fat", minimize: true, daily_value: 20, dv_unit: 'g', group: nil, yummly_unit: "gram", yummly_field: "nf_saturated_fat", yummly_supported: true, nutri_supported: nil, attr: "FASAT"},
   {name: "Thiamin", minimize: false, daily_value: 1.5, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "THIA"},
   {name: "Vitamin B6", minimize: false, daily_value: 2, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: nil, yummly_supported: nil, nutri_supported: nil, attr: "VITB6A"},
