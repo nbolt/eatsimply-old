@@ -59,7 +59,7 @@ Nutrient.create!([
   {name: "Iron", minimize: false, prime: true, daily_value: 18, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_iron_dv", yummly_supported: true, nutri_supported: nil, attr: "FE"},
   {name: "Calories", minimize: false, prime: true, daily_value: 2000, dv_unit: 'kcal', group: nil, yummly_unit: "kcal", yummly_field: "nf_calories", yummly_supported: true, nutri_supported: nil, attr: "ENERC_KCAL"},
   {name: "Fat", minimize: true, daily_value: 65, dv_unit: 'g', group: nil, yummly_unit: "gram", yummly_field: "nf_total_fat", yummly_supported: true, nutri_supported: nil, attr: "FAT"},
-  {name: "Trans Fat", minimize: true, group: nil, dv_unit:'g', yummly_unit: "gram", yummly_field: "nf_trans_fatty_acid", yummly_supported: true, nutri_supported: nil, attr: "FATRN"},
+  {name: "Trans Fat", minimize: true, group: nil, daily_value: 45, dv_unit:'g', yummly_unit: "gram", yummly_field: "nf_trans_fatty_acid", yummly_supported: true, nutri_supported: nil, attr: "FATRN"},
   {name: "Cholesterol", minimize: true, daily_value: 300, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_cholesterol", yummly_supported: true, nutri_supported: nil, attr: "CHOLE"},
   {name: "Sodium", minimize: true, daily_value: 2400, dv_unit: 'mg', group: nil, yummly_unit: "gram", yummly_field: "nf_sodium", yummly_supported: true, nutri_supported: nil, attr: "NA"},
   {name: "Carbohydrates", minimize: false, prime: true, daily_value: 300, dv_unit: 'g', group: nil, yummly_unit: "gram", yummly_field: "nf_total_carbohydrate", yummly_supported: true, nutri_supported: nil, attr: "CHOCDF"},
