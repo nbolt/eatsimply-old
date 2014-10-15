@@ -30,7 +30,7 @@ html
       javascript:
         //Stripe.setPublishableKey(ENV['STRIPE_API_KEY'])
         init_segmentio()
-        if ( <%= logged_in? %> ){
+        if ( #{logged_in?} ){
           analytics.identify('507f191e810c19729de860ea', {
             name: '<%= current_user.full_name %>',
             id: '<%= current_user.id %>',
