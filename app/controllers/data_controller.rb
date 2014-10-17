@@ -76,6 +76,7 @@ class DataController < ApplicationController
     if email
       render json: { success: true, email_id: email.id }
     else
+      email = Email.new
       email.update_attributes email_params
       EmailJob.new.async.perform UserMailer.new_email(email)
       if email.save
@@ -91,6 +92,7 @@ class DataController < ApplicationController
     if email
       render json: { success: true, email_id: email.id }
     else
+      email = Email.new
       email.update_attributes email_params
       EmailJob.new.async.perform UserMailer.new_vegas_email(email)
       if email.save
