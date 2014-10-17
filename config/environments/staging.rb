@@ -1,9 +1,3 @@
-require 'pusher'
-
-Pusher.app_id = '90921'
-Pusher.key    = ENV['PUSHER_KEY']
-Pusher.secret = ENV['PUSHER_SECRET']
-
 Eatt::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 

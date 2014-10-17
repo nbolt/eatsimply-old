@@ -40,6 +40,7 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       }
     ).success (rsp) ->
       if rsp.success
+        $scope.email_id = rsp.email_id
         angular.element('#modal').css('opacity', 0)
         angular.element('#meal-form').css('display', 'block')
         $.scrollTo('#meal-form', 800, 'swing')
@@ -60,6 +61,7 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       }
     ).success (rsp) ->
       if rsp.success
+        $scope.email_id = rsp.email_id
         angular.element('#vegas-modal').css('opacity', 0)
         angular.element('#meal-form').css('display', 'block')
         $.scrollTo('#meal-form', 800, 'swing')
@@ -75,37 +77,54 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     $timeout(-> angular.element('#meal-plan').css('opacity', 1))
     $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
 
-    key = ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).slice(-4)
-    pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>")
-    channel = pusher.subscribe("recipes-#{key}")
-    channel.bind('new-recipe', new_recipe)
-    channel.bind('recipe-progress', recipe_progress)
-    channel.bind('close', -> pusher.disconnect())
-    channel.bind('pusher:subscription_succeeded', ->
-      $http.post('/data/recipes',
-        {
-          key: key,
-          diet: $scope.form.diet,
-          gender: $scope.form.gender,
-          goal: $scope.form.weight_goal,
-          activity_level: $scope.form.activity_level,
-          weight: $scope.form.weight,
-          height: $scope.form.height,
-          age: $scope.form.age,
-          cuisines: $scope.form.cuisines
-        }
-      )
+    #hash = ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).slice(-4)
+    timestamp = (new Date()).getTime()
+    $scope.firebase_endpoint = "recipes/#{$scope.email_id}/#{timestamp}"
+
+    firebase = new Firebase("<%= ENV['FIREBASE_URL'] %>/#{$scope.firebase_endpoint}")
+
+    firebase.on('child_added', (rsp) ->
+      data = rsp.val()
+      switch data.event
+        when 'new-recipe'
+          new_recipe(data)
     )
 
-  new_recipe = (rsp) -> $scope.$apply -> $scope.days[rsp.nums[0]].meals[rsp.nums[1]].recipes.push rsp.recipe
+    $http.post('/data/recipes',
+      {
+        key: $scope.firebase_endpoint,
+        diet: $scope.form.diet,
+        gender: $scope.form.gender,
+        goal: $scope.form.weight_goal,
+        activity_level: $scope.form.activity_level,
+        weight: $scope.form.weight,
+        height: $scope.form.height,
+        age: $scope.form.age,
+        cuisines: $scope.form.cuisines,
+        days: 7,
+        meals: 3,
+        clear_next: true
+      }
+    )
 
-  recipe_progress = (rsp) ->
+  $scope.days[0].meals = []
+  $scope.days[0].meals[0] = {}
+  $scope.days[0].meals[0].recipes = []
+
+  new_recipe = (rsp) ->
     nums = rsp.nums
     $scope.$apply ->
-      angular.element('#progress .bar').css('width', "#{rsp.progress}%")
       $scope.days[nums[0]].meals = [] unless $scope.days[nums[0]].meals
       $scope.days[nums[0]].meals[nums[1]] = {} unless $scope.days[nums[0]].meals[nums[1]]
       $scope.days[nums[0]].meals[nums[1]].recipes = [] unless $scope.days[nums[0]].meals[nums[1]].recipes
+      $scope.days[nums[0]].meals[nums[1]].recipes.push rsp.recipe
+      if nums[1] == 2 && rsp.clear_next
+        $scope.days[nums[0]+1].meals = []
+        $scope.days[nums[0]+1].meals[0] = {}
+        $scope.days[nums[0]+1].meals[0].recipes = []
+      if nums[1] != 2 && rsp.clear_next
+        $scope.days[nums[0]].meals[nums[1]+1] = {}
+
 ]
 
 HomeCtrl = ['$scope', '$http', ($scope, $http) ->
@@ -175,20 +194,28 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
 
 PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
-  $scope.shuffle = (day, meal) ->
-    $http.post(
-      '/data/new_recipes',
+  $scope.shuffle = (day, meal_index) ->
+    day_index = $scope.days.indexOf(day)
+    $scope.days[day_index].meals[meal_index].recipes = []
+    $http.post('/data/recipes',
       {
-        recipes: _(_(_($scope.days).map( (d) -> _(d.meals).map( (m) -> m.recipes ) )).flatten()).map (r) -> r.id
+        key: $scope.firebase_endpoint,
+        diet: $scope.form.diet,
+        gender: $scope.form.gender,
+        goal: $scope.form.weight_goal,
+        activity_level: $scope.form.activity_level,
+        weight: $scope.form.weight,
+        height: $scope.form.height,
+        age: $scope.form.age,
+        cuisines: $scope.form.cuisines,
+        days: 1,
+        meals: 1,
+        day: day_index,
+        meal: meal_index,
+        recipes: day,
+        clear_next: false
       }
-    ).success (rsp) ->
-      angular.element("##{day.name} .meal:eq(#{meal}) .recipes").css 'opacity', 0
-      $timeout(
-        (->
-          day.meals[meal].recipes = rsp
-          angular.element("##{day.name} .meal:eq(#{meal}) .recipes").css 'opacity', 1
-        ), 400
-      )
+    )
 ]
 
 RecipeManage = ['$scope', '$http', ($scope, $http) ->

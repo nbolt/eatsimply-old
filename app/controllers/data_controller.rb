@@ -46,36 +46,58 @@ class DataController < ApplicationController
 
     opts = {
       bmr: bmr,
-      days: 7,
-      meals: 3,
+      days: params[:days],
+      meals: params[:meals],
       key: params[:key],
       cuisines: params[:cuisines] && params[:cuisines].map {|c| Cuisine.find c[:id]} || [],
-      attrs: attrs
+      attrs: attrs,
+      clear_next: params[:clear_next]
     }
+
+    if params[:day]
+      opts.merge!({
+        day: params[:day],
+        meal: params[:meal]
+      })
+    end
+
+    if params[:recipes]
+      opts.merge!({
+        recipes: params[:recipes]['meals'].map{|m|m['recipes']}.flatten.compact.map{|r|Recipe.find r['id']}
+      })
+    end
 
     RecipeJob.new.async.perform opts
     render nothing: true
   end
 
   def new_email
-    email = Email.find_or_create_by(email: params[:email][:email])
-    if email.save
+    email = Email.where(email: params[:email][:email])[0]
+    if email
+      render json: { success: true, email_id: email.id }
+    else
       email.update_attributes email_params
       EmailJob.new.async.perform UserMailer.new_email(email)
-      render json: { success: true }
-    else
-      render json: { success: false }
+      if email.save
+        render json: { success: true, email_id: email.id }
+      else
+        render json: { success: false }
+      end
     end
   end
 
   def new_vegas_email
-    email = Email.find_or_create_by(email: params[:email][:email])
-    if email.save
+    email = Email.where(email: params[:email][:email])[0]
+    if email
+      render json: { success: true, email_id: email.id }
+    else
       email.update_attributes email_params
       EmailJob.new.async.perform UserMailer.new_vegas_email(email)
-      render json: { success: true }
-    else
-      render json: { success: false }
+      if email.save
+        render json: { success: true, email_id: email.id }
+      else
+        render json: { success: false }
+      end
     end
   end
 

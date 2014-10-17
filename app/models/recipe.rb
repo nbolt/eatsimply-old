@@ -87,6 +87,8 @@ class Recipe < ActiveRecord::Base
     breadth = 1
     recipes = []
     final_recipes = []
+    recipe_count = opts[:all_recipes].count
+
 
     targets = Nutrient.where('dv_unit is not null').where(yummly_supported: true).map do |nutrient|
       orig_daily_value = opts[:bmr] / 2000 * nutrient.daily_value
@@ -101,7 +103,9 @@ class Recipe < ActiveRecord::Base
     all_recipes.each_with_index do |r, i|
       if r[:recipe].nutrient_profile
         progress = (i.to_f / all_recipes.count * 100).round
-        Pusher.trigger("recipes-#{opts[:key]}", 'recipe-progress', { nums: opts[:nums], progress: progress }) if i % 25 == 0 && opts[:key]
+        if i % (recipe_count / 10) == 0 && opts[:key]
+          #FirebaseJob.new.async.perform "recipes-#{opts[:key]}", { event: 'recipe-progress', nums: opts[:nums], progress: progress }
+        end
         r[:recipe].nutrient_profile.servings.each do |serving|
           target = targets.find {|t| t[:id] == serving.nutrient.id}
           if target && serving.nutrient.prime
@@ -183,7 +187,7 @@ class Recipe < ActiveRecord::Base
       rsp = { success: false, message: 'No recipes found' }
     end
 
-    yield(rsp, opts[:nums]) if block_given?
+    yield(rsp, opts[:nums], opts[:clear_next]) if block_given?
     rsp
   end
 
@@ -194,18 +198,20 @@ class Recipe < ActiveRecord::Base
     all_recipes = all_recipes.where(diets: { id: opts[:attrs][:diets] }) if opts[:attrs][:diets]
 
     opts[:days].times do |d|
-      days_recipes = []
+      days_recipes = opts[:recipes] || []
       recipes.push []
       opts[:meals].times do |m|
+        nums = opts[:day] && [opts[:day], opts[:meal]] || [d,m]
         meal_opts = {
           bmr: opts[:bmr],
           key: opts[:key],
           meals: opts[:meals],
-          nums: [d,m],
+          nums: nums,
           cuisines: opts[:attrs][:cuisines],
           all_recipes: all_recipes,
           days_eaten_recipes: days_recipes || [],
-          all_eaten_recipes: recipes.flatten || []
+          all_eaten_recipes: recipes.flatten || [],
+          clear_next: opts[:clear_next]
         }
 
         if block_given?
