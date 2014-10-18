@@ -31,3 +31,6 @@ class Object
     methods.reduce(self, :then)
   end
 end
+
+class RecipeNotFound < Exception
+end

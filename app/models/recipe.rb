@@ -184,7 +184,13 @@ class Recipe < ActiveRecord::Base
       recipe.update_attribute :algo_count, recipe.algo_count + 1
       rsp = { success: true, recipe: recipe }
     else
-      rsp = { success: false, message: 'No recipes found' }
+      rsp = { success: false, message: 'No recipes found.' }
+      eOpts = opts.merge({
+        days_eaten_recipes: opts[:days_eaten_recipes].map{|r|r.id},
+        all_eaten_recipes: opts[:all_eaten_recipes].map{|r|r.id}
+      })
+      eOpts.delete(:all_recipes)
+      Appsignal.send_exception(RecipeNotFound.new(eOpts))
     end
 
     yield(rsp, opts[:nums], opts[:clear_next]) if block_given?
@@ -224,7 +230,7 @@ class Recipe < ActiveRecord::Base
         recipes.last.push recipe
       end
     end
-    #binding.pry
+
     { success: true, recipes: recipes }
   end
 end

@@ -247,11 +247,15 @@
               .action ng:click='shuffle(day,$index)'
                 .icon
                   img src='/images/shuffle.png'
-                .text Switch recipes
+                .text Switch
+              .action ng:click='shuffle(day,$index)'
+                .icon.circle
+                .text Source
             .left
               .title Meal {{$index+1}}
           .recipes
-            #spinner ng:if='!meal.recipes[0]'
+            #spinner ng:if='!meal.recipes[0] && !meal.message'
+            .message ng:if='meal.message' ng:bind='meal.message'
             .recipe ng:repeat='recipe in meal.recipes'
               .photo style='background-image:url({{recipe.recipe_images[0].image.url}})'
               .info

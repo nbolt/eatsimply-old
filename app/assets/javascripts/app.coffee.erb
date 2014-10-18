@@ -111,19 +111,23 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
   $scope.days[0].meals[0] = {}
   $scope.days[0].meals[0].recipes = []
 
-  new_recipe = (rsp) ->
+  new_recipe = (rsp) -> $scope.$apply ->
     nums = rsp.nums
-    $scope.$apply ->
-      $scope.days[nums[0]].meals = [] unless $scope.days[nums[0]].meals
-      $scope.days[nums[0]].meals[nums[1]] = {} unless $scope.days[nums[0]].meals[nums[1]]
-      $scope.days[nums[0]].meals[nums[1]].recipes = [] unless $scope.days[nums[0]].meals[nums[1]].recipes
+    $scope.days[nums[0]].meals = [] unless $scope.days[nums[0]].meals
+    $scope.days[nums[0]].meals[nums[1]] = {} unless $scope.days[nums[0]].meals[nums[1]]
+    $scope.days[nums[0]].meals[nums[1]].recipes = [] unless $scope.days[nums[0]].meals[nums[1]].recipes
+
+    if rsp.success
       $scope.days[nums[0]].meals[nums[1]].recipes.push rsp.recipe
-      if nums[1] == 2 && rsp.clear_next
-        $scope.days[nums[0]+1].meals = []
-        $scope.days[nums[0]+1].meals[0] = {}
-        $scope.days[nums[0]+1].meals[0].recipes = []
-      if nums[1] != 2 && rsp.clear_next
-        $scope.days[nums[0]].meals[nums[1]+1] = {}
+    else
+      $scope.days[nums[0]].meals[nums[1]].message = rsp.message
+
+    if nums[1] == 2 && rsp.clear_next
+      $scope.days[nums[0]+1].meals = []
+      $scope.days[nums[0]+1].meals[0] = {}
+      $scope.days[nums[0]+1].meals[0].recipes = []
+    if nums[1] != 2 && rsp.clear_next
+      $scope.days[nums[0]].meals[nums[1]+1] = {}
 
 ]
 
@@ -197,6 +201,7 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
   $scope.shuffle = (day, meal_index) ->
     day_index = $scope.days.indexOf(day)
     $scope.days[day_index].meals[meal_index].recipes = []
+    $scope.days[day_index].meals[meal_index].message = null
     $http.post('/data/recipes',
       {
         key: $scope.firebase_endpoint,

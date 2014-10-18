@@ -6,6 +6,7 @@ lighter-green = #c1ed78
 dark-gray = #555
 gray = #d1d0cf
 light-gray = #f4f7f8
+red = #a80000
 
 facebook-blue = #3d599b
 twitter-blue  = #00abee
@@ -624,6 +625,10 @@ footer
             .right
               float: right
               .action
+                display: inline-block
+                vertical-align: top
+                &:first-child
+                  margin-right: 20px
                 &:hover
                   cursor: pointer
                   .text
@@ -631,6 +636,12 @@ footer
                 .icon, .text
                   display: inline-block
                   vertical-align: top
+                .icon.circle
+                  border: 2px solid gray
+                  height: 10px
+                  width: 10px
+                  margin-top: 2px
+                  border-radius: 99px
                 .text
                   color: #b2b2b2
                   font-weight: 500
@@ -638,6 +649,9 @@ footer
           .recipes
             opacity: 1
             transition: opacity .4s ease-in-out
+            .message
+              height: 82px
+              color: red
             #spinner
               border: 2px solid gray
               border-top: 2px solid transparent
@@ -647,10 +661,9 @@ footer
               border-radius: 50%
               width: 60px
               height: 60px
-              margin: auto
+              margin: 28px auto
               animation: spin 1s infinite linear
               text-align: center
-              margin-top: 25px
               &::after
                 content: ''
                 position: absolute
