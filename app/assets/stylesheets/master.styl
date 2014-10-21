@@ -138,6 +138,24 @@ footer
     #headline-container
       width: 960px
       margin: 60px auto
+      #to-meals
+        position: absolute
+        right: 15px
+        bottom: 15px
+        background-color: green
+        border-radius: 3px
+        padding: 8px 12px 8px 9px
+        color: white
+        font-size: 1.1em
+        animation: fadein 2s
+        .typcn, .text
+          display: inline-block
+          vertical-align: top
+        .typcn
+          margin-right: 8px
+        &:hover .text
+          cursor: pointer
+          text-decoration: underline
       #headline
         width: 415px
         color: #222
@@ -369,7 +387,7 @@ footer
           color: #444
 
 #meal-form
-  height: 760px
+  height: 100%
   background: url(/images/bg2.jpg) no-repeat center
   background-size: cover
   position: relative
@@ -532,7 +550,7 @@ footer
 
 #meal-plan
   width: 960px
-  margin: auto
+  margin: 0 auto 50px
   padding-top: 50px
   color: dark-gray
   display: none
@@ -545,11 +563,27 @@ footer
     .right
       float: right
       font-weight: 500
-      .pdf
-        border: thin solid dark-gray
-        padding: 10px
-        .icon
-          margin-right: 8px
+      .action
+        display: inline-block
+        vertical-align: top
+        &:first-child
+          margin-right: 25px
+        &.fine-tune
+          background-color: green
+          color: white
+          border-radius: 3px
+          padding: 11px
+          font-size: 1.2em
+          .text, .typcn
+            display: inline-block
+            vertical-align: top
+          .typcn
+            margin: -1px 6px 0 0
+        &.pdf
+          border: thin solid dark-gray
+          padding: 10px
+          .icon
+            margin-right: 8px
         &:hover
           cursor: pointer
     .left

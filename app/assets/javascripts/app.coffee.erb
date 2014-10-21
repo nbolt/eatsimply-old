@@ -1,12 +1,30 @@
+EmptyCtrl = ->
+
 AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
+
+]
+
+HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
+
+  if localStorage && localStorage['recipes']
+    $scope.days = JSON.parse localStorage['recipes']
+  else
+    $scope.days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
+    $scope.days[0].meals = []
+    $scope.days[0].meals[0] = {}
+    $scope.days[0].meals[0].recipes = []
+
+  if localStorage && localStorage['form']
+    $scope.form = JSON.parse localStorage['form']
+  else
+    $scope.form =
+      weight: 60
+      height: 180
+      age: 24
+
   source = null
   $scope.modal = {}
-  $scope.days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
-  $scope.form =
-    weight: 60
-    height: 180
-    age: 24
-
+  
   $scope.openModal = ->
     angular.element('#modal').css('display', 'block')
     $timeout(-> angular.element('#modal').css('opacity', 1))
@@ -43,7 +61,7 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         $scope.email_id = rsp.email_id
         angular.element('#modal').css('opacity', 0)
         angular.element('#meal-form').css('display', 'block')
-        $.scrollTo('#meal-form', 800, 'swing')
+        $timeout(-> $.scrollTo('#meal-form', 800, 'swing'))
         $timeout(-> angular.element('#meal-form').css('opacity', 1))
         $timeout(
           (->
@@ -64,13 +82,15 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         $scope.email_id = rsp.email_id
         angular.element('#vegas-modal').css('opacity', 0)
         angular.element('#meal-form').css('display', 'block')
-        $.scrollTo('#meal-form', 800, 'swing')
+        $timeout(-> $.scrollTo('#meal-form', 800, 'swing'))
         $timeout(-> angular.element('#meal-form').css('opacity', 1))
         $timeout(
           (->
             angular.element('#vegas-modal').css('display', 'none')
           ), 400
         )
+
+  $scope.toMealForm = -> $.scrollTo('#meal-form', 800, 'swing')
 
   $scope.openMealPlan = ->
     angular.element('#meal-plan').css('display', 'block')
@@ -90,6 +110,11 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
           new_recipe(data)
     )
 
+    $scope.days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
+    $scope.days[0].meals = []
+    $scope.days[0].meals[0] = {}
+    $scope.days[0].meals[0].recipes = []
+
     $http.post('/data/recipes',
       {
         key: $scope.firebase_endpoint,
@@ -107,9 +132,21 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       }
     )
 
-  $scope.days[0].meals = []
-  $scope.days[0].meals[0] = {}
-  $scope.days[0].meals[0].recipes = []
+  $scope.toMealPlan = ->
+    angular.element('#meal-form, #meal-plan').css('display', 'block').css('opacity', 1)
+    $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
+
+    timestamp = (new Date()).getTime()
+    $scope.firebase_endpoint = "recipes/#{$scope.email_id}/#{timestamp}"
+
+    firebase = new Firebase("<%= ENV['FIREBASE_URL'] %>/#{$scope.firebase_endpoint}")
+
+    firebase.on('child_added', (rsp) ->
+      data = rsp.val()
+      switch data.event
+        when 'new-recipe'
+          new_recipe(data)
+    )
 
   new_recipe = (rsp) -> $scope.$apply ->
     nums = rsp.nums
@@ -122,17 +159,23 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     else
       $scope.days[nums[0]].meals[nums[1]].message = rsp.message
 
-    if nums[1] == 2 && rsp.clear_next
+    if nums[0] != 6 && nums[1] == 2 && rsp.clear_next
       $scope.days[nums[0]+1].meals = []
       $scope.days[nums[0]+1].meals[0] = {}
       $scope.days[nums[0]+1].meals[0].recipes = []
     if nums[1] != 2 && rsp.clear_next
       $scope.days[nums[0]].meals[nums[1]+1] = {}
 
-]
+    if localStorage
+      localStorage['recipes'] = JSON.stringify $scope.days
 
-HomeCtrl = ['$scope', '$http', ($scope, $http) ->
+  $scope.meals = ->
+    $scope.days && $scope.days[0] && $scope.days[0].meals && $scope.days[0].meals[0] && $scope.days[0].meals[0].recipes && $scope.days[0].meals[0].recipes[0]
 
+  if localStorage
+    $scope.$watch((-> $scope.form), ((n,o) ->
+      localStorage['form'] = JSON.stringify $scope.form
+    ), true)
 
 ]
 
@@ -371,7 +414,9 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
 
 
 app = angular.module('eatt', ['ngCookies', 'ui.select2'])
+  .controller('empty',         EmptyCtrl)
   .controller('app',           AppCtrl)
+  .controller('home',          HomeCtrl)
   .controller('meal',          MealCtrl)
   .controller('plan',          PlanCtrl)
   .controller('recipe_entry',  RecipeEntry)
