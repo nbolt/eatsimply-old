@@ -1,20 +1,3 @@
-#modal
-  .container
-    .message Thanks for your interest! We'll notify you when our full service is ready later this year, and in the meantime you can check out our preview below.
-    .form
-      .input
-        input type='text' placeholder='Email' spellcheck='false' ng:model='modal.email'
-      .button ng:click='openMealForm()' Get my customized meal plan!
-
-#vegas-modal
-  .container
-    .message Thanks for your interest! We'll notify you when our full service is ready later this year, and in the meantime you can check out our preview below.
-    .form
-      .input
-        input type='text' placeholder='Email' spellcheck='false' ng:model='modal.email'
-      .button ng:click='openMealFormV()' Get my customized meal plan!
-
-
 #bg
   .inner-container
     header.main
@@ -237,7 +220,7 @@
       .action.pdf
         .icon
           img src='/images/pdf.png' height='22'
-        .text Download the PDF
+        .text Email my grocery list
   #meals-container
     .arrows
       .arrow.prev arrow-prev=''
@@ -254,9 +237,24 @@
                 .icon
                   img src='/images/shuffle.png'
                 .text Switch
-              .action ng:click='shuffle(day,$index)'
+              .action
+                .dropdown
+                  .content
+                    .menu
+                      .item.restaurant ng:click="openEntry('restaurant', day, $index)"
+                        .text Local Restaurant
+                        .typcn.typcn-chevron-right
+                      .item.yummly ng:click="openEntry('yummly', day, $index)"
+                        .text Yummly
+                        .typcn.typcn-chevron-right
+                    .entry
+                      .entry-content.restaurant
+                      .entry-content.yummly
+                        .input
+                          input type='text' placeholder='Enter your yummly url'
+                        .submit ng:click='yummlySubmit(day, $index)' Submit
                 .icon.circle
-                .text Source
+                .text ng:click='openSource(day, $index)' Source
             .left
               .title Meal {{$index+1}}
           .recipes

@@ -24,16 +24,6 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
   source = null
   $scope.modal = {}
-  
-  $scope.openModal = ->
-    angular.element('#modal').css('display', 'block')
-    $timeout(-> angular.element('#modal').css('opacity', 1))
-    null
-
-  $scope.openModalV = ->
-    angular.element('#vegas-modal').css('display', 'block').css('opacity', 1)
-    $timeout(-> angular.element('#vegas-modal').css('opacity', 1))
-    null
 
   $scope.showEmail = ->
     angular.element('.go-button .icon, .go-button .text').css('opacity', 0)
@@ -242,6 +232,11 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
 PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
   $scope.shuffle = (day, meal_index) ->
+    dropdown = angular.element("##{day.name} .meal:eq(#{meal_index})").find('.dropdown')
+    if dropdown.css('display') == 'block'
+      dropdown.fadeOut()
+      dropdown.children('.content').css('margin-left', 0)
+      dropdown.find('.entry-content').hide()
     day_index = $scope.days.indexOf(day)
     $scope.days[day_index].meals[meal_index].recipes = []
     $scope.days[day_index].meals[meal_index].message = null
@@ -262,6 +257,76 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         meal: meal_index,
         recipes: day,
         clear_next: false
+      }
+    )
+
+  $scope.openSource = (day, meal_index) ->
+    dropdown = angular.element("##{day.name} .meal:eq(#{meal_index})").find('.dropdown')
+    if dropdown.css('display') == 'block'
+      dropdown.fadeOut()
+      dropdown.children('.content').css('margin-left', 0)
+      dropdown.find('.entry-content').hide()
+    else
+      dropdowns = angular.element('.meal').find('.dropdown')
+      dropdowns.fadeOut()
+      dropdowns.children('.content').css('margin-left', 0)
+      dropdowns.find('.entry-content').hide()
+      dropdown.fadeIn()
+    null
+
+  $scope.openEntry = (entry, day, meal_index) ->
+    dropdown = angular.element("##{day.name} .meal:eq(#{meal_index})").find('.dropdown')
+    dropdown.children('.content').css('margin-left', -196)
+    dropdown.find('.entry-content').hide()
+    dropdown.find(".entry-content.#{entry}").show()
+    null
+
+  $scope.yummlySubmit = (day, meal_index) ->
+    dropdown = angular.element("##{day.name} .meal:eq(#{meal_index})").find('.dropdown')
+    url = dropdown.find('.yummly input').val()
+    yummly_id = url.split('/')[url.split('/').length-1].split('?')[0]
+    dropdown.find('.yummly input').val('')
+    dropdown.fadeOut()
+    dropdown.children('.content').css('margin-left', 0)
+    dropdown.find('.entry-content').hide()
+
+    day_index = $scope.days.indexOf(day)
+    $scope.days[day_index].meals[meal_index].recipes = []
+    $scope.days[day_index].meals[meal_index].message = null
+    $http.post('/data/yummly_import',
+      {
+        firebase_key: $scope.firebase_endpoint,
+        nums: [day_index, meal_index]
+        yummly_id: yummly_id
+      }
+    )
+
+    if meal_index == 2
+      meal_index = 0
+    else
+      meal_index += 1
+
+    $scope.days[day_index].meals[meal_index] = {}
+    $scope.days[day_index].meals[meal_index].recipes = []
+
+    $http.post('/data/recipes',
+      {
+        key: $scope.firebase_endpoint,
+        diet: $scope.form.diet,
+        gender: $scope.form.gender,
+        goal: $scope.form.weight_goal,
+        activity_level: $scope.form.activity_level,
+        weight: $scope.form.weight,
+        height: $scope.form.height,
+        age: $scope.form.age,
+        cuisines: $scope.form.cuisines,
+        days: 1,
+        meals: 1,
+        day: day_index,
+        meal: meal_index,
+        recipes: day,
+        clear_next: false,
+        yummly_id: yummly_id
       }
     )
 ]

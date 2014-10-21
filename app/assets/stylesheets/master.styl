@@ -77,7 +77,6 @@ header.main
     width: 32px
     height: 32px
     box-sizing: border-box
-    -moz-box-sizing: border-box
     .typcn
       font-size: 1.5em
       color: white
@@ -200,7 +199,7 @@ footer
               text-transform: uppercase
               &:hover
                 cursor: pointer
-                background-color: #a0d44a
+                background-color: light-green
 
 .info-section
   &.bordered
@@ -234,7 +233,6 @@ footer
     position: relative
     height: 68px
     box-sizing: border-box
-    -moz-box-sizing: border-box
     &:hover
       cursor: pointer
       .text
@@ -275,7 +273,7 @@ footer
       text-transform: uppercase
       &:hover
         cursor: pointer
-        background-color: #a0d44a
+        background-color: light-green
   .content
     width: 960px
     margin: 45px auto
@@ -329,7 +327,6 @@ footer
     border: thin solid gray
     border-left: none
     box-sizing: border-box
-    -moz-box-sizing: border-box
     .text
       color: #444
       line-height: 1.4em
@@ -370,7 +367,6 @@ footer
     width: 350px
     height: 201px
     box-sizing: border-box
-    -moz-box-sizing: border-box
     border-radius: 3px
     .title
       font-weight: 500
@@ -549,7 +545,7 @@ footer
               margin-right: 10px
 
 #meal-plan
-  width: 960px
+  width: 1000px
   margin: 0 auto 50px
   padding-top: 50px
   color: dark-gray
@@ -579,6 +575,8 @@ footer
             vertical-align: top
           .typcn
             margin: -1px 6px 0 0
+          &:hover
+            background-color: light-green
         &.pdf
           border: thin solid dark-gray
           padding: 10px
@@ -632,7 +630,6 @@ footer
       .day
         width: 290px
         box-sizing: border-box
-        -moz-box-sizing: border-box
         display: inline-block
         vertical-align: top
         margin-right: 45px
@@ -661,12 +658,68 @@ footer
               .action
                 display: inline-block
                 vertical-align: top
+                position: relative
                 &:first-child
                   margin-right: 20px
                 &:hover
-                  cursor: pointer
-                  .text
+                  > .text
                     border-bottom: thin solid #b2b2b2
+                .dropdown
+                  display: none
+                  position: absolute
+                  overflow: hidden
+                  width: 195px
+                  height: 82px
+                  margin: 25px 0 0 -95px
+                  background-color: white
+                  border: thin solid gray
+                  .content
+                    width: 390px
+                    margin-left: 0
+                    transition: margin-left .6s ease-in-out
+                    .menu, .entry
+                      display: inline-block
+                      vertical-align: top
+                    .menu
+                      width: 195px
+                      border-right: thin solid gray
+                      .item
+                        padding: 10px
+                        &:first-child
+                          border-bottom: thin solid gray
+                        .typcn
+                          float: right
+                          color: gray
+                          font-size: 1.25em
+                          margin: -5px 10px 0 0
+                        &:hover
+                          background-color: green
+                          cursor: pointer
+                          .text, .typcn
+                            color: white
+                    .entry
+                      .entry-content
+                        display: none
+                        input
+                          background: white
+                          border: thin solid gray
+                          border-radius: 3px
+                          margin: 10px 0 0 8px
+                          width: 180px
+                          box-sizing: border-box
+                          padding: 4px
+                          color: #888
+                        .submit
+                          background-color: green
+                          padding: 4px
+                          border-radius: 3px
+                          color: white
+                          text-align: center
+                          width: 70px
+                          margin: 6px auto
+                          &:hover
+                            cursor: pointer
+                            background-color: light-green
                 .icon, .text
                   display: inline-block
                   vertical-align: top
@@ -680,6 +733,8 @@ footer
                   color: #b2b2b2
                   font-weight: 500
                   margin: -2px 0 0 5px
+                  &:hover
+                    cursor: pointer
           .recipes
             opacity: 1
             transition: opacity .4s ease-in-out
@@ -761,7 +816,6 @@ footer
     left: 50%
     margin: -112px 0 0 -320px
     box-sizing: border-box
-    -moz-box-sizing: border-box
   .message
     background-color: green
     color: white
@@ -780,14 +834,12 @@ footer
         padding: 8px
         outline: none
         box-sizing: border-box
-        -moz-box-sizing: border-box
       textarea
         width: 100%
         resize: none
         border: thin solid gray
         border-radius: 3px
         box-sizing: border-box
-        -moz-box-sizing: border-box
         outline: none
         padding: 8px
     .button
@@ -872,7 +924,6 @@ header.admin
       border: thin solid gray
       border-radius: 3px
       box-sizing: border-box
-      -moz-box-sizing: border-box
       height: 43px
       .name
         text-align: left

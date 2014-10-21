@@ -67,7 +67,18 @@ class DataController < ApplicationController
       })
     end
 
+    if params[:yummly_id]
+      recipe = Recipe.where(yummly_id: params[:yummly_id])[0]
+      recipe = Recipe.import(params[:yummly_id])[:recipe] unless recipe
+      opts[:recipes].push recipe
+    end
+
     RecipeJob.new.async.perform opts
+    render nothing: true
+  end
+
+  def yummly_import
+    YummlyJob.new.async.perform params[:yummly_id], params[:firebase_key], params[:nums]
     render nothing: true
   end
 

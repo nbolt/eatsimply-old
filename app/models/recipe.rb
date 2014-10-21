@@ -13,7 +13,7 @@ class Recipe < ActiveRecord::Base
     super options.merge(include: [:recipe_images])
   end
 
-  def self.import id, attrs
+  def self.import id, attrs={}
     if Recipe.where(yummly_id: id).first
       { success: false, message: 'Recipe already imported' }
     else
@@ -59,7 +59,7 @@ class Recipe < ActiveRecord::Base
         if recipe.save
           { success: true, recipe: recipe }
         else
-          { success: false, message: recipe.errors.full_messages[0] }
+          { success: false, message: recipe.errors.full_messages[0], recipe: Recipe.where(yummly_id: id)[0] }
         end
       end
     end
