@@ -60,7 +60,7 @@ html
 
 
   body ng:controller='app'
-    .body ng:controller="#{request.fullpath == '/' && request.subdomain == '' && 'home' || 'empty'}"
+    .body ng:controller="#{request.fullpath == '/' && ['', 'eatt-staging'].include?(request.subdomain) && 'home' || 'empty'}"
       = yield
       footer
         .logo
