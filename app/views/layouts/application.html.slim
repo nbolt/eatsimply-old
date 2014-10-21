@@ -26,7 +26,7 @@ html
         analytics.load("#{ENV['SEGMENT_KEY']}")
       }
 
-    - if Rails.env == 'production'
+    - if Rails.env != 'production'
       javascript:
         //Stripe.setPublishableKey(ENV['STRIPE_API_KEY'])
         init_segmentio()
@@ -41,7 +41,7 @@ html
           }, {
             integrations: {
                 Intercom : {
-                    user_hash : '<%= OpenSSL::HMAC.hexdigest("sha256", "#{ENV[\"INTERCOM_SECRET\"]}", current_user.id) %>'
+                    user_hash : "<%= OpenSSL::HMAC.hexdigest('sha256', '#{ENV['INTERCOM_SECRET']}', current_user.id) %>"
                 }
             }
         })
