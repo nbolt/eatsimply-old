@@ -249,6 +249,9 @@
                         .typcn.typcn-chevron-right
                     .entry
                       .entry-content.restaurant
+                        .input
+                          input type='hidden' placeholder='Search restaurants' ui-select2='restaurantHash()' ng:model='restaurant' 
+                        .submit ng:click='restaurantSubmit(day, $index)' Submit
                       .entry-content.yummly
                         .input
                           input type='text' placeholder='Enter your yummly url'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006041658) do
+ActiveRecord::Schema.define(version: 20141022021843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,12 +67,6 @@ ActiveRecord::Schema.define(version: 20141006041658) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "vegas",      default: false
-  end
-
-  create_table "foods", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "ingredient_links", force: true do |t|
@@ -145,7 +139,9 @@ ActiveRecord::Schema.define(version: 20141006041658) do
     t.string   "source"
     t.string   "source_name"
     t.string   "yield"
-    t.integer  "algo_count",   default: 0
+    t.integer  "algo_count",     default: 0
+    t.string   "nutritionix_id"
+    t.boolean  "public"
   end
 
   create_table "servings", force: true do |t|

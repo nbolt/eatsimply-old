@@ -159,6 +159,35 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     if localStorage
       localStorage['recipes'] = JSON.stringify $scope.days
 
+    if rsp.reset_next
+      if nums[1] == 2
+        nums[1] = 0
+      else
+        nums[1] += 1
+
+      $scope.days[nums[0]].meals[nums[1]] = {}
+      $scope.days[nums[0]].meals[nums[1]].recipes = []
+
+      $http.post('/data/recipes',
+        {
+          key: $scope.firebase_endpoint,
+          diet: $scope.form.diet,
+          gender: $scope.form.gender,
+          goal: $scope.form.weight_goal,
+          activity_level: $scope.form.activity_level,
+          weight: $scope.form.weight,
+          height: $scope.form.height,
+          age: $scope.form.age,
+          cuisines: $scope.form.cuisines,
+          days: 1,
+          meals: 1,
+          day: nums[0],
+          meal: nums[1],
+          recipes: $scope.days[nums[0]],
+          clear_next: false
+        }
+      )
+
   $scope.meals = ->
     $scope.days && $scope.days[0] && $scope.days[0].meals && $scope.days[0].meals[0] && $scope.days[0].meals[0].recipes && $scope.days[0].meals[0].recipes[0]
 
@@ -281,6 +310,41 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     dropdown.find(".entry-content.#{entry}").show()
     null
 
+  $scope.restaurantHash = (ingredient) ->
+    {
+      dropdownCssClass: 'restaurants'
+      minimumInputLength: 3
+      data: []
+      ajax:
+        url: "/data/restaurants"
+        data: (term) -> { term: term }
+        quietMillis: 600
+        results: (data) ->
+          if (data && data[0])
+            results = _(data).map (d) -> { id: d['_id'], brand: d['fields']['brand_id'], text: "#{d['fields']['brand_name']} - #{d['fields']['item_name']}"  }
+            { results: results }
+    }
+
+  $scope.restaurantSubmit = (day, meal_index) ->
+    dropdown = angular.element("##{day.name} .meal:eq(#{meal_index})").find('.dropdown')
+    id = dropdown.find('.restaurant .select2-container').select2('val')
+    dropdown.find('.restaurant .select2-container').select2('val', '')
+    dropdown.fadeOut()
+    dropdown.children('.content').css('margin-left', 0)
+    dropdown.find('.entry-content').hide()
+
+    day_index = $scope.days.indexOf(day)
+    $scope.days[day_index].meals[meal_index].recipes = []
+    $scope.days[day_index].meals[meal_index].message = null
+    $http.post('/data/restaurant_import',
+      {
+        firebase_key: $scope.firebase_endpoint
+        nums: [day_index, meal_index]
+        id: id
+        reset_next: true
+      }
+    )
+
   $scope.yummlySubmit = (day, meal_index) ->
     dropdown = angular.element("##{day.name} .meal:eq(#{meal_index})").find('.dropdown')
     url = dropdown.find('.yummly input').val()
@@ -298,35 +362,7 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         firebase_key: $scope.firebase_endpoint,
         nums: [day_index, meal_index]
         yummly_id: yummly_id
-      }
-    )
-
-    if meal_index == 2
-      meal_index = 0
-    else
-      meal_index += 1
-
-    $scope.days[day_index].meals[meal_index] = {}
-    $scope.days[day_index].meals[meal_index].recipes = []
-
-    $http.post('/data/recipes',
-      {
-        key: $scope.firebase_endpoint,
-        diet: $scope.form.diet,
-        gender: $scope.form.gender,
-        goal: $scope.form.weight_goal,
-        activity_level: $scope.form.activity_level,
-        weight: $scope.form.weight,
-        height: $scope.form.height,
-        age: $scope.form.age,
-        cuisines: $scope.form.cuisines,
-        days: 1,
-        meals: 1,
-        day: day_index,
-        meal: meal_index,
-        recipes: day,
-        clear_next: false,
-        yummly_id: yummly_id
+        reset_next: true
       }
     )
 ]

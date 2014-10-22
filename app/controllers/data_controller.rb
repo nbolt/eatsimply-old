@@ -17,6 +17,14 @@ class DataController < ApplicationController
     render json: recipes.as_json
   end
 
+  def restaurants
+    if params[:term].present?
+      render json: nutritionix_search(params[:term], 1)
+    else
+      render nothing: true
+    end
+  end
+
   def recipes
     bmr =
       if params[:gender][:id] == 'f'
@@ -73,12 +81,24 @@ class DataController < ApplicationController
       opts[:recipes].push recipe
     end
 
+    if params[:reset_next]
+      opts[:reset_next] = true
+    else
+      opts[:reset_next] = false
+    end
+
     RecipeJob.new.async.perform opts
     render nothing: true
   end
 
   def yummly_import
-    YummlyJob.new.async.perform params[:yummly_id], params[:firebase_key], params[:nums]
+    YummlyJob.new.async.perform params[:yummly_id], params[:firebase_key], params[:nums], params[:reset_next]
+    render nothing: true
+  end
+
+  def restaurant_import
+    # check for allergens
+    RestaurantJob.new.async.perform params[:id], params[:firebase_key], params[:nums], params[:reset_next]
     render nothing: true
   end
 
@@ -116,6 +136,25 @@ class DataController < ApplicationController
 
   def email_params
     params.require(:email).permit(:email, :zip, :comments, :vegas)
+  end
+
+  def nutritionix_search query, item_type
+    rsp = HTTParty.post(
+      "https://api.nutritionix.com/v1_1/search",
+      {
+        query: {
+          appId: ENV['NUTRI_API_ID'],
+          appKey: ENV['NUTRI_API_KEY'],
+          limit: 50,
+          fields: ['*'],
+          query: query,
+          filters: {
+            item_type: item_type
+          }
+        }
+      }
+    )
+    rsp['hits']
   end
 
 end

@@ -48,7 +48,8 @@ class Admin::RecipeController < AdminController
         source: params[:source].then(:sourceRecipeUrl),
         source_name: params[:source].then(:sourceDisplayName),
         yield: params[:yield],
-        portion_size: params[:numberOfServings]
+        portion_size: params[:numberOfServings],
+        public: true
       )
       params[:attributes].each do |key, attributes| # courses, cuisines, and diets
         if attributes && ['diets', 'cuisines', 'courses'].index(key)
@@ -189,7 +190,7 @@ class Admin::RecipeController < AdminController
 
   def nutritionix
     if params[:term].present?
-      render json: nutritionix_search(params[:term])
+      render json: nutritionix_search(params[:term], 3)
     else
       render nothing: true
     end
@@ -212,7 +213,7 @@ private
     return nil
   end
 
-  def nutritionix_search query
+  def nutritionix_search query, item_type
     rsp = HTTParty.post(
       "https://api.nutritionix.com/v1_1/search",
       {
@@ -223,18 +224,12 @@ private
           fields: ['*'],
           query: query,
           filters: {
-            item_type: 3
+            item_type: item_type
           }
         }
       }
     )
     rsp['hits']
-  end
-
-  def nutritionix_item id
-    HTTParty.get(
-      "https://api.nutritionix.com/v1_1/item?id=#{id}&appId=#{ENV['NUTRI_API_ID']}&appKey=#{ENV['NUTRI_API_KEY']}",
-    )
   end
 
 end
