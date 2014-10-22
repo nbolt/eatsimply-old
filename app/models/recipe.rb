@@ -33,7 +33,8 @@ class Recipe < ActiveRecord::Base
           source: params['source']['sourceRecipeUrl'],
           source_name: params['source']['sourceDisplayName'],
           yield: params['yield'],
-          portion_size: params['numberOfServings']
+          portion_size: params['numberOfServings'],
+          ingredient_lines: params['ingredientLines'].to_json
         )
         params['attributes'].merge(attrs).each do |key, attributes| # courses, cuisines, and diets
           if attributes && key != 'holiday'
@@ -202,6 +203,7 @@ class Recipe < ActiveRecord::Base
     recipes = []
 
     all_recipes = Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
+    all_recipes = all_recipes.where(public: true)
     all_recipes = all_recipes.where(diets: { id: opts[:attrs][:diets] }) if opts[:attrs][:diets]
 
     opts[:days].times do |d|

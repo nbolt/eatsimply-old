@@ -26,12 +26,17 @@ html
         analytics.load("#{ENV['SEGMENT_KEY']}")
       }
 
-    - if Rails.env != 'production'
+    - if Rails.env == 'production'
       javascript:
         //Stripe.setPublishableKey(ENV['STRIPE_API_KEY'])
         init_segmentio()
 
-    - if logged_in?
+    - else
+      javascript:
+        //Stripe.setPublishableKey(ENV['STRIPE_TEST_KEY'])
+        analytics={};analytics.track=function(){};analytics.identify=function(){};
+
+    - if Rails.env == 'production' && logged_in?
         javascript:
           analytics.identify("#{ current_user.id }", {
             name: "#{ current_user.full_name }",
@@ -53,10 +58,6 @@ html
               "activator": "#Intercom" }, 
               "app_id": "y2g99hzz"
             }
-    - else
-      javascript:
-        //Stripe.setPublishableKey(ENV['STRIPE_TEST_KEY'])
-        analytics={};analytics.track=function(){};analytics.identify=function(){};
 
 
   body ng:controller='app'
