@@ -102,6 +102,16 @@ class DataController < ApplicationController
     render nothing: true
   end
 
+  def groceries
+    email = Email.where(email: params[:email])[0]
+    recipes = params[:recipes].map{|d| d['meals'].map{|m| m['recipes']}}.flatten.map{|r| r = Recipe.find r['id']; {
+      name: r.name,
+      ingredients: r.ingredient_lines && JSON.parse(r.ingredient_lines) || r.ingredients.map{|i| i.name}
+    }}
+    UserMailer.grocery_list_email(email, recipes).deliver
+    render json: { success: true }
+  end
+
   def new_email
     email = Email.where(email: params[:email][:email])[0]
     if email

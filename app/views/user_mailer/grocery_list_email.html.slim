@@ -1,0 +1,29 @@
+html
+  head
+    meta http-equiv='Content-Type' content='text/html; charset=UTF-8'
+    meta property='og:title' content='Thanks for signing up!'
+  body style='font-family:"Helvetica Neue"'
+    table cellspacing='0' cellpadding='0' border='0' width='100%'
+      tr
+        td bgcolor='#f8f7f2'
+          table cellspacing='0' cellpadding='0' border='0' width='85%' align='center' style='padding:30px'
+            tr
+              td align='center'
+                img height='115' src='http://www.ea.tt/images/eatt-green.png'
+            tr
+              td bgcolor='white' style='border:thin solid #ccc;border-radius:3px;padding:25px'
+                div style='text-align:center;font-weight:bold;color:#393532;font-size:2em;border-bottom:4px solid #88c425;width:180px;margin:auto;padding-bottom:6px' Grocery List
+
+                .recipes style="margin-top: 60px;" 
+                  - @recipes.each do |recipe|
+                    .recipe style="display: inline-block; vertical-align: top; width: 33%; text-align: center; margin-bottom: 30px;"
+                      .title style="font-size: 1.5em; font-weight: bold; border-bottom: 2px solid rgb(136, 196, 37); padding-bottom: 2px; display: inline-block; text-align: center;"
+                        = recipe[:name]
+                      .ingredients
+                        - recipe[:ingredients].each do |ingredient|
+                          .ingredient
+                            ul style="text-align: left;"
+                              li style="font-size: 1.2em; margin-bottom: 8px; margin-left: 60px;"
+                                = ingredient
+            tr
+              td align='center' style='padding-top:40px;color:#777' &copy; 2014 Eatt - All Rights Reserved

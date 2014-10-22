@@ -40,6 +40,7 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     )
 
   $scope.openMealForm = ->
+    localStorage['email'] = $scope.email if localStorage
     $http.post(
       '/data/new_email',
       {
@@ -60,6 +61,7 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         )
 
   $scope.openMealFormV = ->
+    localStorage['email'] = $scope.email if localStorage
     $http.post(
       '/data/new_vegas_email',
       {
@@ -81,6 +83,18 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         )
 
   $scope.toMealForm = -> $.scrollTo('#meal-form', 800, 'swing')
+
+  $scope.emailGroceries = ->
+    $http.post('/data/groceries',
+      {
+        email: $scope.email || localStorage && localStorage['email']
+        recipes: $scope.days
+      }
+    )
+    $('.action.pdf .text').fadeOut()
+    $timeout((->
+      $('.action.pdf .text').fadeIn().text('Grocery list emailed!')
+    ), 600)
 
   $scope.openMealPlan = ->
     angular.element('#meal-plan').css('display', 'block')

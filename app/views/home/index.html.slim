@@ -39,7 +39,7 @@
         .title Save time and money while eating healthy
         .subtitle Eatt is the first free and complete solution to eating healthier. We learn continuously from your input and give you personalized weekly meal plans. Our chefs have carefully selected all our recipes and added tips to help you cook healthy and tasty meals. Want to try? Scroll down for more information.
         .email
-          .title Get your free customized meal plan for the week.
+          .title Get your free personalized meal plan for the week.
           .input
             input type='text' placeholder='Your email' spellcheck='false' ng:model='email'
             .button ng:click='openMealForm()' Go
@@ -217,7 +217,7 @@
       .action.fine-tune ng:click='toMealForm()'
         .typcn.typcn-cog-outline
         .text Fine tune
-      .action.pdf
+      .action.pdf ng:click='emailGroceries()'
         .icon
           img src='/images/pdf.png' height='22'
         .text Email my grocery list
