@@ -202,7 +202,7 @@ class Recipe < ActiveRecord::Base
   def self.meals opts
     recipes = []
 
-    all_recipes = Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
+    all_recipes = Recipe.includes(:ingredients, :diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
     all_recipes = all_recipes.where(public: true)
     all_recipes = all_recipes.where(diets: { id: opts[:attrs][:diets] }) if opts[:attrs][:diets]
 

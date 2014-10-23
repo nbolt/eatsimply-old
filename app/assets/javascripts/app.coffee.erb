@@ -383,7 +383,7 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
   $scope.openRecipe = (recipe) ->
     ingredients =
       if recipe.ingredient_lines then _(JSON.parse recipe.ingredient_lines).map (ingredient, index) -> { id: index, name: ingredient }
-      else if recipe.ingredients[0] then _(recipe.ingredients).map (r) -> r.name
+      else if recipe.ingredients && recipe.ingredients[0] then _(recipe.ingredients).map (r) -> r.name
       else []
 
     $scope.recipe =
