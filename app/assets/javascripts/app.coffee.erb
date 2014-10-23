@@ -392,7 +392,7 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
     $timeout((->
       angular.element(document).on 'click', (e) ->
-        if (!$(e.target).closest('#recipe-details').length)
+        if (!$(e.target).closest('#recipe-details').length || $(e.target).closest('#recipe-details .close').length)
           angular.element('#recipe-details').fadeOut()
           angular.element(document).off 'click'
     ),600)
