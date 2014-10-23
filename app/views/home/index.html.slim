@@ -228,7 +228,10 @@
           img ng:src='{{recipe.photo}}'
         .text ng:bind='recipe.name'
         .ingredients
-          .ingredient ng:repeat='ingredient in recipe.ingredients' ng:bind='ingredient.name'
+          span.ingredient ng:repeat='ingredient in recipe.ingredients' ng:bind='ingredient.name'
+        .instructions ng:bind='recipe.instructions'
+        .source
+          a href='{{recipe.source}}' target='_window' ng:bind='recipe.source'
     .arrows
       .arrow.prev arrow-prev=''
         .typcn.typcn-chevron-left

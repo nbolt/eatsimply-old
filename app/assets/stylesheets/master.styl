@@ -640,8 +640,6 @@ footer
           height: 120px
           overflow: hidden
           .ingredient
-            display: inline-block
-            vertical-align: top
             &::after
               content: ''
               background-color: green
@@ -651,6 +649,23 @@ footer
               margin: 8px
               display: inline-block
               vertical-align: top
+            &:last-child
+              &::after
+                display: none
+        .instructions
+          font-size: 1.1em
+          margin-top: 35px
+          height: 220px
+          overflow: hidden
+        .source
+          position: absolute
+          bottom: 10px
+          right: 12px
+          a
+            color: gray
+            text-decoration: none
+            &:hover
+              color: green
     .arrows
       position: absolute
       top: 0
