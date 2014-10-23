@@ -112,6 +112,15 @@ class DataController < ApplicationController
     render json: { success: true }
   end
 
+  def groceries_pdf
+    recipes = JSON.parse(params[:recipes]).map{|r| r = Recipe.find r; {
+      name: r.name,
+      ingredients: r.ingredient_lines && JSON.parse(r.ingredient_lines) || r.ingredients.map{|i| i.name}
+    }}
+    pdf = PDFKit.new((render_to_string 'user_mailer/grocery_list_email', layout: false, locals: { recipes: recipes }), orientation: 'landscape', )
+    send_data pdf.to_pdf, filename: "grocery_list.pdf", type: "application/pdf"
+  end
+
   def new_email
     email = Email.where(email: params[:email][:email])[0]
     if email

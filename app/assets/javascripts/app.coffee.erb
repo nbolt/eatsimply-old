@@ -379,6 +379,21 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         reset_next: true
       }
     )
+
+  $scope.openRecipe = (recipe) ->
+    $scope.recipe =
+      name: recipe.name
+      photo: recipe.recipe_images[0].image.url
+      ingredients: _(JSON.parse recipe.ingredient_lines).map (ingredient, index) -> { id: index, name: ingredient }
+
+    angular.element('#recipe-details').fadeIn()
+
+    $timeout((->
+      angular.element(document).on 'click', (e) ->
+        if (!$(e.target).closest('#recipe-details').length)
+          angular.element('#recipe-details').fadeOut()
+          angular.element(document).off 'click'
+    ),600)
 ]
 
 RecipeManage = ['$scope', '$http', ($scope, $http) ->

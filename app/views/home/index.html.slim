@@ -219,9 +219,16 @@
         .text Fine tune
       .action.pdf ng:click='emailGroceries()'
         .icon
-          img src='/images/pdf.png' height='22'
+          .typcn.typcn-mail
         .text Email my grocery list
   #meals-container
+    #recipe-details
+      .title
+        .photo
+          img ng:src='{{recipe.photo}}'
+        .text ng:bind='recipe.name'
+        .ingredients
+          .ingredient ng:repeat='ingredient in recipe.ingredients' ng:bind='ingredient.name'
     .arrows
       .arrow.prev arrow-prev=''
         .typcn.typcn-chevron-left
@@ -266,7 +273,7 @@
             .recipe ng:repeat='recipe in meal.recipes'
               .photo style='background-image:url({{recipe.recipe_images[0].image.url}})'
               .info
-                a href='{{recipe.source}}' target='_window'
+                a hrefs='{{recipe.source}}' target='_window' ng:click='openRecipe(recipe)'
                   .title ng:bind='recipe.name'
 
 javascript:

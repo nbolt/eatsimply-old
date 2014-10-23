@@ -49,7 +49,7 @@ class Admin::RecipeController < AdminController
         source_name: params[:source].then(:sourceDisplayName),
         yield: params[:yield],
         portion_size: params[:numberOfServings],
-        public: true
+        public: false
       )
       params[:attributes].each do |key, attributes| # courses, cuisines, and diets
         if attributes && ['diets', 'cuisines', 'courses'].index(key)

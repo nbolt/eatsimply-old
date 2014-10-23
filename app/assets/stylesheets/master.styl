@@ -170,6 +170,7 @@ footer
           background-color: green
           border-radius: 3px
           padding: 18px 22px
+          width: 380px
           > .title
             color: white
           .input
@@ -187,7 +188,7 @@ footer
             .button
               position: absolute
               top: 15px
-              right: 10px
+              right: 20px
               font-size: .9em
               font-weight: 500
               background-color: green
@@ -562,6 +563,12 @@ footer
       .action
         display: inline-block
         vertical-align: top
+        .text, .typcn
+          display: inline-block
+          vertical-align: top
+        .typcn
+          margin: -6px 6px 0 0
+          font-size: 1.5em
         &:first-child
           margin-right: 25px
         &.fine-tune
@@ -569,12 +576,6 @@ footer
           color: white
           border-radius: 3px
           padding: 11px
-          font-size: 1.2em
-          .text, .typcn
-            display: inline-block
-            vertical-align: top
-          .typcn
-            margin: -1px 6px 0 0
           &:hover
             background-color: light-green
         &.pdf
@@ -583,6 +584,8 @@ footer
           width: 190px
           .icon
             margin-right: 8px
+          .typcn
+            margin-right: 0
         &:hover
           cursor: pointer
     .left
@@ -605,6 +608,49 @@ footer
     margin-top: 50px
     overflow: hidden
     position: relative
+    #recipe-details
+      display: none
+      z-index: 99
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      background-color: white
+      border: thin solid gray
+      border-radius: 3px
+      padding: 15px
+      .title
+        .photo
+          float: left
+          img
+            width: 200px
+        .text
+          font-size: 2em
+          border-bottom: 4px solid green
+          padding-bottom: 2px
+          margin-left: 15px
+          width: 750px
+          height: 50px
+          overflow: hidden
+          display: inline-block
+          vertical-align: top
+        .ingredients
+          margin: 15px 0 0 215px
+          height: 120px
+          overflow: hidden
+          .ingredient
+            display: inline-block
+            vertical-align: top
+            &::after
+              content: ''
+              background-color: green
+              border-radius: 99px
+              height: 8px
+              width: 8px
+              margin: 8px
+              display: inline-block
+              vertical-align: top
     .arrows
       position: absolute
       top: 0
@@ -798,6 +844,7 @@ footer
                     overflow: hidden
                   &:hover
                     color: green
+                    cursor: pointer
 
 #modal, #vegas-modal
   position: fixed
