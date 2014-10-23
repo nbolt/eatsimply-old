@@ -381,12 +381,17 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     )
 
   $scope.openRecipe = (recipe) ->
+    ingredients =
+      if recipe.ingredient_lines then _(JSON.parse recipe.ingredient_lines).map (ingredient, index) -> { id: index, name: ingredient }
+      else if recipe.ingredients[0] then _(recipe.ingredients).map (r) -> r.name
+      else []
+
     $scope.recipe =
       name: recipe.name
       photo: recipe.recipe_images[0].image.url
       source: recipe.source
       instructions: recipe.instructions
-      ingredients: _(JSON.parse recipe.ingredient_lines).map (ingredient, index) -> { id: index, name: ingredient }
+      ingredients: ingredients
 
     angular.element('#recipe-details').fadeIn()
 
