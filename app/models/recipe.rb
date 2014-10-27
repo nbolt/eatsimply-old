@@ -8,12 +8,13 @@ class Recipe < ActiveRecord::Base
   has_and_belongs_to_many :diets
 
   validates_uniqueness_of :yummly_id
+  validates_uniqueness_of :nutritionix_id
 
   def as_json(options = {})
     super options.merge(include: [:recipe_images])
   end
 
-  def self.import id, attrs
+  def self.import id, attrs={}
     if Recipe.where(yummly_id: id).first
       { success: false, message: 'Recipe already imported' }
     else
@@ -32,7 +33,8 @@ class Recipe < ActiveRecord::Base
           source: params['source']['sourceRecipeUrl'],
           source_name: params['source']['sourceDisplayName'],
           yield: params['yield'],
-          portion_size: params['numberOfServings']
+          portion_size: params['numberOfServings'],
+          ingredient_lines: params['ingredientLines'].to_json
         )
         params['attributes'].merge(attrs).each do |key, attributes| # courses, cuisines, and diets
           if attributes && key != 'holiday'
@@ -59,7 +61,7 @@ class Recipe < ActiveRecord::Base
         if recipe.save
           { success: true, recipe: recipe }
         else
-          { success: false, message: recipe.errors.full_messages[0] }
+          { success: false, message: recipe.errors.full_messages[0], recipe: Recipe.where(yummly_id: id)[0] }
         end
       end
     end
@@ -87,6 +89,8 @@ class Recipe < ActiveRecord::Base
     breadth = 1
     recipes = []
     final_recipes = []
+    recipe_count = opts[:all_recipes].count
+
 
     targets = Nutrient.where('dv_unit is not null').where(yummly_supported: true).map do |nutrient|
       orig_daily_value = opts[:bmr] / 2000 * nutrient.daily_value
@@ -101,7 +105,9 @@ class Recipe < ActiveRecord::Base
     all_recipes.each_with_index do |r, i|
       if r[:recipe].nutrient_profile
         progress = (i.to_f / all_recipes.count * 100).round
-        Pusher.trigger("recipes-#{opts[:key]}", 'recipe-progress', { nums: opts[:nums], progress: progress }) if i % 25 == 0 && opts[:key]
+        if i % (recipe_count / 10) == 0 && opts[:key]
+          #FirebaseJob.new.async.perform "recipes-#{opts[:key]}", { event: 'recipe-progress', nums: opts[:nums], progress: progress }
+        end
         r[:recipe].nutrient_profile.servings.each do |serving|
           target = targets.find {|t| t[:id] == serving.nutrient.id}
           if target && serving.nutrient.prime
@@ -180,32 +186,41 @@ class Recipe < ActiveRecord::Base
       recipe.update_attribute :algo_count, recipe.algo_count + 1
       rsp = { success: true, recipe: recipe }
     else
-      rsp = { success: false, message: 'No recipes found' }
+      rsp = { success: false, message: 'No recipes found.' }
+      eOpts = opts.merge({
+        days_eaten_recipes: opts[:days_eaten_recipes].map{|r|r.id},
+        all_eaten_recipes: opts[:all_eaten_recipes].map{|r|r.id}
+      })
+      eOpts.delete(:all_recipes)
+      Appsignal.send_exception(RecipeNotFound.new(eOpts))
     end
 
-    yield(rsp, opts[:nums]) if block_given?
+    yield(rsp, opts[:nums], opts[:clear_next]) if block_given?
     rsp
   end
 
   def self.meals opts
     recipes = []
 
-    all_recipes = Recipe.includes(:diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
+    all_recipes = Recipe.includes(:ingredients, :diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
+    all_recipes = all_recipes.where(public: true)
     all_recipes = all_recipes.where(diets: { id: opts[:attrs][:diets] }) if opts[:attrs][:diets]
 
     opts[:days].times do |d|
-      days_recipes = []
+      days_recipes = opts[:recipes] || []
       recipes.push []
       opts[:meals].times do |m|
+        nums = opts[:day] && [opts[:day], opts[:meal]] || [d,m]
         meal_opts = {
           bmr: opts[:bmr],
           key: opts[:key],
           meals: opts[:meals],
-          nums: [d,m],
+          nums: nums,
           cuisines: opts[:attrs][:cuisines],
           all_recipes: all_recipes,
           days_eaten_recipes: days_recipes || [],
-          all_eaten_recipes: recipes.flatten || []
+          all_eaten_recipes: recipes.flatten || [],
+          clear_next: opts[:clear_next]
         }
 
         if block_given?
@@ -218,7 +233,7 @@ class Recipe < ActiveRecord::Base
         recipes.last.push recipe
       end
     end
-    #binding.pry
+
     { success: true, recipes: recipes }
   end
 end

@@ -17,6 +17,14 @@ class DataController < ApplicationController
     render json: recipes.as_json
   end
 
+  def restaurants
+    if params[:term].present?
+      render json: nutritionix_search(params[:term], 1)
+    else
+      render nothing: true
+    end
+  end
+
   def recipes
     bmr =
       if params[:gender][:id] == 'f'
@@ -46,36 +54,100 @@ class DataController < ApplicationController
 
     opts = {
       bmr: bmr,
-      days: 7,
-      meals: 3,
+      days: params[:days],
+      meals: params[:meals],
       key: params[:key],
       cuisines: params[:cuisines] && params[:cuisines].map {|c| Cuisine.find c[:id]} || [],
-      attrs: attrs
+      attrs: attrs,
+      clear_next: params[:clear_next]
     }
+
+    if params[:day]
+      opts.merge!({
+        day: params[:day],
+        meal: params[:meal]
+      })
+    end
+
+    if params[:recipes]
+      opts.merge!({
+        recipes: params[:recipes]['meals'].map{|m|m['recipes']}.flatten.compact.map{|r|Recipe.find r['id']}
+      })
+    end
+
+    if params[:yummly_id]
+      recipe = Recipe.where(yummly_id: params[:yummly_id])[0]
+      recipe = Recipe.import(params[:yummly_id])[:recipe] unless recipe
+      opts[:recipes].push recipe
+    end
+
+    if params[:reset_next]
+      opts[:reset_next] = true
+    else
+      opts[:reset_next] = false
+    end
 
     RecipeJob.new.async.perform opts
     render nothing: true
   end
 
+  def yummly_import
+    YummlyJob.new.async.perform params[:yummly_id], params[:firebase_key], params[:nums], params[:reset_next]
+    render nothing: true
+  end
+
+  def restaurant_import
+    # check for allergens
+    RestaurantJob.new.async.perform params[:id], params[:firebase_key], params[:nums], params[:reset_next]
+    render nothing: true
+  end
+
+  def groceries
+    email = Email.where(email: params[:email])[0]
+    recipes = params[:recipes].map{|d| d['meals'].map{|m| m['recipes']}}.flatten.map{|r| r = Recipe.find r['id']; {
+      name: r.name,
+      ingredients: r.ingredient_lines && JSON.parse(r.ingredient_lines) || r.ingredients.map{|i| i.name}
+    }}
+    UserMailer.grocery_list_email(email, recipes).deliver
+    render json: { success: true }
+  end
+
+  def groceries_pdf
+    recipes = JSON.parse(params[:recipes]).map{|r| r = Recipe.find r; {
+      name: r.name,
+      ingredients: r.ingredient_lines && JSON.parse(r.ingredient_lines) || r.ingredients.map{|i| i.name}
+    }}
+    pdf = PDFKit.new((render_to_string 'user_mailer/grocery_list_email', layout: false, locals: { recipes: recipes }), orientation: 'landscape', )
+    send_data pdf.to_pdf, filename: "grocery_list.pdf", type: "application/pdf"
+  end
+
   def new_email
-    email = Email.find_or_create_by(email: params[:email][:email])
-    if email.save
-      email.update_attributes email_params
-      EmailJob.new.async.perform UserMailer.new_email(email)
-      render json: { success: true }
+    email = Email.where(email: params[:email][:email])[0]
+    if email
+      render json: { success: true, email_id: email.id }
     else
-      render json: { success: false }
+      email = Email.new(email_params)
+      if email.save
+        EmailJob.new.async.perform UserMailer.new_email(email)
+        render json: { success: true, email_id: email.id }
+      else
+        render json: { success: false }
+      end
     end
   end
 
   def new_vegas_email
-    email = Email.find_or_create_by(email: params[:email][:email])
-    if email.save
-      email.update_attributes email_params
-      EmailJob.new.async.perform UserMailer.new_vegas_email(email)
-      render json: { success: true }
+    email = Email.where(email: params[:email][:email])[0]
+    if email
+      render json: { success: true, email_id: email.id }
     else
-      render json: { success: false }
+      email = Email.new(email_params)
+      if email.save
+        EmailJob.new.async.perform UserMailer.new_vegas_email(email)
+        render json: { success: true, email_id: email.id }
+      else
+        render json: { success: false }
+      end
     end
   end
 
@@ -83,6 +155,25 @@ class DataController < ApplicationController
 
   def email_params
     params.require(:email).permit(:email, :zip, :comments, :vegas)
+  end
+
+  def nutritionix_search query, item_type
+    rsp = HTTParty.post(
+      "https://api.nutritionix.com/v1_1/search",
+      {
+        query: {
+          appId: ENV['NUTRI_API_ID'],
+          appKey: ENV['NUTRI_API_KEY'],
+          limit: 50,
+          fields: ['*'],
+          query: query,
+          filters: {
+            item_type: item_type
+          }
+        }
+      }
+    )
+    rsp['hits']
   end
 
 end

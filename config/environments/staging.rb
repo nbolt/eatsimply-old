@@ -1,9 +1,3 @@
-require 'pusher'
-
-Pusher.app_id = '90921'
-Pusher.key    = ENV['PUSHER_KEY']
-Pusher.secret = ENV['PUSHER_SECRET']
-
 Eatt::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -49,7 +43,7 @@ Eatt::Application.configure do
   # config.force_ssl = true
 
   # Set to :debug to see everything in the log.
-  config.log_level = :info
+  config.log_level = :debug
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]

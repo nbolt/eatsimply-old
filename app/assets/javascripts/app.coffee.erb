@@ -1,21 +1,29 @@
+EmptyCtrl = ['$scope', ($scope) ->]
+
 AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
+
+]
+
+HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
+
+  if localStorage && localStorage['recipes']
+    $scope.days = JSON.parse localStorage['recipes']
+  else
+    $scope.days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
+    $scope.days[0].meals = []
+    $scope.days[0].meals[0] = {}
+    $scope.days[0].meals[0].recipes = []
+
+  if localStorage && localStorage['form']
+    $scope.form = JSON.parse localStorage['form']
+  else
+    $scope.form =
+      weight: 60
+      height: 180
+      age: 24
+
   source = null
   $scope.modal = {}
-  $scope.days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
-  $scope.form =
-    weight: 60
-    height: 180
-    age: 24
-
-  $scope.openModal = ->
-    angular.element('#modal').css('display', 'block')
-    $timeout(-> angular.element('#modal').css('opacity', 1))
-    null
-
-  $scope.openModalV = ->
-    angular.element('#vegas-modal').css('display', 'block').css('opacity', 1)
-    $timeout(-> angular.element('#vegas-modal').css('opacity', 1))
-    null
 
   $scope.showEmail = ->
     angular.element('.go-button .icon, .go-button .text').css('opacity', 0)
@@ -32,6 +40,7 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     )
 
   $scope.openMealForm = ->
+    localStorage['email'] = $scope.email if localStorage
     $http.post(
       '/data/new_email',
       {
@@ -40,9 +49,10 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       }
     ).success (rsp) ->
       if rsp.success
+        $scope.email_id = rsp.email_id
         angular.element('#modal').css('opacity', 0)
         angular.element('#meal-form').css('display', 'block')
-        $.scrollTo('#meal-form', 800, 'swing')
+        $timeout(-> $.scrollTo('#meal-form', 800, 'swing'))
         $timeout(-> angular.element('#meal-form').css('opacity', 1))
         $timeout(
           (->
@@ -51,6 +61,7 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         )
 
   $scope.openMealFormV = ->
+    localStorage['email'] = $scope.email if localStorage
     $http.post(
       '/data/new_vegas_email',
       {
@@ -60,9 +71,10 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       }
     ).success (rsp) ->
       if rsp.success
+        $scope.email_id = rsp.email_id
         angular.element('#vegas-modal').css('opacity', 0)
         angular.element('#meal-form').css('display', 'block')
-        $.scrollTo('#meal-form', 800, 'swing')
+        $timeout(-> $.scrollTo('#meal-form', 800, 'swing'))
         $timeout(-> angular.element('#meal-form').css('opacity', 1))
         $timeout(
           (->
@@ -70,21 +82,109 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
           ), 400
         )
 
+  $scope.toMealForm = -> $.scrollTo('#meal-form', 800, 'swing')
+
+  $scope.emailGroceries = ->
+    $http.post('/data/groceries',
+      {
+        email: $scope.email || localStorage && localStorage['email']
+        recipes: $scope.days
+      }
+    )
+    $('.action.pdf .text').fadeOut()
+    $timeout((->
+      $('.action.pdf .text').fadeIn().text('Grocery list emailed!')
+    ), 600)
+
   $scope.openMealPlan = ->
     angular.element('#meal-plan').css('display', 'block')
     $timeout(-> angular.element('#meal-plan').css('opacity', 1))
     $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
 
-    key = ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).slice(-4)
-    pusher = new Pusher("<%= ENV['PUSHER_KEY'] %>")
-    channel = pusher.subscribe("recipes-#{key}")
-    channel.bind('new-recipe', new_recipe)
-    channel.bind('recipe-progress', recipe_progress)
-    channel.bind('close', -> pusher.disconnect())
-    channel.bind('pusher:subscription_succeeded', ->
+    #hash = ("0000" + (Math.random()*Math.pow(36,4) << 0).toString(36)).slice(-4)
+    timestamp = (new Date()).getTime()
+    $scope.firebase_endpoint = "recipes/#{$scope.email_id}/#{timestamp}"
+
+    firebase = new Firebase("<%= ENV['FIREBASE_URL'] %>/#{$scope.firebase_endpoint}")
+
+    firebase.on('child_added', (rsp) ->
+      data = rsp.val()
+      switch data.event
+        when 'new-recipe'
+          new_recipe(data)
+    )
+
+    $scope.days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
+    $scope.days[0].meals = []
+    $scope.days[0].meals[0] = {}
+    $scope.days[0].meals[0].recipes = []
+
+    $http.post('/data/recipes',
+      {
+        key: $scope.firebase_endpoint,
+        diet: $scope.form.diet,
+        gender: $scope.form.gender,
+        goal: $scope.form.weight_goal,
+        activity_level: $scope.form.activity_level,
+        weight: $scope.form.weight,
+        height: $scope.form.height,
+        age: $scope.form.age,
+        cuisines: $scope.form.cuisines,
+        days: 7,
+        meals: 3,
+        clear_next: true
+      }
+    )
+
+  $scope.toMealPlan = ->
+    angular.element('#meal-form, #meal-plan').css('display', 'block').css('opacity', 1)
+    $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
+
+    timestamp = (new Date()).getTime()
+    $scope.firebase_endpoint = "recipes/#{$scope.email_id}/#{timestamp}"
+
+    firebase = new Firebase("<%= ENV['FIREBASE_URL'] %>/#{$scope.firebase_endpoint}")
+
+    firebase.on('child_added', (rsp) ->
+      data = rsp.val()
+      switch data.event
+        when 'new-recipe'
+          new_recipe(data)
+    )
+
+  new_recipe = (rsp) -> $scope.$apply ->
+    nums = rsp.nums
+    $scope.days[nums[0]].meals = [] unless $scope.days[nums[0]].meals
+    $scope.days[nums[0]].meals[nums[1]] = {} unless $scope.days[nums[0]].meals[nums[1]]
+    $scope.days[nums[0]].meals[nums[1]].recipes = [] unless $scope.days[nums[0]].meals[nums[1]].recipes
+
+    if rsp.success
+      $scope.days[nums[0]].meals[nums[1]].recipes.push rsp.recipe
+    else
+      $scope.days[nums[0]].meals[nums[1]].message = rsp.message
+
+    if nums[0] != 6 && nums[1] == 2 && rsp.clear_next
+      $scope.days[nums[0]+1].meals = []
+      $scope.days[nums[0]+1].meals[0] = {}
+      $scope.days[nums[0]+1].meals[0].recipes = []
+    if nums[1] != 2 && rsp.clear_next
+      $scope.days[nums[0]].meals[nums[1]+1] = {}
+
+    if localStorage
+      localStorage['recipes'] = JSON.stringify $scope.days
+
+    if rsp.reset_next
+      if nums[1] == 2
+        nums[1] = 0
+      else
+        nums[1] += 1
+
+      $scope.days[nums[0]].meals[nums[1]] = {}
+      $scope.days[nums[0]].meals[nums[1]].recipes = []
+
       $http.post('/data/recipes',
         {
-          key: key,
+          key: $scope.firebase_endpoint,
           diet: $scope.form.diet,
           gender: $scope.form.gender,
           goal: $scope.form.weight_goal,
@@ -92,24 +192,23 @@ AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
           weight: $scope.form.weight,
           height: $scope.form.height,
           age: $scope.form.age,
-          cuisines: $scope.form.cuisines
+          cuisines: $scope.form.cuisines,
+          days: 1,
+          meals: 1,
+          day: nums[0],
+          meal: nums[1],
+          recipes: $scope.days[nums[0]],
+          clear_next: false
         }
       )
-    )
 
-  new_recipe = (rsp) -> $scope.$apply -> $scope.days[rsp.nums[0]].meals[rsp.nums[1]].recipes.push rsp.recipe
+  $scope.meals = ->
+    $scope.days && $scope.days[0] && $scope.days[0].meals && $scope.days[0].meals[0] && $scope.days[0].meals[0].recipes && $scope.days[0].meals[0].recipes[0]
 
-  recipe_progress = (rsp) ->
-    nums = rsp.nums
-    $scope.$apply ->
-      angular.element('#progress .bar').css('width', "#{rsp.progress}%")
-      $scope.days[nums[0]].meals = [] unless $scope.days[nums[0]].meals
-      $scope.days[nums[0]].meals[nums[1]] = {} unless $scope.days[nums[0]].meals[nums[1]]
-      $scope.days[nums[0]].meals[nums[1]].recipes = [] unless $scope.days[nums[0]].meals[nums[1]].recipes
-]
-
-HomeCtrl = ['$scope', '$http', ($scope, $http) ->
-
+  if localStorage
+    $scope.$watch((-> $scope.form), ((n,o) ->
+      localStorage['form'] = JSON.stringify $scope.form
+    ), true)
 
 ]
 
@@ -175,20 +274,140 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
 
 PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
-  $scope.shuffle = (day, meal) ->
-    $http.post(
-      '/data/new_recipes',
+  $scope.shuffle = (day, meal_index) ->
+    dropdown = angular.element("##{day.name} .meal:eq(#{meal_index})").find('.dropdown')
+    if dropdown.css('display') == 'block'
+      dropdown.fadeOut()
+      dropdown.children('.content').css('margin-left', 0)
+      dropdown.find('.entry-content').hide()
+    day_index = $scope.days.indexOf(day)
+    $scope.days[day_index].meals[meal_index].recipes = []
+    $scope.days[day_index].meals[meal_index].message = null
+    $http.post('/data/recipes',
       {
-        recipes: _(_(_($scope.days).map( (d) -> _(d.meals).map( (m) -> m.recipes ) )).flatten()).map (r) -> r.id
+        key: $scope.firebase_endpoint,
+        diet: $scope.form.diet,
+        gender: $scope.form.gender,
+        goal: $scope.form.weight_goal,
+        activity_level: $scope.form.activity_level,
+        weight: $scope.form.weight,
+        height: $scope.form.height,
+        age: $scope.form.age,
+        cuisines: $scope.form.cuisines,
+        days: 1,
+        meals: 1,
+        day: day_index,
+        meal: meal_index,
+        recipes: day,
+        clear_next: false
       }
-    ).success (rsp) ->
-      angular.element("##{day.name} .meal:eq(#{meal}) .recipes").css 'opacity', 0
-      $timeout(
-        (->
-          day.meals[meal].recipes = rsp
-          angular.element("##{day.name} .meal:eq(#{meal}) .recipes").css 'opacity', 1
-        ), 400
-      )
+    )
+
+  $scope.openSource = (day, meal_index) ->
+    dropdown = angular.element("##{day.name} .meal:eq(#{meal_index})").find('.dropdown')
+    if dropdown.css('display') == 'block'
+      dropdown.fadeOut()
+      dropdown.children('.content').css('margin-left', 0)
+      dropdown.find('.entry-content').hide()
+    else
+      dropdowns = angular.element('.meal').find('.dropdown')
+      dropdowns.fadeOut()
+      dropdowns.children('.content').css('margin-left', 0)
+      dropdowns.find('.entry-content').hide()
+      dropdown.fadeIn()
+    null
+
+  $scope.openEntry = (entry, day, meal_index) ->
+    dropdown = angular.element("##{day.name} .meal:eq(#{meal_index})").find('.dropdown')
+    dropdown.children('.content').css('margin-left', -196)
+    dropdown.find('.entry-content').hide()
+    dropdown.find(".entry-content.#{entry}").show()
+    null
+
+  $scope.restaurantHash = (ingredient) ->
+    {
+      dropdownCssClass: 'restaurants'
+      minimumInputLength: 3
+      data: []
+      ajax:
+        url: "/data/restaurants"
+        data: (term) -> { term: term }
+        quietMillis: 600
+        results: (data) ->
+          if (data && data[0])
+            results = _(data).map (d) -> { id: d['_id'], brand: d['fields']['brand_id'], text: "#{d['fields']['brand_name']} - #{d['fields']['item_name']}"  }
+            { results: results }
+    }
+
+  $scope.restaurantSubmit = (day, meal_index) ->
+    dropdown = angular.element("##{day.name} .meal:eq(#{meal_index})").find('.dropdown')
+    id = dropdown.find('.restaurant .select2-container').select2('val')
+    dropdown.find('.restaurant .select2-container').select2('val', '')
+    dropdown.fadeOut()
+    dropdown.children('.content').css('margin-left', 0)
+    dropdown.find('.entry-content').hide()
+
+    day_index = $scope.days.indexOf(day)
+    $scope.days[day_index].meals[meal_index].recipes = []
+    $scope.days[day_index].meals[meal_index].message = null
+    $http.post('/data/restaurant_import',
+      {
+        firebase_key: $scope.firebase_endpoint
+        nums: [day_index, meal_index]
+        id: id
+        reset_next: true
+      }
+    )
+
+  $scope.yummlySubmit = (day, meal_index) ->
+    dropdown = angular.element("##{day.name} .meal:eq(#{meal_index})").find('.dropdown')
+    url = dropdown.find('.yummly input').val()
+    yummly_id = url.split('/')[url.split('/').length-1].split('?')[0]
+    dropdown.find('.yummly input').val('')
+    dropdown.fadeOut()
+    dropdown.children('.content').css('margin-left', 0)
+    dropdown.find('.entry-content').hide()
+
+    day_index = $scope.days.indexOf(day)
+    $scope.days[day_index].meals[meal_index].recipes = []
+    $scope.days[day_index].meals[meal_index].message = null
+    $http.post('/data/yummly_import',
+      {
+        firebase_key: $scope.firebase_endpoint,
+        nums: [day_index, meal_index]
+        yummly_id: yummly_id
+        reset_next: true
+      }
+    )
+
+  $scope.openRecipe = (recipe) ->
+    ingredients =
+      if recipe.ingredient_lines then _(JSON.parse recipe.ingredient_lines).map (ingredient, index) -> { id: index, name: ingredient }
+      else if recipe.ingredients && recipe.ingredients[0] then _(recipe.ingredients).map (r) -> r.name
+      else []
+
+    $scope.recipe =
+      name: recipe.name
+      photo: recipe.recipe_images[0].image.url
+      source: recipe.source
+      instructions: recipe.instructions
+      ingredients: ingredients
+
+    angular.element('#recipe-details').fadeIn()
+
+    $timeout(->
+      if angular.element('.ingredients-container').children('.ingredients').outerHeight() > 120
+        angular.element('.ingredients-container').addClass 'overflow'
+      else
+        angular.element('.ingredients-container').removeClass 'overflow'
+    )
+
+    $timeout((->
+      angular.element(document).on 'click', (e) ->
+        if (!$(e.target).closest('#recipe-details').length || $(e.target).closest('#recipe-details .close').length)
+          angular.element('#recipe-details').fadeOut()
+          angular.element(document).off 'click'
+    ),600)
 ]
 
 RecipeManage = ['$scope', '$http', ($scope, $http) ->
@@ -339,7 +558,9 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
 
 
 app = angular.module('eatt', ['ngCookies', 'ui.select2'])
+  .controller('empty',         EmptyCtrl)
   .controller('app',           AppCtrl)
+  .controller('home',          HomeCtrl)
   .controller('meal',          MealCtrl)
   .controller('plan',          PlanCtrl)
   .controller('recipe_entry',  RecipeEntry)
