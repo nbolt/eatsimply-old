@@ -205,6 +205,7 @@ class Recipe < ActiveRecord::Base
     all_recipes = Recipe.includes(:ingredients, :diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
     all_recipes = all_recipes.where(public: true)
     all_recipes = all_recipes.where(diets: { id: opts[:attrs][:diets] }) if opts[:attrs][:diets]
+    all_recipes = all_recipes.where(veganize: nil) if opts[:attrs][:diets] && opts[:attrs][:diets].to_i != 1
 
     opts[:days].times do |d|
       days_recipes = opts[:recipes] || []

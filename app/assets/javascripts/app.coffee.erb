@@ -500,9 +500,7 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
   $scope.submit = ->
     angular.element('.recipe .submit .button:eq(1)').text('Submitting...')
     $http.post('/recipe/create', $scope.info).success (rsp) ->
-      console.log rsp
       if rsp.success
-        console.log 'success'
         $window.location = "/recipe/#{rsp.id}/view"
 
   $scope.uploadPhoto = ->
