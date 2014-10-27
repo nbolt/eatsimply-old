@@ -27,6 +27,9 @@
         label Diets
         input type='hidden' ui-select2='genHash("diets")' ng:model='info.attributes.diets'
 
+      .field
+        textarea ng:model='info.instructions' placeholder='Preparation instructions' rows='8'
+
       .ingredients
         .title Ingredients
         .ingredient ng:repeat='ingredient in info.ingredients' id='i{{ingredient.$$hashKey}}'

@@ -38,7 +38,7 @@ class Admin::RecipeController < AdminController
   end
 
   def create
-    if Recipe.where(yummly_id: params[:id]).first
+    if params[:id].present? && Recipe.where(yummly_id: params[:id]).first
       render json: { success: false, message: 'Recipe exists' }
     else
       recipe = Recipe.new(
@@ -49,6 +49,7 @@ class Admin::RecipeController < AdminController
         source_name: params[:source].then(:sourceDisplayName),
         yield: params[:yield],
         portion_size: params[:numberOfServings],
+        instructions: params[:instructions],
         public: false
       )
       params[:attributes].each do |key, attributes| # courses, cuisines, and diets
@@ -230,6 +231,10 @@ private
       }
     )
     rsp['hits']
+  end
+
+  def nutritionix_item id
+    HTTParty.get "https://api.nutritionix.com/v1_1/item?id=#{id}&appId=#{ENV['NUTRI_API_ID']}&appKey=#{ENV['NUTRI_API_KEY']}"
   end
 
 end

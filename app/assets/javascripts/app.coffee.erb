@@ -487,10 +487,10 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
           units = _(units).uniq (u) -> "#{u.multiplier} - #{u.name}"
           $http.post('/recipe/unitData', { units: units }).success (rsp) ->
             ingredient.units = _(rsp).map (u) ->
-              text = if u.multiplier == 1 then '' else u.multiplier + ' '
+              text = u.multiplier == 1 && '' || u.multiplier + ' '
               { id: u._id, text: text + u.name, multiplier: u.multiplier, name: u.name }
             unit = _(ingredient.units).find (u) -> u.name == ingredient.unit.abbr if ingredient.unit
-            angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container").select2('data', []).select2('enable', true)
+            angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container".replace(':', '\\:')).select2('data', []).select2('enable', true)
 
   $scope.manual = ->
     $scope.info = {}
@@ -500,7 +500,9 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
   $scope.submit = ->
     angular.element('.recipe .submit .button:eq(1)').text('Submitting...')
     $http.post('/recipe/create', $scope.info).success (rsp) ->
+      console.log rsp
       if rsp.success
+        console.log 'success'
         $window.location = "/recipe/#{rsp.id}/view"
 
   $scope.uploadPhoto = ->
