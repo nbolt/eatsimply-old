@@ -1,8 +1,9 @@
 class YummlyJob
   include SuckerPunch::Job
 
-  def perform(yummly_id, firebase_key, nums, reset_next)
+  def perform(yummly_id, email, firebase_key, nums, reset_next)
     ActiveRecord::Base.connection_pool.with_connection do
+      email = Email.where(email: email)[0]
       recipe = Recipe.where(yummly_id: yummly_id)[0]
       if recipe
         rsp = {
@@ -14,6 +15,7 @@ class YummlyJob
       else
         rsp = Recipe.import(yummly_id)
         if rsp[:recipe]
+          rsp[:recipe].update_attribute :added_by, email.then(:id)
           rsp = {
             success: true,
             message: nil,

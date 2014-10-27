@@ -26,6 +26,8 @@ class DataController < ApplicationController
   end
 
   def recipes
+    email = Email.where(email: params[:email])[0]
+
     bmr =
       if params[:gender][:id] == 'f'
         447.593 + (9.247 * params[:weight].to_i) + (3.098 * params[:height].to_i) - (4.330 * params[:age].to_i)
@@ -59,7 +61,8 @@ class DataController < ApplicationController
       key: params[:key],
       cuisines: params[:cuisines] && params[:cuisines].map {|c| Cuisine.find c[:id]} || [],
       attrs: attrs,
-      clear_next: params[:clear_next]
+      clear_next: params[:clear_next],
+      user: email
     }
 
     if params[:day]
@@ -92,13 +95,13 @@ class DataController < ApplicationController
   end
 
   def yummly_import
-    YummlyJob.new.async.perform params[:yummly_id], params[:firebase_key], params[:nums], params[:reset_next]
+    YummlyJob.new.async.perform params[:yummly_id], params[:email], params[:firebase_key], params[:nums], params[:reset_next]
     render nothing: true
   end
 
   def restaurant_import
     # check for allergens
-    RestaurantJob.new.async.perform params[:id], params[:firebase_key], params[:nums], params[:reset_next]
+    RestaurantJob.new.async.perform params[:id], params[:email], params[:firebase_key], params[:nums], params[:reset_next]
     render nothing: true
   end
 

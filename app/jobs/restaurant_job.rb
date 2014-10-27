@@ -1,8 +1,9 @@
 class RestaurantJob
   include SuckerPunch::Job
 
-  def perform(id, key, nums, reset_next)
+  def perform(id, email, key, nums, reset_next)
     ActiveRecord::Base.connection_pool.with_connection do
+      email = Email.where(email: email)[0]
       recipe = Recipe.where(nutritionix_id: id)[0]
       if recipe
         rsp = {
@@ -38,6 +39,7 @@ class RestaurantJob
           source: "http://nutritionix.com/search/item/#{rsp['item_id']}",
           source_name: 'nutritionix',
           portion_size: rsp['nf_serving_size_qty'],
+          added_by: email.then(:id)
           public: false
         )
 

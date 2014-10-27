@@ -132,7 +132,8 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         cuisines: $scope.form.cuisines,
         days: 7,
         meals: 3,
-        clear_next: true
+        clear_next: true,
+        email: $scope.email
       }
     )
 
@@ -356,6 +357,7 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         nums: [day_index, meal_index]
         id: id
         reset_next: true
+        email: $scope.email
       }
     )
 
@@ -373,10 +375,11 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     $scope.days[day_index].meals[meal_index].message = null
     $http.post('/data/yummly_import',
       {
-        firebase_key: $scope.firebase_endpoint,
+        firebase_key: $scope.firebase_endpoint
         nums: [day_index, meal_index]
         yummly_id: yummly_id
         reset_next: true
+        email: $scope.email
       }
     )
 

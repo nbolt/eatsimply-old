@@ -7,7 +7,7 @@ class Recipe < ActiveRecord::Base
   has_and_belongs_to_many :cuisines
   has_and_belongs_to_many :diets
 
-  validates_uniqueness_of :yummly_id, allow_nil: true
+  #validates_uniqueness_of :yummly_id, allow_nil: true
   validates_uniqueness_of :nutritionix_id, allow_nil: true
 
   def as_json(options = {})
@@ -203,7 +203,7 @@ class Recipe < ActiveRecord::Base
     recipes = []
 
     all_recipes = Recipe.includes(:ingredients, :diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
-    all_recipes = all_recipes.where(public: true)
+    all_recipes = all_recipes.where("public is true or public is false and added_by = ?", opts[:user].id)
     all_recipes = all_recipes.where(diets: { id: opts[:attrs][:diets] }) if opts[:attrs][:diets]
     all_recipes = all_recipes.where(veganize: nil) if opts[:attrs][:diets] && opts[:attrs][:diets].to_i != 1
 
