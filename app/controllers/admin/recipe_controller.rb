@@ -81,9 +81,12 @@ class Admin::RecipeController < AdminController
             end
           end
           unit = Unit.new(name: i[:unit][:text], abbr: i[:unit][:abbr], generic: false) unless unit
-          unit.ingredients.push ingredient unless unit.id && ingredient.id
-          link = IngredientsUnits.where(ingredient_id: ingredient.id, unit_id: unit.id).first ||
-                 !unit.id && unit.ingredients_units.first || !ingredient.id && ingredient.ingredients_units.first
+          if unit.id && ingredient.id
+            link = IngredientsUnits.where(ingredient_id: ingredient.id, unit_id: unit.id)[0]
+          else
+            unit.ingredients.push ingredient
+            link = unit.ingredients_units.first
+          end
           data = i[:combinedData]["#{i[:profile][:text]}"].find{|d|d[:_id] == i[:unit][:id]}
           unless ingredient.id
             [:eggs, :tree_nuts, :shellfish, :peanuts, :wheat, :gluten, :fish, :soybeans, :milk].each do |allergen|
