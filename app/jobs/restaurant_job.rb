@@ -39,7 +39,7 @@ class RestaurantJob
           source: "http://nutritionix.com/search/item/#{rsp['item_id']}",
           source_name: 'nutritionix',
           portion_size: rsp['nf_serving_size_qty'],
-          added_by: email.then(:id)
+          added_by: email.then(:id),
           public: false
         )
 
