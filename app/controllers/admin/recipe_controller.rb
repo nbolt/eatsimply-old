@@ -191,7 +191,9 @@ class Admin::RecipeController < AdminController
 
   def nutritionix
     if params[:term].present?
-      render json: nutritionix_search(params[:term], 3)
+      data = nutritionix_search(params[:term], 3)
+      data = nutritionix_search(params[:term], 2) unless data[0]
+      render json: data
     else
       render nothing: true
     end
