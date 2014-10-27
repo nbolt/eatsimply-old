@@ -16,21 +16,20 @@ class RestaurantJob
         rsp = HTTParty.get("https://api.nutritionix.com/v1_1/item?id=#{id}&appId=#{ENV['NUTRI_API_ID']}&appKey=#{ENV['NUTRI_API_KEY']}")
    
         nutrients = [
-          [4, 'calories'],
-          [5, 'total_fat'],
-          [21, 'saturated_fat'],
-          [6, 'trans_fatty_acid'],
-          [21, 'monounsaturated_fat', 'polyunsaturated_fat'],
-          [7, 'cholesterol'],
-          [8, 'sodium'],
-          [9, 'total_carbohydrate'],
-          [10, 'dietary_fiber'],
-          [11, 'sugars'],
-          [13, 'protein'],
-          [12, 'vitamin_a_dv'],
-          [14, 'vitamin_c_dv'],
-          [1, 'calcium_dv'],
-          [3, 'iron_dv']
+          [Nutrient.where(name: 'Calories')[0], 'calories'],
+          [Nutrient.where(name: 'Fat')[0], 'total_fat'],
+          [Nutrient.where(name: 'Saturated Fat')[0], 'saturated_fat'],
+          [Nutrient.where(name: 'Trans Fat')[0], 'trans_fatty_acid'],
+          [Nutrient.where(name: 'Cholesterol')[0], 'cholesterol'],
+          [Nutrient.where(name: 'Sodium')[0], 'sodium'],
+          [Nutrient.where(name: 'Carbohydrates')[0], 'total_carbohydrate'],
+          [Nutrient.where(name: 'Fiber')[0], 'dietary_fiber'],
+          [Nutrient.where(name: 'Sugars')[0], 'sugars'],
+          [Nutrient.where(name: 'Protein')[0], 'protein'],
+          [Nutrient.where(name: 'Vitamin A')[0], 'vitamin_a_dv'],
+          [Nutrient.where(name: 'Vitamin C')[0], 'vitamin_c_dv'],
+          [Nutrient.where(name: 'Calcium')[0], 'calcium_dv'],
+          [Nutrient.where(name: 'Iron')[0], 'iron_dv']
         ]
 
         recipe = Recipe.new(
@@ -38,7 +37,6 @@ class RestaurantJob
           nutritionix_id: rsp['item_id'],
           source: "http://nutritionix.com/search/item/#{rsp['item_id']}",
           source_name: 'nutritionix',
-          portion_size: rsp['nf_serving_size_qty'],
           added_by: email.then(:id),
           public: false
         )
@@ -52,13 +50,15 @@ class RestaurantJob
         end
 
         nutrients.each do |nutrient|
-          serving = recipe.nutrient_profile.servings.where(nutrient_id: nutrient[0])[0]
+          serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient[0].id}
           if serving
             nutrient[1..-1].each do |field|
-              if rsp["nf_#{field}"][-3..-1] == '_dv'
-                serving.value += Nutrient.find(nutrient[0]).daily_value * (rsp["nf_#{field}"] / 100.0)
-              else
-                serving.value += rsp["nf_#{field}"]
+              if rsp["nf_#{field}"]
+                if nutrient[-1][-3..-1] == '_dv'
+                  serving.value += Nutrient.find(nutrient[0]).daily_value * (rsp["nf_#{field}"] / 100.0)
+                else
+                  serving.value += rsp["nf_#{field}"]
+                end
               end
             end
             serving.save

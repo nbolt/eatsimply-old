@@ -68,8 +68,7 @@ class Admin::RecipeController < AdminController
       params[:ingredients].each do |i|
         if i[:profile]
           i[:amount] = i[:amount].to_frac
-          ingredient = Ingredient.where(name: i[:profile][:text]).first ||
-                       Ingredient.new(name: i[:profile][:text])
+          ingredient = Ingredient.find_or_create_by(name: i[:profile][:text])
           ingredient.recipes.push recipe
           unit = Unit.where(id: i.chain(:unit, :id)).first
           unless unit
@@ -93,28 +92,75 @@ class Admin::RecipeController < AdminController
           end
           unless link.nutrient_profile
             link.nutrient_profile = NutrientProfile.new
-            usda = nutritionix_item(data['_id'])['usda_fields']
-            Nutrient.all.each do |nutrient|
-              if usda[nutrient.attr]
+            rsp = nutritionix_item(data['_id'])
+            usda = rsp['usda_fields']
+            if usda
+              Nutrient.all.each do |nutrient|
+                if usda[nutrient.attr]
+                  serving = link.nutrient_profile.servings.build
+                  serving.nutrient = nutrient
+                  if nutrient.name == 'Trans Fat'
+                    fasat = usda['FASAT'] && usda['FASAT']['value'] || 0
+                    fams  = usda['FAMS'] && usda['FAMS']['value'] || 0
+                    fapu  = usda['FAMS'] && usda['FAPU']['value'] || 0
+                    fat   = usda['FAMS'] && usda['FAT']['value'] || 0
+                    serving.value = fat - (fapu + fams + fasat)
+                    serving.unit = Unit.where(abbr: usda['FAT']['uom']).first || Unit.where(abbr_no_period: usda['FAT']['uom']).first
+                  else
+                    serving.value = usda[nutrient.attr]['value']
+                    serving.unit = Unit.where(abbr: usda[nutrient.attr]['uom'])[0] || Unit.where(abbr_no_period: usda[nutrient.attr]['uom'])[0]
+                  end
+                  serving.value *= i[:unit][:multiplier] * i[:amount] if i.chain(:unit, :multiplier)
+                  serving.save
+                  recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient.id}
+                  recipe_serving.unit = serving.unit
+                  recipe_serving.value += serving.value
+                  recipe_serving.save
+                end
+              end
+            else
+              nutrients = [
+                [Nutrient.where(name: 'Calories')[0], 'calories'],
+                [Nutrient.where(name: 'Fat')[0], 'total_fat'],
+                [Nutrient.where(name: 'Saturated Fat')[0], 'saturated_fat'],
+                [Nutrient.where(name: 'Trans Fat')[0], 'trans_fatty_acid'],
+                [Nutrient.where(name: 'Cholesterol')[0], 'cholesterol'],
+                [Nutrient.where(name: 'Sodium')[0], 'sodium'],
+                [Nutrient.where(name: 'Carbohydrates')[0], 'total_carbohydrate'],
+                [Nutrient.where(name: 'Fiber')[0], 'dietary_fiber'],
+                [Nutrient.where(name: 'Sugars')[0], 'sugars'],
+                [Nutrient.where(name: 'Protein')[0], 'protein'],
+                [Nutrient.where(name: 'Vitamin A')[0], 'vitamin_a_dv'],
+                [Nutrient.where(name: 'Vitamin C')[0], 'vitamin_c_dv'],
+                [Nutrient.where(name: 'Calcium')[0], 'calcium_dv'],
+                [Nutrient.where(name: 'Iron')[0], 'iron_dv']
+              ]
+
+              Nutrient.all.each do |nutrient|
                 serving = link.nutrient_profile.servings.build
                 serving.nutrient = nutrient
-                if nutrient.name == 'Trans Fat'
-                  fasat = usda['FASAT'] && usda['FASAT']['value'] || 0
-                  fams  = usda['FAMS'] && usda['FAMS']['value'] || 0
-                  fapu  = usda['FAMS'] && usda['FAPU']['value'] || 0
-                  fat   = usda['FAMS'] && usda['FAT']['value'] || 0
-                  serving.value = fat - (fapu + fams + fasat)
-                  serving.unit = Unit.where(abbr: usda['FAT']['uom']).first || Unit.where(abbr_no_period: usda['FAT']['uom']).first
-                else
-                  serving.value = usda[nutrient.attr]['value']
-                  serving.unit = Unit.where(abbr: usda[nutrient.attr]['uom'])[0] || Unit.where(abbr_no_period: usda[nutrient.attr]['uom'])[0]
+                serving.unit = Unit.where(abbr_no_period: nutrient.dv_unit)[0]
+                serving.value = 0
+              end
+
+              nutrients.each do |nutrient|
+                serving = link.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient[0].id}
+                if serving
+                  nutrient[1..-1].each do |field|
+                    if rsp["nf_#{field}"]
+                      if nutrient[-1][-3..-1] == '_dv'
+                        serving.value += Nutrient.find(nutrient[0]).daily_value * (rsp["nf_#{field}"] / 100.0)
+                      else
+                        serving.value += rsp["nf_#{field}"]
+                      end
+                    end
+                  end
+                  serving.save
+                  recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient[0].id}
+                  recipe_serving.unit = serving.unit
+                  recipe_serving.value += serving.value
+                  recipe_serving.save
                 end
-                serving.value *= i[:unit][:multiplier] * i[:amount] if i.chain(:unit, :multiplier)
-                serving.save
-                recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient.id}
-                recipe_serving.unit = serving.unit
-                recipe_serving.value += serving.value
-                recipe_serving.save
               end
             end
             link.save
