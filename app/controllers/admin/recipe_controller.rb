@@ -98,10 +98,10 @@ class Admin::RecipeController < AdminController
                 serving = link.nutrient_profile.servings.build
                 serving.nutrient = nutrient
                 if nutrient.name == 'Trans Fat'
-                  fasat = usda['FASAT']['value']
-                  fams  = usda['FAMS']['value']
-                  fapu  = usda['FAPU']['value']
-                  fat   = usda['FAT']['value']
+                  fasat = usda['FASAT'] && usda['FASAT']['value'] || 0
+                  fams  = usda['FAMS'] && usda['FAMS']['value'] || 0
+                  fapu  = usda['FAMS'] && usda['FAPU']['value'] || 0
+                  fat   = usda['FAMS'] && usda['FAT']['value'] || 0
                   serving.value = fat - (fapu + fams + fasat)
                   serving.unit = Unit.where(abbr: usda['FAT']['uom']).first || Unit.where(abbr_no_period: usda['FAT']['uom']).first
                 else

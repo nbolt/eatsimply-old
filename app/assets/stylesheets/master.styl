@@ -644,10 +644,20 @@ footer
           overflow: hidden
           display: inline-block
           vertical-align: top
-        .ingredients
-          margin: 15px 0 0 215px
-          height: 120px
+        .ingredients-container
+          height: 112px
           overflow: hidden
+          position: absolute
+          background-color: white
+          padding: 10px
+          top: 75px
+          left: 225px
+          right: 15px
+          border-radius: 3px
+          border: thin solid white
+          &.overflow:hover
+            height: auto
+            border: thin solid gray
           .ingredient
             &::after
               content: ''
@@ -663,7 +673,7 @@ footer
                 display: none
         .instructions
           font-size: 1.1em
-          margin-top: 35px
+          margin-top: 180px
           height: 220px
           overflow: hidden
         .source

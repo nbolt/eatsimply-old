@@ -229,8 +229,9 @@
         .photo
           img ng:src='{{recipe.photo}}'
         .text ng:bind='recipe.name'
-        .ingredients
-          span.ingredient ng:repeat='ingredient in recipe.ingredients' ng:bind='ingredient.name'
+        .ingredients-container overflow=''
+          .ingredients
+            span.ingredient ng:repeat='ingredient in recipe.ingredients' ng:bind='ingredient.name'
         .instructions ng:bind='recipe.instructions'
         .source
           a href='{{recipe.source}}' target='_window' ng:bind='recipe.source'

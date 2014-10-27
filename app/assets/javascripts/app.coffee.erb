@@ -395,6 +395,13 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
     angular.element('#recipe-details').fadeIn()
 
+    $timeout(->
+      if angular.element('.ingredients-container').children('.ingredients').outerHeight() > 120
+        angular.element('.ingredients-container').addClass 'overflow'
+      else
+        angular.element('.ingredients-container').removeClass 'overflow'
+    )
+
     $timeout((->
       angular.element(document).on 'click', (e) ->
         if (!$(e.target).closest('#recipe-details').length || $(e.target).closest('#recipe-details .close').length)
