@@ -81,9 +81,8 @@ class Admin::RecipeController < AdminController
             end
           end
           unit = Unit.new(name: i[:unit][:text], abbr: i[:unit][:abbr], generic: false) unless unit
-          if unit.id && ingredient.id
-            link = IngredientsUnits.where(ingredient_id: ingredient.id, unit_id: unit.id)[0]
-          else
+          link = IngredientsUnits.where(ingredient_id: ingredient.id, unit_id: unit.id)[0] if unit.id && ingredient.id
+          unless link
             unit.ingredients.push ingredient
             link = unit.ingredients_units.first
           end
