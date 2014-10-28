@@ -38,7 +38,7 @@ class Admin::RecipeController < AdminController
   end
 
   def import
-    Recipe.import params[:id]
+    ImportJob.new.async.perform params[:id]
     render json: { success: true }
   end
 
