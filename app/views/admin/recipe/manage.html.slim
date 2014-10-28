@@ -1,4 +1,7 @@
 #admin-content ng:controller='recipe_manage'
+  .import
+    input type='text' placeholder='Enter yummly URL' ng:model='yummly_url'
+    .button ng:click='import()' Import
   .nav
     .arrow.right ng:click='next()'
       .typcn.typcn-arrow-right

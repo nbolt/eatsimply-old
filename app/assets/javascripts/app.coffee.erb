@@ -432,6 +432,13 @@ RecipeManage = ['$scope', '$http', ($scope, $http) ->
     angular.element("#recipe-#{id}").fadeOut()
     $http.post("/recipe/#{id}/destroy")
 
+  $scope.import = ->
+    url = $scope.yummly_url
+    id = url.split('/')[url.split('/').length-1].split('?')[0]
+    $http.post('/recipe/import', { id: id }).success (rsp) ->
+      if rsp.success
+        $scope.yummly_url = ''
+
 ]
 
 RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeout, $window) ->

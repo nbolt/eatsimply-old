@@ -14,7 +14,7 @@ class Recipe < ActiveRecord::Base
     super options.merge(include: [:recipe_images])
   end
 
-  def self.import id, attrs={}
+  def self.import id, attrs={}, opts={}
     if Recipe.where(yummly_id: id).first
       { success: false, message: 'Recipe already imported' }
     else
@@ -34,7 +34,8 @@ class Recipe < ActiveRecord::Base
           source_name: params['source']['sourceDisplayName'],
           yield: params['yield'],
           portion_size: params['numberOfServings'],
-          ingredient_lines: params['ingredientLines'].to_json
+          ingredient_lines: params['ingredientLines'].to_json,
+          public: opts[:public] || false
         )
         params['attributes'].merge(attrs).each do |key, attributes| # courses, cuisines, and diets
           if attributes && key != 'holiday'
