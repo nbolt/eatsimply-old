@@ -35,7 +35,7 @@ class Recipe < ActiveRecord::Base
           yield: params['yield'],
           portion_size: params['numberOfServings'],
           ingredient_lines: params['ingredientLines'].to_json,
-          public: opts[:public] || false
+          public: opts[:public] || true
         )
         params['attributes'].merge(attrs).each do |key, attributes| # courses, cuisines, and diets
           if attributes && key != 'holiday'
