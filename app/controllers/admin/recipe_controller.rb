@@ -34,10 +34,21 @@ class Admin::RecipeController < AdminController
   end
 
   def recipes
+    recipes = Recipe.all
+    if params[:filters].present?
+      params[:filters].split(',').each do |filter|
+        case filter
+        when 'review'
+          recipes = recipes.where(review: true)
+        when 'hidden'
+          recipes = recipes.where(public: false)
+        end
+      end
+    end
     if params[:page]
-      render json: Kaminari.paginate_array(Recipe.all.sort_by(&:algo_count).reverse).page(params[:page]).per(30)
+      render json: Kaminari.paginate_array(recipes.sort_by(&:algo_count).reverse).page(params[:page]).per(30)
     else
-      render json: Recipe.all.sort_by(&:algo_count).reverse
+      render json: recipes.sort_by(&:algo_count).reverse
     end
   end
 

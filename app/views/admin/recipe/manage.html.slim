@@ -2,6 +2,11 @@
   .import
     input type='text' placeholder='Enter yummly URL' ng:model='yummly_url'
     .button ng:click='import()' Import
+  .filters
+    .filter.review ng:click='review()'
+      .text Needs review
+    .filter.hidden ng:click='hidden()'
+      .text Hidden
   .nav
     .arrow.right ng:click='next()'
       .typcn.typcn-arrow-right

@@ -415,6 +415,7 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
 RecipeManage = ['$scope', '$http', ($scope, $http) ->
 
+  $scope.filters = []
   $scope.page = 1
 
   $http.get('/recipe/recipes?page=1').success (recipes) -> $scope.recipes = recipes
@@ -423,12 +424,12 @@ RecipeManage = ['$scope', '$http', ($scope, $http) ->
 
   $scope.next = ->
     $scope.page += 1
-    $http.get("/recipe/recipes?page=#{$scope.page}").success (recipes) -> $scope.recipes = recipes
+    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}").success (recipes) -> $scope.recipes = recipes
 
   $scope.prev = ->
     if $scope.page > 1
       $scope.page -= 1
-      $http.get("/recipe/recipes?page=#{$scope.page}").success (recipes) -> $scope.recipes = recipes
+      $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}").success (recipes) -> $scope.recipes = recipes
 
   $scope.destroy = (id) ->
     angular.element("#recipe-#{id}").fadeOut()
@@ -440,6 +441,30 @@ RecipeManage = ['$scope', '$http', ($scope, $http) ->
       recipe.public = false
     else
       recipe.public = true
+
+  $scope.review = ->
+    el = angular.element('#admin-content > .filters .filter.review')
+    if el.hasClass('active')
+      el.removeClass('active')
+      $scope.filters = _($scope.filters).reject (f) -> f == 'review'
+    else
+      el.addClass('active')
+      $scope.filters.push 'review'
+    
+    $scope.page = 1
+    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}").success (recipes) -> $scope.recipes = recipes
+
+  $scope.hidden = ->
+    el = angular.element('#admin-content > .filters .filter.hidden')
+    if el.hasClass('active')
+      el.removeClass('active')
+      $scope.filters = _($scope.filters).reject (f) -> f == 'hidden'
+    else
+      el.addClass('active')
+      $scope.filters.push 'hidden'
+    
+    $scope.page = 1
+    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}").success (recipes) -> $scope.recipes = recipes
 
   $scope.import = ->
     url = $scope.yummly_url
