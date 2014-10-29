@@ -616,7 +616,7 @@ app = angular.module('eatt', ['ngCookies', 'ui.select2'])
         'margin-left': '+=335'
       }, 400, 'swing')
   )
-  .directive('fetchRecipe', ($http) -> (scope, element, attrs) ->
+  .directive('fetchRecipe', ['$http', ($http) -> (scope, element, attrs) ->
     $http.get("/recipe/#{attrs.fetchRecipe}/fetch").success (rsp) ->
       info = rsp
       info.attributes = {}
@@ -668,6 +668,6 @@ app = angular.module('eatt', ['ngCookies', 'ui.select2'])
                 angular.element("#i#{ingredient.$$hashKey} .field.unit .select2-container".replace(':', '\\:')).select2('data', []).select2('enable', true)
 
       scope.info = info
-  )
+  ])
 
 angular.element(document).on 'ready page:load', -> angular.bootstrap('body', ['eatt'])
