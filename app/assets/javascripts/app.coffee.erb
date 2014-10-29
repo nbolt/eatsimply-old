@@ -88,7 +88,7 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     $http.post('/data/groceries',
       {
         email: $scope.email || localStorage && localStorage['email']
-        recipes: $scope.days
+        days: $scope.days
       }
     )
     $('.action.pdf .text').fadeOut()

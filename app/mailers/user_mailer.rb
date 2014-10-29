@@ -10,8 +10,8 @@ class UserMailer < ActionMailer::Base
   	mail(subject: "Thanks from Eatt!", to: email.email, from: 'support@ea.tt', tag: 'welcome-preview', track_opens: true)
   end
 
-  def grocery_list_email email, recipes
-    @recipes = recipes
+  def grocery_list_email email, days
+    @days = days
     mail(subject: "Your customized meal plan!", to: email.email, from: 'support@ea.tt', tag: 'meal-plan', track_opens: true)
   end
 

@@ -2,6 +2,8 @@ html
   head
     meta http-equiv='Content-Type' content='text/html; charset=UTF-8'
     meta property='og:title' content='Thanks for signing up!'
+    style
+
   body style='font-family:"Helvetica Neue"'
     table cellspacing='0' cellpadding='0' border='0' width='100%'
       tr
@@ -14,16 +16,21 @@ html
               td bgcolor='white' style='border:thin solid #ccc;border-radius:3px;padding:25px'
                 div style='text-align:center;font-weight:bold;color:#393532;font-size:2em;border-bottom:4px solid #88c425;width:180px;margin:auto;padding-bottom:6px' Grocery List
 
-                .recipes style="margin-top: 60px;" 
-                  - (@recipes || recipes).each do |recipe|
-                    .recipe style="display: inline-block; vertical-align: top; width: 33%; text-align: center; margin-bottom: 30px;"
-                      .title style="font-size: 1.5em; font-weight: bold; border-bottom: 2px solid rgb(136, 196, 37); padding-bottom: 2px; display: inline-block; text-align: center;"
-                        = recipe[:name]
-                      .ingredients
-                        - recipe[:ingredients].each do |ingredient|
-                          .ingredient
-                            ul style="text-align: left;"
-                              li style="font-size: 1.2em; margin-bottom: 8px; margin-left: 60px;"
-                                = ingredient
+                .recipes style="margin-top:60px"
+                  - @days.each do |day|
+                    .column style="width: 33%; display: inline-block; vertical-align: top;"
+                      .day style="border-bottom: 2px solid rgb(136, 196, 37); font-weight: 600; padding-bottom: 2px; text-align: center; font-size: 1.75em;width:80%;margin:auto"
+                        = day['name']
+                      - day['meals'].each do |meal|
+                        div style="vertical-align: top; text-align: center; margin: 40px auto; width: 80%;"
+                          - meal['recipes'].each do |recipe|
+                            .name style="font-weight: bold; border-bottom: 2px solid rgb(136, 196, 37); padding-bottom: 2px; text-align: center; font-size: 1.25em;"
+                              = recipe['name']
+                            ul style="text-align:left" 
+                              div style="font-size: 1.2em; margin-bottom: 8px; color: #aaa"
+                                = 'Serves ' + recipe['portion_size'].to_s
+                              - recipe[:ingredient_names].each do |ingredient|
+                                li style="font-size: 1.2em; margin-bottom: 8px; margin-left: 0px;"
+                                  = ingredient
             tr
               td align='center' style='padding-top:40px;color:#777' &copy; 2014 Eatt - All Rights Reserved

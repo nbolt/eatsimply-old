@@ -107,11 +107,14 @@ class DataController < ApplicationController
 
   def groceries
     email = Email.where(email: params[:email])[0]
-    recipes = params[:recipes].map{|d| d['meals'].map{|m| m['recipes']}}.flatten.map{|r| r = Recipe.find r['id']; {
-      name: r.name,
-      ingredients: r.ingredient_lines && JSON.parse(r.ingredient_lines) || r.ingredients.map{|i| i.name}
-    }}
-    UserMailer.grocery_list_email(email, recipes).deliver
+    params[:days].each do |day|
+      day['meals'].each do |meal|
+        meal['recipes'].each do |recipe|
+          recipe[:ingredient_names] = recipe['ingredient_lines'] && JSON.parse(recipe['ingredient_lines']) || recipe['ingredients'].map{|i| i['name']}
+        end
+      end
+    end
+    UserMailer.grocery_list_email(email, params[:days]).deliver
     render json: { success: true }
   end
 
