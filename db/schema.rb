@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027034527) do
+ActiveRecord::Schema.define(version: 20141029093849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 20141027034527) do
     t.integer "ingredient_id"
     t.integer "recipe_id"
     t.string  "description"
+    t.integer "unit_id"
+    t.float   "amount"
   end
 
   create_table "ingredients", force: true do |t|
@@ -80,7 +82,6 @@ ActiveRecord::Schema.define(version: 20141027034527) do
     t.string   "group"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "food_id"
     t.boolean  "allergen_contains_eggs"
     t.boolean  "allergen_contains_tree_nuts"
     t.boolean  "allergen_contains_shellfish"
@@ -95,13 +96,13 @@ ActiveRecord::Schema.define(version: 20141027034527) do
   create_table "ingredients_units", force: true do |t|
     t.integer "unit_id"
     t.integer "ingredient_id"
+    t.string  "nutri_id"
   end
 
   create_table "nutrient_profiles", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "recipe_id"
-    t.integer  "ingredients_units_id"
   end
 
   create_table "nutrients", force: true do |t|
@@ -141,11 +142,12 @@ ActiveRecord::Schema.define(version: 20141027034527) do
     t.string   "yield"
     t.integer  "algo_count",       default: 0
     t.string   "nutritionix_id"
-    t.boolean  "public"
     t.text     "ingredient_lines"
     t.text     "instructions"
     t.boolean  "veganize"
     t.integer  "added_by"
+    t.boolean  "review",           default: true
+    t.boolean  "public",           default: false
   end
 
   create_table "servings", force: true do |t|

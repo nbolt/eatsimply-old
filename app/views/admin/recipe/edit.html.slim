@@ -1,0 +1,49 @@
+#admin-content ng:controller='recipe_entry'
+  .title Recipe update
+  .form
+    .recipe fetch-recipe="#{params[:id]}"
+
+      .field.title
+        .photo ng:click='uploadPhoto()'
+        input.input type='text' ng:model='info.name'
+
+      .field
+        label Courses
+        input type='hidden' ui-select2='genHash("courses")' ng:model='info.attributes.courses'
+
+      .field
+        label Cuisines
+        input type='hidden' ui-select2='genHash("cuisines")' ng:model='info.attributes.cuisines'
+
+      .field
+        label Diets
+        input type='hidden' ui-select2='genHash("diets")' ng:model='info.attributes.diets'
+
+      .field
+        textarea ng:model='info.instructions' placeholder='Preparation instructions' rows='8'
+
+      .ingredients
+        .title Ingredients
+        .ingredient ng:repeat='ingredient in info.ingredients' id='i{{ingredient.$$hashKey}}'
+          .remove ng:click='ingredient.unwatch();remove(ingredient)'
+            .typcn
+          .field.notes
+            input.input type='text' ng:model='ingredient.notes'
+            .desc Description
+          /.field.type
+          /  label Ingredient
+          /  input type='radio' name='wat'
+          /  label Equipment
+          /  input type='radio' name='wat'
+          .field.profile
+            input.input type='hidden' ui-select2='nutriHash(ingredient)' ng:model='ingredient.profile'
+            .desc Ingredient
+          .field.amount
+            input.input type='text' ng:model='ingredient.amount'
+            .desc Amount
+          .field.unit
+            input.input ui-select2='unitHash(ingredient)' ng:model='ingredient.unit' disabled='disabled'
+            .desc Unit
+      .submit
+        .button ng:click='add()' Add Ingredient
+        .button ng:click='update()' Update Recipe

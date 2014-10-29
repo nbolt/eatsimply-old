@@ -11,7 +11,7 @@ class Recipe < ActiveRecord::Base
   validates_uniqueness_of :nutritionix_id, allow_nil: true
 
   def as_json(options = {})
-    super options.merge(include: [:recipe_images])
+    super options.merge(include: [:recipe_images, :courses, :cuisines, :diets, :ingredient_links, ingredients: {include: :ingredients_units}])
   end
 
   def self.import id, attrs={}, opts={}
@@ -35,7 +35,7 @@ class Recipe < ActiveRecord::Base
           yield: params['yield'],
           portion_size: params['numberOfServings'],
           ingredient_lines: params['ingredientLines'].to_json,
-          public: opts[:public] || true
+          public: opts[:public] || false
         )
         params['attributes'].merge(attrs).each do |key, attributes| # courses, cuisines, and diets
           if attributes && key != 'holiday'

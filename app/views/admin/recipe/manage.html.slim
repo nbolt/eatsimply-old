@@ -10,8 +10,12 @@
   .recipes
     .recipe id="recipe-{{recipe.id}}" ng:repeat='recipe in recipes'
       .right
+        .item.course ng:if='recipe.courses[0]'
+          .text ng:bind='recipe.courses[0].name'
         .item.count
           .text ng:bind='recipe.algo_count'
+        .item.public
+          .typcn ng:click='toggle(recipe)' ng:class='public(recipe.public)'
         .item.remove ng:click="destroy(recipe.id)"
           .typcn
       .name

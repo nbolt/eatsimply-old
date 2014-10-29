@@ -1043,27 +1043,43 @@ header.admin
       .right
         float: right
         .item
-          border: thin solid gray
+          border-right: thin solid gray
           display: inline-block
           vertical-align: top
-          border-radius: 3px
-          width: 30px
-          height: 30px
-          margin: -5px 0 0 8px
+          min-width: 21px
+          height: 41px
+          padding: 0 10px
+          margin-top: -10px
+          background-color: light-gray
+          &:first-child
+            border-left: thin solid gray
           .text
-            margin-top: 5px
-          &.remove
-            .typcn
-              font-size: 1.3em
-              color: #ccc
-              margin-top: 1px
-              &::before
-                content:'\e121'
+            margin-top: 10px
+          .typcn
+            font-size: 1.3em
+            color: #ccc
+            margin-top: 6px
             &:hover
               cursor: pointer
-              .typcn::before
-                content:'\e122'
-                color: rgb(107,43,26)
+          &.public
+            .typcn
+              &.off
+                &::before
+                  content:'\e0b1'
+                &:hover::before
+                  color: green
+              &.on
+                &::before
+                  content:'\e0b2'
+                  color: green
+                &:hover::before
+                  content:'\e0b1'
+          &.remove
+            .typcn::before
+              content:'\e121'
+            &:hover .typcn::before
+              content:'\e122'
+              color: rgb(107,43,26)
   .nutrients
     margin-top: 25px
     text-align: left

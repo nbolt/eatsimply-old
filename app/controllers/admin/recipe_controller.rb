@@ -24,6 +24,10 @@ class Admin::RecipeController < AdminController
   def view
   end
 
+  def fetch
+    render json: recipe
+  end
+
   def destroy
     recipe.destroy
     render nothing: true
@@ -42,6 +46,162 @@ class Admin::RecipeController < AdminController
     render json: { success: true }
   end
 
+  def toggle
+    if recipe.public
+      recipe.update_attribute :public, false
+    else
+      recipe.update_attribute :public, true
+    end
+    render nothing: true
+  end
+
+  def update
+    recipe.update_attributes(
+      name: params[:name],
+      instructions: params[:instructions],
+      review: false
+    )
+    params[:attributes].each do |key, attributes| # courses, cuisines, and diets
+      if attributes && ['diets', 'cuisines', 'courses'].index(key)
+        recipe.send(key).each do |attribute|
+          recipe.send(key).delete attribute unless attributes.map{|a|a['text']}.index attribute.name
+        end
+        attributes.each do |attribute|
+          instance = key[0..-2].capitalize.constantize.where(name: attribute['text'])[0]
+          recipe.send(key).push instance unless recipe.send(key).index instance
+        end
+      end
+    end
+    if params[:images].chain(:first, :hostedLargeUrl)
+      recipe_image = recipe.recipe_images.build
+      recipe_image.remote_image_url = params[:images][0][:hostedLargeUrl]
+      if recipe_image.save
+        recipe.recipe_images.first.destroy if recipe.recipe_images.count > 1
+        HTTParty.post("#{params[:images][0][:hostedLargeUrl]}/remove?key=#{ENV['FILEPICKER_KEY']}")
+      end
+    end
+    if params[:ingredients] && params[:ingredients][0]
+      recipe.nutrient_profile.destroy
+      recipe.nutrient_profile = NutrientProfile.new
+      Nutrient.all.each do |nutrient|
+        serving = recipe.nutrient_profile.servings.build
+        serving.nutrient = nutrient
+        serving.value = 0
+      end
+      recipe.ingredients.each do |i|
+        recipe.ingredients.delete i
+      end
+      params[:ingredients].each do |i|
+        if i[:profile] || i[:name]
+          name = i[:profile][:text] || i[:name]
+          if i[:amount].class == String
+            i[:amount] = i[:amount].to_frac
+          else
+            i[:amount] = i[:amount].to_f
+          end
+          if i[:unit][:multiplier]
+            i[:amount] *= i[:unit][:multiplier]
+            i[:unit][:multiplier] = 1
+          end
+          ingredient = Ingredient.find_or_create_by(name: name)
+          ingredient.recipes.push recipe
+          ilink = IngredientLink.where(ingredient_id: ingredient.id, recipe_id: recipe.id)[0]
+          ilink.update_attribute :description, i[:notes]
+          unit = Unit.where(id: i.chain(:unit, :id)).first
+          unless unit
+            unit = Unit.where(name: i.chain(:unit, :name)).first || Unit.where(name: i.chain(:unit, :name, :pluralize)).first || Unit.where(abbr: i.chain(:unit, :name)).first
+            unit = Unit.where(abbr_no_period: i.chain(:unit, :name)).first if !unit && i.chain(:unit, :name)
+            unit = Unit.where(abbr_no_period: i.chain(:unit, :abbr)).first if !unit && i.chain(:unit, :abbr)
+          end
+          unit = Unit.create(name: i[:unit][:name].pluralize, abbr: i[:unit][:abbr], generic: false) unless unit
+          link = IngredientsUnits.where(ingredient_id: ingredient.id, unit_id: unit.id)[0]
+          unless link
+            unit.ingredients.push ingredient
+            link = IngredientsUnits.where(ingredient_id: ingredient.id, unit_id: unit.id)[0]
+          end
+          if i[:combinedData]["#{name}"][0]
+            data = i[:combinedData]["#{name}"].find{|d|d[:_id] == i[:unit][:id]}
+          else
+            data = i[:combinedData]["#{name}"]
+          end
+          link.nutri_id = data['_id'] if data['_id']
+          ilink.update_attributes(unit_id: unit.id, amount: i[:amount])
+          unless ingredient.id
+            [:eggs, :tree_nuts, :shellfish, :peanuts, :wheat, :gluten, :fish, :soybeans, :milk].each do |allergen|
+              ingredient["allergen_contains_#{allergen}"] = data["allergen_contains_#{allergen}"]
+            end       
+          end
+          rsp = nutritionix_item(link.nutri_id)
+          usda = rsp['usda_fields']
+          if usda
+            Nutrient.all.each do |nutrient|
+              if usda[nutrient.attr]
+                if nutrient.name == 'Trans Fat'
+                  fasat = usda['FASAT'] && usda['FASAT']['value'] || 0
+                  fams  = usda['FAMS'] && usda['FAMS']['value'] || 0
+                  fapu  = usda['FAMS'] && usda['FAPU']['value'] || 0
+                  fat   = usda['FAMS'] && usda['FAT']['value'] || 0
+                  
+                  value = fat - (fapu + fams + fasat)
+                  unit = Unit.where(abbr: usda['FAT']['uom']).first || Unit.where(abbr_no_period: usda['FAT']['uom']).first
+                else
+                  value = usda[nutrient.attr]['value']
+                  unit = Unit.where(abbr: usda[nutrient.attr]['uom'])[0] || Unit.where(abbr_no_period: usda[nutrient.attr]['uom'])[0]
+                end
+                value *= (i[:unit][:multiplier] || 1) * i[:amount]
+
+                recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient.id}
+                recipe_serving.unit = unit
+                recipe_serving.value += value
+                recipe_serving.save
+              end
+            end
+          else
+            nutrients = [
+              [Nutrient.where(name: 'Calories')[0], 'calories'],
+              [Nutrient.where(name: 'Fat')[0], 'total_fat'],
+              [Nutrient.where(name: 'Saturated Fat')[0], 'saturated_fat'],
+              [Nutrient.where(name: 'Trans Fat')[0], 'trans_fatty_acid'],
+              [Nutrient.where(name: 'Cholesterol')[0], 'cholesterol'],
+              [Nutrient.where(name: 'Sodium')[0], 'sodium'],
+              [Nutrient.where(name: 'Carbohydrates')[0], 'total_carbohydrate'],
+              [Nutrient.where(name: 'Fiber')[0], 'dietary_fiber'],
+              [Nutrient.where(name: 'Sugars')[0], 'sugars'],
+              [Nutrient.where(name: 'Protein')[0], 'protein'],
+              [Nutrient.where(name: 'Vitamin A')[0], 'vitamin_a_dv'],
+              [Nutrient.where(name: 'Vitamin C')[0], 'vitamin_c_dv'],
+              [Nutrient.where(name: 'Calcium')[0], 'calcium_dv'],
+              [Nutrient.where(name: 'Iron')[0], 'iron_dv']
+            ]
+
+            nutrients.each do |nutrient|
+              value = 0
+              nutrient[1..-1].each do |field|
+                if rsp["nf_#{field}"]
+                  if nutrient[-1][-3..-1] == '_dv'
+                    value += Nutrient.find(nutrient[0]).daily_value * (rsp["nf_#{field}"] / 100.0)
+                  else
+                    value += rsp["nf_#{field}"]
+                  end
+                end
+              end
+              value *= (i[:unit][:multiplier] || 1) * i[:amount]
+
+              recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient[0].id}
+              recipe_serving.unit = Unit.where(abbr_no_period: nutrient[0].dv_unit)[0]
+              recipe_serving.value += value
+              recipe_serving.save
+            end
+          end
+          link.save
+          ingredient.save
+        end
+      end
+      recipe.save
+    end
+    render json: { success: true }
+  end
+
   def create
     if params[:id].present? && Recipe.where(yummly_id: params[:id]).first
       render json: { success: false, message: 'Recipe exists' }
@@ -56,7 +216,7 @@ class Admin::RecipeController < AdminController
           yield: params[:yield],
           portion_size: params[:numberOfServings],
           instructions: params[:instructions],
-          public: false
+          review: false
         )
         params[:attributes].each do |key, attributes| # courses, cuisines, and diets
           if attributes && ['diets', 'cuisines', 'courses'].index(key)
@@ -73,118 +233,108 @@ class Admin::RecipeController < AdminController
         end
         params[:ingredients].each do |i|
           if i[:profile]
-            i[:amount] = i[:amount].to_frac
+            if i[:amount].class == String
+              i[:amount] = i[:amount].to_frac
+            else
+              i[:amount] = i[:amount].to_f
+            end
+            if i[:unit][:multiplier]
+              i[:amount] *= i[:unit][:multiplier]
+              i[:unit][:multiplier] = 1
+            end
             ingredient = Ingredient.find_or_create_by(name: i[:profile][:text])
             ingredient.recipes.push recipe
             ilink = IngredientLink.where(ingredient_id: ingredient.id, recipe_id: recipe.id)[0]
             ilink.update_attribute :description, i[:notes]
             unit = Unit.where(id: i.chain(:unit, :id)).first
             unless unit
-              unit = Unit.where(name: i.chain(:unit, :text)).first || Unit.where(abbr: i.chain(:unit, :abbr)).first
+              unit = Unit.where(name: i.chain(:unit, :name)).first || Unit.where(name: i.chain(:unit, :name, :pluralize)).first || Unit.where(abbr: i.chain(:unit, :name)).first
+              unit = Unit.where(abbr_no_period: i.chain(:unit, :name)).first if !unit && i.chain(:unit, :name)
               unit = Unit.where(abbr_no_period: i.chain(:unit, :abbr)).first if !unit && i.chain(:unit, :abbr)
-              if unit
-                i[:amount] *= i[:unit][:multiplier]
-                i[:unit][:multiplier] = 1
-              end
             end
-            unit = Unit.create(name: i[:unit][:text], abbr: i[:unit][:abbr], generic: false) unless unit
+            unit = Unit.create(name: i[:unit][:name].pluralize, abbr: i[:unit][:abbr], generic: false) unless unit
             link = IngredientsUnits.where(ingredient_id: ingredient.id, unit_id: unit.id)[0]
             unless link
               unit.ingredients.push ingredient
               link = IngredientsUnits.where(ingredient_id: ingredient.id, unit_id: unit.id)[0]
             end
             data = i[:combinedData]["#{i[:profile][:text]}"].find{|d|d[:_id] == i[:unit][:id]}
+            link.nutri_id = data['_id']
+            ilink.update_attributes(unit_id: unit.id, amount: i[:amount])
             unless ingredient.id
               [:eggs, :tree_nuts, :shellfish, :peanuts, :wheat, :gluten, :fish, :soybeans, :milk].each do |allergen|
                 ingredient["allergen_contains_#{allergen}"] = data["allergen_contains_#{allergen}"]
               end       
             end
-            unless link.nutrient_profile
-              link.nutrient_profile = NutrientProfile.new
-              rsp = nutritionix_item(data['_id'])
-              usda = rsp['usda_fields']
-              if usda
-                Nutrient.all.each do |nutrient|
-                  if usda[nutrient.attr]
-                    serving = link.nutrient_profile.servings.build
-                    serving.nutrient = nutrient
-                    if nutrient.name == 'Trans Fat'
-                      fasat = usda['FASAT'] && usda['FASAT']['value'] || 0
-                      fams  = usda['FAMS'] && usda['FAMS']['value'] || 0
-                      fapu  = usda['FAMS'] && usda['FAPU']['value'] || 0
-                      fat   = usda['FAMS'] && usda['FAT']['value'] || 0
-                      serving.value = fat - (fapu + fams + fasat)
-                      serving.unit = Unit.where(abbr: usda['FAT']['uom']).first || Unit.where(abbr_no_period: usda['FAT']['uom']).first
-                    else
-                      serving.value = usda[nutrient.attr]['value']
-                      serving.unit = Unit.where(abbr: usda[nutrient.attr]['uom'])[0] || Unit.where(abbr_no_period: usda[nutrient.attr]['uom'])[0]
-                    end
-                    serving.value *= i[:unit][:multiplier] * i[:amount] if i.chain(:unit, :multiplier)
-                    serving.save
-                    recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient.id}
-                    recipe_serving.unit = serving.unit
-                    recipe_serving.value += serving.value
-                    recipe_serving.save
+            link.nutrient_profile = NutrientProfile.new
+            rsp = nutritionix_item(data['_id'])
+            usda = rsp['usda_fields']
+            if usda
+              Nutrient.all.each do |nutrient|
+                if usda[nutrient.attr]
+                  if nutrient.name == 'Trans Fat'
+                    fasat = usda['FASAT'] && usda['FASAT']['value'] || 0
+                    fams  = usda['FAMS'] && usda['FAMS']['value'] || 0
+                    fapu  = usda['FAMS'] && usda['FAPU']['value'] || 0
+                    fat   = usda['FAMS'] && usda['FAT']['value'] || 0
+                    value = fat - (fapu + fams + fasat)
+                    unit = Unit.where(abbr: usda['FAT']['uom']).first || Unit.where(abbr_no_period: usda['FAT']['uom']).first
+                  else
+                    value = usda[nutrient.attr]['value']
+                    unit = Unit.where(abbr: usda[nutrient.attr]['uom'])[0] || Unit.where(abbr_no_period: usda[nutrient.attr]['uom'])[0]
                   end
-                end
-              else
-                nutrients = [
-                  [Nutrient.where(name: 'Calories')[0], 'calories'],
-                  [Nutrient.where(name: 'Fat')[0], 'total_fat'],
-                  [Nutrient.where(name: 'Saturated Fat')[0], 'saturated_fat'],
-                  [Nutrient.where(name: 'Trans Fat')[0], 'trans_fatty_acid'],
-                  [Nutrient.where(name: 'Cholesterol')[0], 'cholesterol'],
-                  [Nutrient.where(name: 'Sodium')[0], 'sodium'],
-                  [Nutrient.where(name: 'Carbohydrates')[0], 'total_carbohydrate'],
-                  [Nutrient.where(name: 'Fiber')[0], 'dietary_fiber'],
-                  [Nutrient.where(name: 'Sugars')[0], 'sugars'],
-                  [Nutrient.where(name: 'Protein')[0], 'protein'],
-                  [Nutrient.where(name: 'Vitamin A')[0], 'vitamin_a_dv'],
-                  [Nutrient.where(name: 'Vitamin C')[0], 'vitamin_c_dv'],
-                  [Nutrient.where(name: 'Calcium')[0], 'calcium_dv'],
-                  [Nutrient.where(name: 'Iron')[0], 'iron_dv']
-                ]
+                  value *= (i[:unit][:multiplier] || 1) * i[:amount]
 
-                Nutrient.all.each do |nutrient|
-                  serving = link.nutrient_profile.servings.build
-                  serving.nutrient = nutrient
-                  serving.unit = Unit.where(abbr_no_period: nutrient.dv_unit)[0]
-                  serving.value = 0
-                end
-
-                nutrients.each do |nutrient|
-                  serving = link.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient[0].id}
-                  if serving
-                    nutrient[1..-1].each do |field|
-                      if rsp["nf_#{field}"]
-                        if nutrient[-1][-3..-1] == '_dv'
-                          serving.value += Nutrient.find(nutrient[0]).daily_value * (rsp["nf_#{field}"] / 100.0)
-                        else
-                          serving.value += rsp["nf_#{field}"]
-                        end
-                      end
-                    end
-                    serving.save
-                    recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient[0].id}
-                    recipe_serving.unit = serving.unit
-                    recipe_serving.value += serving.value
-                    recipe_serving.save
-                  end
+                  recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient.id}
+                  recipe_serving.unit = unit
+                  recipe_serving.value += value
+                  recipe_serving.save
                 end
               end
-              link.save
+            else
+              nutrients = [
+                [Nutrient.where(name: 'Calories')[0], 'calories'],
+                [Nutrient.where(name: 'Fat')[0], 'total_fat'],
+                [Nutrient.where(name: 'Saturated Fat')[0], 'saturated_fat'],
+                [Nutrient.where(name: 'Trans Fat')[0], 'trans_fatty_acid'],
+                [Nutrient.where(name: 'Cholesterol')[0], 'cholesterol'],
+                [Nutrient.where(name: 'Sodium')[0], 'sodium'],
+                [Nutrient.where(name: 'Carbohydrates')[0], 'total_carbohydrate'],
+                [Nutrient.where(name: 'Fiber')[0], 'dietary_fiber'],
+                [Nutrient.where(name: 'Sugars')[0], 'sugars'],
+                [Nutrient.where(name: 'Protein')[0], 'protein'],
+                [Nutrient.where(name: 'Vitamin A')[0], 'vitamin_a_dv'],
+                [Nutrient.where(name: 'Vitamin C')[0], 'vitamin_c_dv'],
+                [Nutrient.where(name: 'Calcium')[0], 'calcium_dv'],
+                [Nutrient.where(name: 'Iron')[0], 'iron_dv']
+              ]
+
+              nutrients.each do |nutrient|
+                nutrient[1..-1].each do |field|
+                  if rsp["nf_#{field}"]
+                    if nutrient[-1][-3..-1] == '_dv'
+                      value += Nutrient.find(nutrient[0]).daily_value * (rsp["nf_#{field}"] / 100.0)
+                    else
+                      value += rsp["nf_#{field}"]
+                    end
+                  end
+                end
+                value *= (i[:unit][:multiplier] || 1) * i[:amount]
+
+                recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient[0].id}
+                recipe_serving.unit = Unit.where(abbr_no_period: nutrient.dv_unit)[0]
+                recipe_serving.value += value
+                recipe_serving.save
+              end
             end
+            link.save
             ingredient.save
           end
         end
         if params[:images].chain(:first, :hostedLargeUrl)
           recipe_image = recipe.recipe_images.build
           recipe_image.remote_image_url = params[:images][0][:hostedLargeUrl]
-          recipe_image.save
-        elsif params[:photo]
-          recipe_image = recipe.recipe_images.build
-          recipe_image.remote_image_url = params[:photo]        
-          HTTParty.post("#{params[:photo]}/remove?key=#{ENV['FILEPICKER_KEY']}") if recipe_image.save
+          HTTParty.post("#{params[:images].chain(:first, :hostedLargeUrl)}/remove?key=#{ENV['FILEPICKER_KEY']}") if recipe_image.save
         end
         if recipe.save
           render json: { success: true, id: recipe.id }
@@ -235,13 +385,17 @@ class Admin::RecipeController < AdminController
   end
 
   def unitData
-    unitList = []
-    params[:units].each do |u|
-      unit = Unit.where(name: u['name']).first.as_json || { name: u['name'] }
-      unit.merge!({ '_id' => u['id'], multiplier: u['multiplier'] })
-      unitList.push unit
+    if params[:units]
+      unitList = []
+      params[:units].each do |u|
+        unit = Unit.where(name: u['name']).first.as_json || { name: u['name'] }
+        unit.merge!({ '_id' => u['id'], multiplier: u['multiplier'] })
+        unitList.push unit
+      end
+      render json: unitList
+    else
+      render json: Unit.find(params[:id])
     end
-    render json: unitList
   end
 
   def ingredients
@@ -256,6 +410,10 @@ class Admin::RecipeController < AdminController
     else
       render nothing: true
     end
+  end
+
+  def fetch_ingredient
+    render json: nutritionix_item(params[:id])
   end
 
 private
