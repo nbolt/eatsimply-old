@@ -10,5 +10,7 @@ Eatt::Application.routes.draw do
 
   match '/:controller/:action', via: [:get, :post]
 
+  get '/:action' => 'home'
+
   root to: 'home#index'
 end
