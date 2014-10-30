@@ -1,7 +1,9 @@
 #admin-content ng:controller='recipe_manage'
-  .import
+  .input.import
     input type='text' placeholder='Enter yummly URL' ng:model='yummly_url'
     .button ng:click='import()' Import
+  .input.search
+    input type='text' placeholder='Enter your search terms here' ng:model='search'
   .filters
     .filter.review ng:click='review()'
       .text Needs review
@@ -9,6 +11,10 @@
       .text Hidden
     .filter.yummly ng:click='yummly()'
       .text Yummly
+    .filter.course ng:click='courses()'
+      .text All courses
+    .filter.diet ng:click='diets()'
+      .text All diets
   .nav
     .arrow.right ng:click='next()'
       .typcn.typcn-arrow-right
@@ -17,6 +23,8 @@
   .recipes
     .recipe id="recipe-{{recipe.id}}" ng:repeat='recipe in recipes'
       .right
+        .item.diet ng:if='recipe.diets[0]'
+          .text ng:bind='recipe.diet'
         .item.course ng:if='recipe.courses[0]'
           .text ng:bind='recipe.courses[0].name'
         .item.count

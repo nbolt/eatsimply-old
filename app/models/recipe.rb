@@ -1,4 +1,7 @@
 class Recipe < ActiveRecord::Base
+  include PgSearch
+  pg_search_scope :search, against: :name, using: { tsearch: { prefix: true } }
+
   has_one :nutrient_profile, dependent: :destroy
   has_many :recipe_images, dependent: :destroy
   has_many :ingredient_links, dependent: :destroy
@@ -21,7 +24,7 @@ class Recipe < ActiveRecord::Base
         WHERE  recipes.id = ingredient_links.recipe_id) 
     SQL
   end
-
+  
   def self.import id, attrs={}, opts={}
     if Recipe.where(yummly_id: id).first
       { success: false, message: 'Recipe already imported' }

@@ -417,19 +417,29 @@ RecipeManage = ['$scope', '$http', ($scope, $http) ->
 
   $scope.filters = []
   $scope.page = 1
+  $scope.search = ''
+  $scope.diet = ''
+  $scope.course = ''
 
   $http.get('/recipe/recipes?page=1').success (recipes) -> $scope.recipes = recipes
+
+  $scope.$watch 'search', (n,o) ->
+    $scope.page = 1
+    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}&search=#{n}&diet=#{$scope.diet}&course=#{$scope.course}")
+      .success (recipes) -> $scope.recipes = recipes
 
   $scope.public = (p) -> p && 'on' || 'off'
 
   $scope.next = ->
     $scope.page += 1
-    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}").success (recipes) -> $scope.recipes = recipes
+    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}&search=#{$scope.search}&diet=#{$scope.diet}&course=#{$scope.course}")
+      .success (recipes) -> $scope.recipes = recipes
 
   $scope.prev = ->
     if $scope.page > 1
       $scope.page -= 1
-      $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}").success (recipes) -> $scope.recipes = recipes
+      $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}&search=#{$scope.search}&diet=#{$scope.diet}&course=#{$scope.course}")
+        .success (recipes) -> $scope.recipes = recipes
 
   $scope.destroy = (id) ->
     angular.element("#recipe-#{id}").fadeOut()
@@ -442,6 +452,50 @@ RecipeManage = ['$scope', '$http', ($scope, $http) ->
     else
       recipe.public = true
 
+  $scope.diets = ->
+    el = angular.element('#admin-content > .filters .filter.diet')
+
+    switch $scope.diet
+      when '' then $scope.diet = 'Vegan'
+      when 'Vegan' then $scope.diet = 'Vegetarian'
+      when 'Vegetarian' then $scope.diet = 'Pescetarian'
+      when 'Pescetarian' then $scope.diet = ''
+
+    if $scope.diet == ''
+      el.removeClass('active')
+      el.children('.text').text 'All diets'
+    else
+      el.addClass('active')
+      el.children('.text').text $scope.diet
+    
+    $scope.page = 1
+    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}&search=#{$scope.search}&diet=#{$scope.diet}&course=#{$scope.course}")
+      .success (recipes) -> $scope.recipes = recipes
+
+  $scope.courses = ->
+    el = angular.element('#admin-content > .filters .filter.course')
+
+    switch $scope.course
+      when '' then $scope.course = 'Main Dishes'
+      when 'Main Dishes' then $scope.course = 'Side Dishes'
+      when 'Side Dishes' then $scope.course = 'Appetizers'
+      when 'Appetizers' then $scope.course = 'Desserts'
+      when 'Desserts' then $scope.course = 'Lunch and Snacks'
+      when 'Lunch and Snacks' then $scope.course = 'Breakfast and Brunch'
+      when 'Breakfast and Brunch' then $scope.course = ''
+
+    if $scope.course == ''
+      el.removeClass('active')
+      el.children('.text').text 'All courses'
+    else
+      el.addClass('active')
+      el.children('.text').text $scope.course
+    
+    $scope.page = 1
+    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}&search=#{$scope.search}&diet=#{$scope.diet}&course=#{$scope.course}")
+      .success (recipes) -> $scope.recipes = recipes
+
+
   $scope.yummly = ->
     el = angular.element('#admin-content > .filters .filter.yummly')
     if el.hasClass('active')
@@ -452,7 +506,8 @@ RecipeManage = ['$scope', '$http', ($scope, $http) ->
       $scope.filters.push 'yummly'
     
     $scope.page = 1
-    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}").success (recipes) -> $scope.recipes = recipes
+    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}&search=#{$scope.search}&diet=#{$scope.diet}&course=#{$scope.course}")
+      .success (recipes) -> $scope.recipes = recipes
 
   $scope.review = ->
     el = angular.element('#admin-content > .filters .filter.review')
@@ -464,7 +519,8 @@ RecipeManage = ['$scope', '$http', ($scope, $http) ->
       $scope.filters.push 'review'
     
     $scope.page = 1
-    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}").success (recipes) -> $scope.recipes = recipes
+    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}&search=#{$scope.search}&diet=#{$scope.diet}&course=#{$scope.course}")
+      .success (recipes) -> $scope.recipes = recipes
 
   $scope.hidden = ->
     el = angular.element('#admin-content > .filters .filter.hidden')
@@ -476,7 +532,8 @@ RecipeManage = ['$scope', '$http', ($scope, $http) ->
       $scope.filters.push 'hidden'
     
     $scope.page = 1
-    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}").success (recipes) -> $scope.recipes = recipes
+    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}&search=#{$scope.search}&diet=#{$scope.diet}&course=#{$scope.course}")
+      .success (recipes) -> $scope.recipes = recipes
 
   $scope.import = ->
     url = $scope.yummly_url

@@ -47,11 +47,40 @@ class Admin::RecipeController < AdminController
         end
       end
     end
-    if params[:page]
-      render json: Kaminari.paginate_array(recipes.sort_by(&:algo_count).reverse).page(params[:page]).per(30)
-    else
-      render json: recipes.sort_by(&:algo_count).reverse
+
+    if params[:search].present?
+      recipes = recipes.search params[:search]
     end
+
+    if params[:diet].present?
+      diet = Diet.where(name: params[:diet])[0]
+      recipes = recipes.joins(:diets).where('diet_id = ?', diet.id)
+    end
+
+    if params[:course].present?
+      course = Course.where(name: params[:course])[0]
+      recipes = recipes.joins(:courses).where('course_id = ?', course.id)
+    end
+
+    if params[:page]
+      json = Kaminari.paginate_array(recipes.sort_by(&:algo_count).reverse).page(params[:page]).per(30).as_json
+    else
+      json = recipes.sort_by(&:algo_count).reverse.as_json
+    end
+
+    json.each do |r|
+      if r['diets'][0]
+        if r['diets'].find {|d| d['name'] == 'Vegan'}
+          r['diet'] = 'Vegan'
+        elsif r['diets'].find {|d| d['name'] == 'Vegetarian'}
+          r['diet'] = 'Vegetarian'
+        elsif r['diets'].find {|d| d['name'] == 'Pescetarian'}
+          r['diet'] = 'Pescetarin'
+        end
+      end
+    end
+
+    render json: json
   end
 
   def import
