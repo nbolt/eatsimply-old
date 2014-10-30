@@ -31,12 +31,6 @@ class ActiveSupport::TestCase
   register_spec_type self do |desc|
     desc < ActiveRecord::Base if desc.is_a? Class
   end
-end
 
-RSpec.configure do |config|
-  config.after(:each) do
-    if Rails.env.test? || Rails.env.cucumber?
-      FileUtils.rm_rf(Dir["#{Rails.root}/test/support/uploads"])
-    end 
-  end
+  after { FileUtils.rm_rf(Dir["#{Rails.root}/test/support/uploads"]) }
 end
