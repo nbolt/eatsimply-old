@@ -10,7 +10,6 @@ describe Recipe do
 
   it 'successfully imports' do
     rsp = Recipe.import params['id']
-    puts params['nutritionEstimates']
     rsp[:success].must_equal true
     rsp[:recipe].courses.must_include main
     rsp[:recipe].cuisines.must_include asian
