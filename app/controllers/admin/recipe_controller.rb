@@ -216,7 +216,6 @@ class Admin::RecipeController < AdminController
   end
 
   def create
-    binding.pry
     if params[:id].present? && Recipe.where(yummly_id: params[:id]).first
       render json: { success: false, message: 'Recipe exists' }
     else

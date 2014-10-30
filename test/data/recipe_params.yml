@@ -1,0 +1,3802 @@
+---
+  yield: "4 servings"
+  nutritionEstimates: 
+    - 
+      attribute: "FAT_KCAL"
+      description: null
+      value: 70
+      unit: 
+        id: "fea252f8-9888-4365-b005-e2c63ed3a776"
+        name: "calorie"
+        abbreviation: "kcal"
+        plural: "calories"
+        pluralAbbreviation: "kcal"
+        decimal: true
+    - 
+      attribute: "FAPU"
+      description: "Fatty acids, total polyunsaturated"
+      value: 2.36
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "CAMD5"
+      description: "Campesterol"
+      value: 0.01
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "FOLDFE"
+      description: "Folate, DFE"
+      value: 41.92
+      unit: 
+        id: "4d783ee4-aa07-4958-84bf-3f4b528049dc"
+        name: "mcg_DFE"
+        abbreviation: "mcg_DFE"
+        plural: "mcg_DFE"
+        pluralAbbreviation: "mcg_DFE"
+        decimal: false
+    - 
+      attribute: "FOLFD"
+      description: "Folate, food"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "CARTA"
+      description: "Carotene, alpha"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "MN"
+      description: "Manganese, Mn"
+      value: 0.01
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "TOCPHA"
+      description: "Vitamin E (alpha-tocopherol)"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "FAMS"
+      description: "Fatty acids, total monounsaturated"
+      value: 3.54
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "GALS"
+      description: "Galactose"
+      value: 0.09
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "VITC"
+      description: "Vitamin C, total ascorbic acid"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "CARTB"
+      description: "Carotene, beta"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "FOL"
+      description: "Folate, total"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "GLUS"
+      description: "Glucose (dextrose)"
+      value: 0.39
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "LEU_G"
+      description: "Leucine"
+      value: 1.43
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "TOCPHD"
+      description: "Tocopherol, delta"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "NIA"
+      description: "Niacin"
+      value: 0.01
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "ASP_G"
+      description: "Aspartic acid"
+      value: 1.43
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "TOCPHG"
+      description: "Tocopherol, gamma"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "F18D1C"
+      description: "18:1 c"
+      value: 2.09
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "FRUS"
+      description: "Fructose"
+      value: 0.39
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "VITK"
+      description: "Vitamin K (phylloquinone)"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "K"
+      description: "Potassium, K"
+      value: 0.45
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "FASAT"
+      description: "Fatty acids, total saturated"
+      value: 1.65
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "VITA_IU"
+      description: "Vitamin A, IU"
+      value: 5399.6
+      unit: 
+        id: "ed46fe0c-44fe-4c1f-b3a8-880f92e30930"
+        name: "IU"
+        abbreviation: "IU"
+        plural: "IU"
+        pluralAbbreviation: "IU"
+        decimal: true
+    - 
+      attribute: "F18D3CN3"
+      description: "18:3 n-3 c,c,c"
+      value: 0.3
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "VITB6A"
+      description: "Vitamin B-6"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "CHOLN"
+      description: "Choline, total"
+      value: 0.05
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "P"
+      description: "Phosphorus, P"
+      value: 0.49
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "F20D0"
+      description: "20:0"
+      value: 0.03
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "PHYSTR"
+      description: "Phytosterols"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "F18D2CN6"
+      description: "18:2 n-6 c,c"
+      value: 0.64
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "F20D1"
+      description: "20:1"
+      value: 0.03
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "ENERC_KJ"
+      description: "Energy"
+      value: 2399.01
+      unit: 
+        id: "fea252f8-9888-4365-b005-e2c63ed3a776"
+        name: "calorie"
+        abbreviation: "kcal"
+        plural: "calories"
+        pluralAbbreviation: "kcal"
+        decimal: true
+    - 
+      attribute: "CU"
+      description: "Copper, Cu"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "SUCS"
+      description: "Sucrose"
+      value: 3.03
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "SE"
+      description: "Selenium, Se"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "FIBTG"
+      description: "Fiber, total dietary"
+      value: 7.87
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "SITSTR"
+      description: "Beta-sitosterol"
+      value: 0.01
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "NA"
+      description: "Sodium, Na"
+      value: 0.33
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "LYCPN"
+      description: "Lycopene"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "ZN"
+      description: "Zinc, Zn"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "ENERC_KCAL"
+      description: "Energy"
+      value: 575.18
+      unit: 
+        id: "fea252f8-9888-4365-b005-e2c63ed3a776"
+        name: "calorie"
+        abbreviation: "kcal"
+        plural: "calories"
+        pluralAbbreviation: "kcal"
+        decimal: true
+    - 
+      attribute: "LUT+ZEA"
+      description: "Lutein + zeaxanthin"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "SUGAR"
+      description: "Sugars, total"
+      value: 3.59
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "ASH"
+      description: "Ash"
+      value: 3.97
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "WATER"
+      description: "Water"
+      value: 58.96
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "STARCH"
+      description: "Starch"
+      value: 0.64
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "F16D0"
+      description: "16:0"
+      value: 0.14
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "VITA_RAE"
+      description: "Vitamin A, RAE"
+      value: 265.17
+      unit: 
+        id: "0fcf76b3-891a-403d-883f-58c8809ef151"
+        name: "mcg_RAE"
+        abbreviation: "mcg_RAE"
+        plural: "mcg_RAE"
+        pluralAbbreviation: "mcg_RAE"
+        decimal: false
+    - 
+      attribute: "GLU_G"
+      description: "Glutamic acid"
+      value: 2.9
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "PANTAC"
+      description: "Pantothenic acid"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "F18D0"
+      description: "18:0"
+      value: 0.07
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "FAT"
+      description: "Total lipid (fat)"
+      value: 7.59
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "MG"
+      description: "Magnesium, Mg"
+      value: 0.21
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "F18D1"
+      description: "18:1 undifferentiated"
+      value: 3.48
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "STID7"
+      description: "Stigmasterol"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "F18D2"
+      description: "18:2 undifferentiated"
+      value: 2.03
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "CHOCDF"
+      description: "Carbohydrate, by difference"
+      value: 113.65
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "F18D3"
+      description: "18:3 undifferentiated"
+      value: 0.3
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "PROCNT"
+      description: "Protein"
+      value: 12.55
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "BETN"
+      description: "Betaine"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "FLD"
+      description: "Fluoride, F"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "CA"
+      description: "Calcium, Ca"
+      value: 0.06
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "ARG_G"
+      description: "Arginine"
+      value: 1.39
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+    - 
+      attribute: "FE"
+      description: "Iron, Fe"
+      value: 0
+      unit: 
+        id: "12485d26-6e69-102c-9a8a-0030485841f8"
+        name: "gram"
+        abbreviation: "g"
+        plural: "grams"
+        pluralAbbreviation: "grams"
+        decimal: true
+  totalTime: "25 min"
+  images: 
+    - 
+      imageUrlsBySize: 
+        90: "http://lh3.ggpht.com/_tOdKtehM3UjIaVgj44wrI4EojPXGLug7-noRQX_cLfxkcTaVORMMHmaOdkgRHAP-qTDv1JNUfifBrpoLJE31A=s90-c"
+        360: "http://lh3.ggpht.com/_tOdKtehM3UjIaVgj44wrI4EojPXGLug7-noRQX_cLfxkcTaVORMMHmaOdkgRHAP-qTDv1JNUfifBrpoLJE31A=s360-c"
+      hostedSmallUrl: "http://lh5.ggpht.com/fGavxX4e_EZCCAjYwSDlZFRmZzUTdoHuQKUsBND3yU_T3icSF4atQyfoczpqaSrKuaEJY3c9-PEFkfCmgpHJQQ=s90"
+      hostedMediumUrl: "http://lh5.ggpht.com/fGavxX4e_EZCCAjYwSDlZFRmZzUTdoHuQKUsBND3yU_T3icSF4atQyfoczpqaSrKuaEJY3c9-PEFkfCmgpHJQQ=s180"
+      hostedLargeUrl: "http://lh5.ggpht.com/fGavxX4e_EZCCAjYwSDlZFRmZzUTdoHuQKUsBND3yU_T3icSF4atQyfoczpqaSrKuaEJY3c9-PEFkfCmgpHJQQ=s360"
+  name: "Kimchi Fried Rice"
+  source: 
+    sourceRecipeUrl: "http://foxeslovelemons.com/2013/03/kimchi-fried-rice.html"
+    sourceSiteUrl: "http://foxeslovelemons.com"
+    sourceDisplayName: "Foxes Love Lemons"
+  id: "Kimchi-Fried-Rice-501964"
+  ingredientLines: 
+    - "1 tablespoon canola oil"
+    - "2 carrots, finely chopped"
+    - "2 celery stalks, finely chopped"
+    - "1/2 cup kimchi, finely chopped"
+    - "3 cups cooked white or brown rice (see note below)"
+    - "1/2 cup bean sprouts"
+    - "1/4 cup frozen peas"
+    - "Soy sauce, to taste"
+    - "Ground white pepper, to taste"
+  attribution: 
+    html: "<a href='http://www.yummly.com/recipe/Kimchi-Fried-Rice-501964'>Kimchi Fried Rice recipe</a> information powered by <img alt='Yummly' src='http://static.yummly.com/api-logo.png'/>"
+    url: "http://www.yummly.com/recipe/Kimchi-Fried-Rice-501964"
+    text: "Kimchi Fried Rice recipes: information powered by Yummly"
+    logo: "http://static.yummly.com/api-logo.png"
+  numberOfServings: 4
+  totalTimeInSeconds: 1500
+  attributes: 
+    cuisine: 
+      - "Asian"
+    course: 
+      - "Main Dishes"
+      - "Side Dishes"
+    courses: 
+      - 
+        id: "Main Dishes"
+        text: "Main Dishes"
+    cuisines: 
+      - 
+        id: "Asian"
+        text: "Asian"
+    diets: 
+      - 
+        id: 1
+        text: "Vegan"
+      - 
+        id: 5
+        text: "Vegetarian"
+      - 
+        id: 4
+        text: "Pescetarian"
+  flavors: 
+    Sweet: 0.3333
+    Salty: 0.1667
+    Bitter: 0.8333
+    Sour: 0.1667
+    Meaty: 0.5
+    Piquant: 0
+  rating: 4
+  ingredients: 
+    - 
+      line: "1 tablespoon canola oil"
+      profile: 
+        id: "Canola Oil"
+        text: "Canola Oil"
+      amount: "1"
+      unit: 
+        id: "513fceb475b8dbbc21000682"
+        text: "tbsp"
+        multiplier: 1
+        name: "tbsp"
+      name: "Canola Oil"
+      notes: "1 tablespoon canola oil"
+      units: 
+        - 
+          id: "513fceb475b8dbbc21000682"
+          text: "tbsp"
+          multiplier: 1
+          name: "tbsp"
+        - 
+          id: "513fceb475b8dbbc21000681"
+          text: "cup"
+          multiplier: 1
+          name: "cup"
+        - 
+          id: "513fceb475b8dbbc21000680"
+          text: "tsp"
+          multiplier: 1
+          name: "tsp"
+      combinedData: 
+        Canola Oil: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb475b8dbbc21000682"
+            _score: 1.7660208
+            fields: 
+              old_api_id: null
+              item_name: "Canola Oil - 1 tbsp"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:05:14.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0
+              nf_calories: 123.76
+              nf_calories_from_fat: 126
+              nf_total_fat: 14
+              nf_saturated_fat: 1.03
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 3.94
+              nf_monounsaturated_fat: 8.86
+              nf_cholesterol: 0
+              nf_sodium: 0
+              nf_total_carbohydrate: 0
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "tbsp"
+              nf_serving_weight_grams: 14
+              _id: "513fceb475b8dbbc21000682"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb475b8dbbc21000681"
+            _score: 1.6842946
+            fields: 
+              old_api_id: null
+              item_name: "Canola Oil - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:04:07.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0
+              nf_calories: 1927.12
+              nf_calories_from_fat: 1962
+              nf_total_fat: 218
+              nf_saturated_fat: 16.06
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 61.35
+              nf_monounsaturated_fat: 137.94
+              nf_cholesterol: 0
+              nf_sodium: 0
+              nf_total_carbohydrate: 0
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 218
+              _id: "513fceb475b8dbbc21000681"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb475b8dbbc21000680"
+            _score: 1.4733549
+            fields: 
+              old_api_id: null
+              item_name: "Canola Oil - 1 tsp"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:05:14.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0
+              nf_calories: 39.78
+              nf_calories_from_fat: 40.5
+              nf_total_fat: 4.5
+              nf_saturated_fat: 0.33
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 1.27
+              nf_monounsaturated_fat: 2.85
+              nf_cholesterol: 0
+              nf_sodium: 0
+              nf_total_carbohydrate: 0
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "tsp"
+              nf_serving_weight_grams: 4.5
+              _id: "513fceb475b8dbbc21000680"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Oil, corn and canola: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb875b8dbbc2100362a"
+            _score: 1.4291711
+            fields: 
+              old_api_id: null
+              item_name: "Oil, corn and canola - 1 teaspoon"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:49:40.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0
+              nf_calories: 39.78
+              nf_calories_from_fat: 40.5
+              nf_total_fat: 4.5
+              nf_saturated_fat: 0.36
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 1.31
+              nf_monounsaturated_fat: 2.63
+              nf_cholesterol: 0
+              nf_sodium: 0
+              nf_total_carbohydrate: 0
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "teaspoon"
+              nf_serving_weight_grams: 4.5
+              _id: "513fceb875b8dbbc2100362a"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb875b8dbbc2100362b"
+            _score: 1.3633009
+            fields: 
+              old_api_id: null
+              item_name: "Oil, corn and canola - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:48:33.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0
+              nf_calories: 1980.16
+              nf_calories_from_fat: 2016
+              nf_total_fat: 224
+              nf_saturated_fat: 17.98
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 65.21
+              nf_monounsaturated_fat: 131.12
+              nf_cholesterol: 0
+              nf_sodium: 0
+              nf_total_carbohydrate: 0
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 224
+              _id: "513fceb875b8dbbc2100362b"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb875b8dbbc2100362c"
+            _score: 1.1927159
+            fields: 
+              old_api_id: null
+              item_name: "Oil, corn and canola - 1 tbsp"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:49:41.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0
+              nf_calories: 123.76
+              nf_calories_from_fat: 126
+              nf_total_fat: 14
+              nf_saturated_fat: 1.12
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 4.08
+              nf_monounsaturated_fat: 8.2
+              nf_cholesterol: 0
+              nf_sodium: 0
+              nf_total_carbohydrate: 0
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "tbsp"
+              nf_serving_weight_grams: 14
+              _id: "513fceb875b8dbbc2100362c"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Oil, industrial, canola, high oleic: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb475b8dbbc2100074b"
+            _score: 1.2896305
+            fields: 
+              old_api_id: null
+              item_name: "Oil, industrial, canola, high oleic - 1 tablespoon"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:04:44.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0
+              nf_calories: 126
+              nf_calories_from_fat: 126
+              nf_total_fat: 14
+              nf_saturated_fat: 0.95
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 2.21
+              nf_monounsaturated_fat: 10.18
+              nf_cholesterol: 0
+              nf_sodium: 0
+              nf_total_carbohydrate: 0
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "tablespoon"
+              nf_serving_weight_grams: 14
+              _id: "513fceb475b8dbbc2100074b"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb475b8dbbc21000749"
+            _score: 1.2298609
+            fields: 
+              old_api_id: null
+              item_name: "Oil, industrial, canola, high oleic - 1 teaspoon"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:04:44.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0
+              nf_calories: 40.5
+              nf_calories_from_fat: 40.5
+              nf_total_fat: 4.5
+              nf_saturated_fat: 0.31
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.71
+              nf_monounsaturated_fat: 3.27
+              nf_cholesterol: 0
+              nf_sodium: 0
+              nf_total_carbohydrate: 0
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "teaspoon"
+              nf_serving_weight_grams: 4.5
+              _id: "513fceb475b8dbbc21000749"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb475b8dbbc2100074a"
+            _score: 1.2298609
+            fields: 
+              old_api_id: null
+              item_name: "Oil, industrial, canola, high oleic - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:05:52.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0
+              nf_calories: 1962
+              nf_calories_from_fat: 1962
+              nf_total_fat: 218
+              nf_saturated_fat: 14.8
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 34.41
+              nf_monounsaturated_fat: 158.56
+              nf_cholesterol: 0
+              nf_sodium: 0
+              nf_total_carbohydrate: 0
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 218
+              _id: "513fceb475b8dbbc2100074a"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Margarine, 80% fat, tub, CANOLA HARVEST Soft Spread (canola, palm and palm kernel oils): 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb475b8dbbc21000732"
+            _score: 1.190976
+            fields: 
+              old_api_id: null
+              item_name: "Margarine, 80% fat, tub, CANOLA HARVEST Soft Spread (canola, palm and palm kernel oils) - 1 tablespo"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:05:47.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 2.25
+              nf_calories: 102.2
+              nf_calories_from_fat: 101.2
+              nf_total_fat: 11.24
+              nf_saturated_fat: 1.63
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 2.99
+              nf_monounsaturated_fat: 6.34
+              nf_cholesterol: 0
+              nf_sodium: 99.96
+              nf_total_carbohydrate: 0.19
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0.06
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "tablespoon (1 NLEA serving)"
+              nf_serving_weight_grams: 14
+              _id: "513fceb475b8dbbc21000732"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+    - 
+      line: "2 carrots, finely chopped"
+      profile: 
+        id: "Carrot, Raw"
+        text: "Carrot, Raw"
+      amount: "2"
+      unit: 
+        id: "513fceb575b8dbbc210014dd"
+        text: "medium"
+        multiplier: 1
+        name: "medium"
+      name: null
+      notes: "2 carrots, finely chopped"
+      units: 
+        - 
+          id: "513fceb575b8dbbc210014dd"
+          text: "medium"
+          multiplier: 1
+          name: "medium"
+        - 
+          id: "513fceb575b8dbbc210014db"
+          text: "slice"
+          multiplier: 1
+          name: "slice"
+        - 
+          id: "513fceb575b8dbbc210014de"
+          text: "large (7-1/4\" to 8-/1/2\" long)"
+          multiplier: 1
+          name: "large (7-1/4\" to 8-/1/2\" long)"
+        - 
+          id: "513fceb575b8dbbc210014e0"
+          text: "cup grated"
+          multiplier: 1
+          name: "cup grated"
+        - 
+          id: "513fceb575b8dbbc210014dc"
+          text: "small (5-1/2\" long)"
+          multiplier: 1
+          name: "small (5-1/2\" long)"
+        - 
+          id: "513fceb575b8dbbc210014d9"
+          text: "strip medium"
+          multiplier: 1
+          name: "strip medium"
+        - 
+          id: "513fceb575b8dbbc210014da"
+          text: "strip large (3\" long)"
+          multiplier: 1
+          name: "strip large (3\" long)"
+        - 
+          id: "513fceb575b8dbbc210014df"
+          text: "cup strips or slices"
+          multiplier: 1
+          name: "cup strips or slices"
+        - 
+          id: "513fceb575b8dbbc210014e1"
+          text: "cup chopped"
+          multiplier: 1
+          name: "cup chopped"
+      combinedData: 
+        Carrot, Raw: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014dd"
+            _score: 11.222357
+            fields: 
+              old_api_id: null
+              item_name: "Carrot, Raw - 1 medium"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:20:35.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 53.86
+              nf_calories: 25.01
+              nf_calories_from_fat: 1.32
+              nf_total_fat: 0.15
+              nf_saturated_fat: 0.02
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.07
+              nf_monounsaturated_fat: 0.01
+              nf_cholesterol: 0
+              nf_sodium: 42.09
+              nf_total_carbohydrate: 5.84
+              nf_dietary_fiber: 1.71
+              nf_sugars: 2.89
+              nf_protein: 0.57
+              nf_vitamin_a_dv: 204
+              nf_vitamin_c_dv: 6
+              nf_calcium_dv: 2
+              nf_iron_dv: 1
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "medium"
+              nf_serving_weight_grams: 61
+              _id: "513fceb575b8dbbc210014dd"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014db"
+            _score: 11.1253395
+            fields: 
+              old_api_id: null
+              item_name: "Carrot, Raw - 1 slice"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:20:35.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 2.65
+              nf_calories: 1.23
+              nf_calories_from_fat: 0.06
+              nf_total_fat: 0.01
+              nf_saturated_fat: 0
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0
+              nf_monounsaturated_fat: 0
+              nf_cholesterol: 0
+              nf_sodium: 2.07
+              nf_total_carbohydrate: 0.29
+              nf_dietary_fiber: 0.08
+              nf_sugars: 0.14
+              nf_protein: 0.03
+              nf_vitamin_a_dv: 10
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "slice"
+              nf_serving_weight_grams: 3
+              _id: "513fceb575b8dbbc210014db"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014de"
+            _score: 10.989439
+            fields: 
+              old_api_id: null
+              item_name: "Carrot, Raw - 1 large (7-1/4\" to 8-/1/2\" long)"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:19:27.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 63.57
+              nf_calories: 29.52
+              nf_calories_from_fat: 1.56
+              nf_total_fat: 0.17
+              nf_saturated_fat: 0.03
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.08
+              nf_monounsaturated_fat: 0.01
+              nf_cholesterol: 0
+              nf_sodium: 49.68
+              nf_total_carbohydrate: 6.9
+              nf_dietary_fiber: 2.02
+              nf_sugars: 3.41
+              nf_protein: 0.67
+              nf_vitamin_a_dv: 241
+              nf_vitamin_c_dv: 7
+              nf_calcium_dv: 2
+              nf_iron_dv: 1
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "large (7-1/4\" to 8-/1/2\" long)"
+              nf_serving_weight_grams: 72
+              _id: "513fceb575b8dbbc210014de"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014e0"
+            _score: 10.989439
+            fields: 
+              old_api_id: null
+              item_name: "Carrot, Raw - 1 cup grated"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:19:28.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 97.12
+              nf_calories: 45.1
+              nf_calories_from_fat: 2.38
+              nf_total_fat: 0.26
+              nf_saturated_fat: 0.04
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.13
+              nf_monounsaturated_fat: 0.02
+              nf_cholesterol: 0
+              nf_sodium: 75.9
+              nf_total_carbohydrate: 10.54
+              nf_dietary_fiber: 3.08
+              nf_sugars: 5.21
+              nf_protein: 1.02
+              nf_vitamin_a_dv: 368
+              nf_vitamin_c_dv: 11
+              nf_calcium_dv: 4
+              nf_iron_dv: 2
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup grated"
+              nf_serving_weight_grams: 110
+              _id: "513fceb575b8dbbc210014e0"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014dc"
+            _score: 10.979746
+            fields: 
+              old_api_id: null
+              item_name: "Carrot, Raw - 1 small (5-1/2\" long)"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:19:27.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 44.15
+              nf_calories: 20.5
+              nf_calories_from_fat: 1.08
+              nf_total_fat: 0.12
+              nf_saturated_fat: 0.02
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.06
+              nf_monounsaturated_fat: 0.01
+              nf_cholesterol: 0
+              nf_sodium: 34.5
+              nf_total_carbohydrate: 4.79
+              nf_dietary_fiber: 1.4
+              nf_sugars: 2.37
+              nf_protein: 0.46
+              nf_vitamin_a_dv: 167
+              nf_vitamin_c_dv: 5
+              nf_calcium_dv: 2
+              nf_iron_dv: 1
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "small (5-1/2\" long)"
+              nf_serving_weight_grams: 50
+              _id: "513fceb575b8dbbc210014dc"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014d9"
+            _score: 10.09196
+            fields: 
+              old_api_id: null
+              item_name: "Carrot, Raw - 1 strip medium"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:20:34.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 3.53
+              nf_calories: 1.64
+              nf_calories_from_fat: 0.09
+              nf_total_fat: 0.01
+              nf_saturated_fat: 0
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0
+              nf_monounsaturated_fat: 0
+              nf_cholesterol: 0
+              nf_sodium: 2.76
+              nf_total_carbohydrate: 0.38
+              nf_dietary_fiber: 0.11
+              nf_sugars: 0.19
+              nf_protein: 0.04
+              nf_vitamin_a_dv: 13
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "strip medium"
+              nf_serving_weight_grams: 4
+              _id: "513fceb575b8dbbc210014d9"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014da"
+            _score: 10.09196
+            fields: 
+              old_api_id: null
+              item_name: "Carrot, Raw - 1 strip large (3\" long)"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:19:27.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 6.18
+              nf_calories: 2.87
+              nf_calories_from_fat: 0.15
+              nf_total_fat: 0.02
+              nf_saturated_fat: 0
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.01
+              nf_monounsaturated_fat: 0
+              nf_cholesterol: 0
+              nf_sodium: 4.83
+              nf_total_carbohydrate: 0.67
+              nf_dietary_fiber: 0.2
+              nf_sugars: 0.33
+              nf_protein: 0.07
+              nf_vitamin_a_dv: 23
+              nf_vitamin_c_dv: 1
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "strip large (3\" long)"
+              nf_serving_weight_grams: 7
+              _id: "513fceb575b8dbbc210014da"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014df"
+            _score: 10.09196
+            fields: 
+              old_api_id: null
+              item_name: "Carrot, Raw - 1 cup strips or slices"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:20:35.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 107.71
+              nf_calories: 50.02
+              nf_calories_from_fat: 2.64
+              nf_total_fat: 0.29
+              nf_saturated_fat: 0.05
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.14
+              nf_monounsaturated_fat: 0.02
+              nf_cholesterol: 0
+              nf_sodium: 84.18
+              nf_total_carbohydrate: 11.69
+              nf_dietary_fiber: 3.42
+              nf_sugars: 5.78
+              nf_protein: 1.13
+              nf_vitamin_a_dv: 408
+              nf_vitamin_c_dv: 12
+              nf_calcium_dv: 4
+              nf_iron_dv: 2
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup strips or slices"
+              nf_serving_weight_grams: 122
+              _id: "513fceb575b8dbbc210014df"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014e1"
+            _score: 10.09196
+            fields: 
+              old_api_id: null
+              item_name: "Carrot, Raw - 1 cup chopped"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:20:36.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 113.01
+              nf_calories: 52.48
+              nf_calories_from_fat: 2.76
+              nf_total_fat: 0.31
+              nf_saturated_fat: 0.05
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.15
+              nf_monounsaturated_fat: 0.02
+              nf_cholesterol: 0
+              nf_sodium: 88.32
+              nf_total_carbohydrate: 12.26
+              nf_dietary_fiber: 3.58
+              nf_sugars: 6.07
+              nf_protein: 1.19
+              nf_vitamin_a_dv: 428
+              nf_vitamin_c_dv: 13
+              nf_calcium_dv: 4
+              nf_iron_dv: 2
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup chopped"
+              nf_serving_weight_grams: 128
+              _id: "513fceb575b8dbbc210014e1"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Babyfood, vegetables, carrots, strained: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb375b8dbbc2100038c"
+            _score: 1.1907643
+            fields: 
+              old_api_id: null
+              item_name: "Babyfood, vegetables, carrots, strained - 1 oz"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:02:45.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 26.17
+              nf_calories: 7.37
+              nf_calories_from_fat: 0.26
+              nf_total_fat: 0.03
+              nf_saturated_fat: 0.01
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.01
+              nf_monounsaturated_fat: 0
+              nf_cholesterol: 0
+              nf_sodium: 19.56
+              nf_total_carbohydrate: 1.7
+              nf_dietary_fiber: 0.48
+              nf_sugars: 1.03
+              nf_protein: 0.23
+              nf_vitamin_a_dv: 65
+              nf_vitamin_c_dv: 3
+              nf_calcium_dv: 1
+              nf_iron_dv: 1
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "oz"
+              nf_serving_weight_grams: 28.35
+              _id: "513fceb375b8dbbc2100038c"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+    - 
+      line: "2 celery stalks, finely chopped"
+      profile: 
+        id: "Celery, Raw"
+        text: "Celery, Raw"
+      amount: "2"
+      unit: 
+        id: "513fceb575b8dbbc210014fe"
+        text: "stalk, medium (7-1/2\" - 8\" long)"
+        multiplier: 1
+        name: "stalk, medium (7-1/2\" - 8\" long)"
+      name: null
+      notes: "2 celery stalks, finely chopped"
+      units: 
+        - 
+          id: "513fceb575b8dbbc21001500"
+          text: "tbsp"
+          multiplier: 1
+          name: "tbsp"
+        - 
+          id: "513fceb575b8dbbc210014fc"
+          text: "strip (4\" long)"
+          multiplier: 1
+          name: "strip (4\" long)"
+        - 
+          id: "513fceb575b8dbbc210014fd"
+          text: "stalk, small (5\" long)"
+          multiplier: 1
+          name: "stalk, small (5\" long)"
+        - 
+          id: "513fceb575b8dbbc21001502"
+          text: "cup chopped"
+          multiplier: 1
+          name: "cup chopped"
+        - 
+          id: "513fceb575b8dbbc21001501"
+          text: "NLEA serving"
+          multiplier: 1
+          name: "NLEA serving"
+        - 
+          id: "513fceb575b8dbbc210014ff"
+          text: "stalk, large (11\"-12\" long)"
+          multiplier: 1
+          name: "stalk, large (11\"-12\" long)"
+        - 
+          id: "513fceb575b8dbbc210014fe"
+          text: "stalk, medium (7-1/2\" - 8\" long)"
+          multiplier: 1
+          name: "stalk, medium (7-1/2\" - 8\" long)"
+      combinedData: 
+        Celery, Raw: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc21001500"
+            _score: 12.330709
+            fields: 
+              old_api_id: null
+              item_name: "Celery, Raw - 1 tbsp"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-20T17:03:54.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 7.16
+              nf_calories: 1.2
+              nf_calories_from_fat: 0.11
+              nf_total_fat: 0.01
+              nf_saturated_fat: 0
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.01
+              nf_monounsaturated_fat: 0
+              nf_cholesterol: 0
+              nf_sodium: 6
+              nf_total_carbohydrate: 0.22
+              nf_dietary_fiber: 0.12
+              nf_sugars: 0.14
+              nf_protein: 0.05
+              nf_vitamin_a_dv: 1
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "tbsp"
+              nf_serving_weight_grams: 7.5
+              _id: "513fceb575b8dbbc21001500"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014fc"
+            _score: 12.305361
+            fields: 
+              old_api_id: null
+              item_name: "Celery, Raw - 1 strip (4\" long)"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:19:33.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 3.82
+              nf_calories: 0.64
+              nf_calories_from_fat: 0.06
+              nf_total_fat: 0.01
+              nf_saturated_fat: 0
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0
+              nf_monounsaturated_fat: 0
+              nf_cholesterol: 0
+              nf_sodium: 3.2
+              nf_total_carbohydrate: 0.12
+              nf_dietary_fiber: 0.06
+              nf_sugars: 0.07
+              nf_protein: 0.03
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "strip (4\" long)"
+              nf_serving_weight_grams: 4
+              _id: "513fceb575b8dbbc210014fc"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014fd"
+            _score: 11.968078
+            fields: 
+              old_api_id: null
+              item_name: "Celery, Raw - 1 stalk, small (5\" long)"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:20:40.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 16.22
+              nf_calories: 2.72
+              nf_calories_from_fat: 0.26
+              nf_total_fat: 0.03
+              nf_saturated_fat: 0.01
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.01
+              nf_monounsaturated_fat: 0.01
+              nf_cholesterol: 0
+              nf_sodium: 13.6
+              nf_total_carbohydrate: 0.5
+              nf_dietary_fiber: 0.27
+              nf_sugars: 0.31
+              nf_protein: 0.12
+              nf_vitamin_a_dv: 2
+              nf_vitamin_c_dv: 1
+              nf_calcium_dv: 1
+              nf_iron_dv: 0
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "stalk, small (5\" long)"
+              nf_serving_weight_grams: 17
+              _id: "513fceb575b8dbbc210014fd"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc21001502"
+            _score: 11.910967
+            fields: 
+              old_api_id: null
+              item_name: "Celery, Raw - 1 cup chopped"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:19:34.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 96.38
+              nf_calories: 16.16
+              nf_calories_from_fat: 1.55
+              nf_total_fat: 0.17
+              nf_saturated_fat: 0.04
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.08
+              nf_monounsaturated_fat: 0.03
+              nf_cholesterol: 0
+              nf_sodium: 80.8
+              nf_total_carbohydrate: 3
+              nf_dietary_fiber: 1.62
+              nf_sugars: 1.85
+              nf_protein: 0.7
+              nf_vitamin_a_dv: 9
+              nf_vitamin_c_dv: 5
+              nf_calcium_dv: 4
+              nf_iron_dv: 1
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup chopped"
+              nf_serving_weight_grams: 101
+              _id: "513fceb575b8dbbc21001502"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc21001501"
+            _score: 11.874312
+            fields: 
+              old_api_id: null
+              item_name: "Celery, Raw - 1 NLEA serving"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:20:41.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 104.97
+              nf_calories: 17.6
+              nf_calories_from_fat: 1.68
+              nf_total_fat: 0.19
+              nf_saturated_fat: 0.05
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.09
+              nf_monounsaturated_fat: 0.04
+              nf_cholesterol: 0
+              nf_sodium: 88
+              nf_total_carbohydrate: 3.27
+              nf_dietary_fiber: 1.76
+              nf_sugars: 2.01
+              nf_protein: 0.76
+              nf_vitamin_a_dv: 10
+              nf_vitamin_c_dv: 6
+              nf_calcium_dv: 4
+              nf_iron_dv: 1
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "NLEA serving"
+              nf_serving_weight_grams: 110
+              _id: "513fceb575b8dbbc21001501"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014ff"
+            _score: 11.6321535
+            fields: 
+              old_api_id: null
+              item_name: "Celery, Raw - 1 stalk, large (11\"-12\" long)"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:20:41.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 61.08
+              nf_calories: 10.24
+              nf_calories_from_fat: 0.98
+              nf_total_fat: 0.11
+              nf_saturated_fat: 0.03
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.05
+              nf_monounsaturated_fat: 0.02
+              nf_cholesterol: 0
+              nf_sodium: 51.2
+              nf_total_carbohydrate: 1.9
+              nf_dietary_fiber: 1.02
+              nf_sugars: 1.17
+              nf_protein: 0.44
+              nf_vitamin_a_dv: 6
+              nf_vitamin_c_dv: 3
+              nf_calcium_dv: 3
+              nf_iron_dv: 1
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "stalk, large (11\"-12\" long)"
+              nf_serving_weight_grams: 64
+              _id: "513fceb575b8dbbc210014ff"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210014fe"
+            _score: 11.48745
+            fields: 
+              old_api_id: null
+              item_name: "Celery, Raw - 1 stalk, medium (7-1/2\" - 8\" long)"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:19:33.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 38.17
+              nf_calories: 6.4
+              nf_calories_from_fat: 0.61
+              nf_total_fat: 0.07
+              nf_saturated_fat: 0.02
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.03
+              nf_monounsaturated_fat: 0.01
+              nf_cholesterol: 0
+              nf_sodium: 32
+              nf_total_carbohydrate: 1.19
+              nf_dietary_fiber: 0.64
+              nf_sugars: 0.73
+              nf_protein: 0.28
+              nf_vitamin_a_dv: 4
+              nf_vitamin_c_dv: 2
+              nf_calcium_dv: 2
+              nf_iron_dv: 0
+              nf_refuse_pct: 11
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "stalk, medium (7-1/2\" - 8\" long)"
+              nf_serving_weight_grams: 40
+              _id: "513fceb575b8dbbc210014fe"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Spices, celery seed: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb375b8dbbc2100022d"
+            _score: 1.4116752
+            fields: 
+              old_api_id: null
+              item_name: "Spices, celery seed - 1 tbsp"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:01:36.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0.39
+              nf_calories: 25.48
+              nf_calories_from_fat: 14.78
+              nf_total_fat: 1.64
+              nf_saturated_fat: 0.14
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.24
+              nf_monounsaturated_fat: 1.04
+              nf_cholesterol: 0
+              nf_sodium: 10.4
+              nf_total_carbohydrate: 2.69
+              nf_dietary_fiber: 0.77
+              nf_sugars: 0.04
+              nf_protein: 1.17
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 2
+              nf_calcium_dv: 11
+              nf_iron_dv: 16
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "tbsp"
+              nf_serving_weight_grams: 6.5
+              _id: "513fceb375b8dbbc2100022d"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb375b8dbbc2100022c"
+            _score: 1.4096857
+            fields: 
+              old_api_id: null
+              item_name: "Spices, celery seed - 1 tsp"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:00:29.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0.12
+              nf_calories: 7.84
+              nf_calories_from_fat: 4.55
+              nf_total_fat: 0.51
+              nf_saturated_fat: 0.04
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.07
+              nf_monounsaturated_fat: 0.32
+              nf_cholesterol: 0
+              nf_sodium: 3.2
+              nf_total_carbohydrate: 0.83
+              nf_dietary_fiber: 0.24
+              nf_sugars: 0.01
+              nf_protein: 0.36
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 1
+              nf_calcium_dv: 4
+              nf_iron_dv: 5
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "tsp"
+              nf_serving_weight_grams: 2
+              _id: "513fceb375b8dbbc2100022c"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Celery, cooked, boiled, drained, without salt: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc21001503"
+            _score: 1.1541401
+            fields: 
+              old_api_id: null
+              item_name: "Celery, cooked, boiled, drained, without salt - 2 stalks"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:19:34.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 70.58
+              nf_calories: 13.5
+              nf_calories_from_fat: 1.08
+              nf_total_fat: 0.12
+              nf_saturated_fat: 0.03
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.06
+              nf_monounsaturated_fat: 0.02
+              nf_cholesterol: 0
+              nf_sodium: 68.25
+              nf_total_carbohydrate: 3
+              nf_dietary_fiber: 1.2
+              nf_sugars: 1.78
+              nf_protein: 0.62
+              nf_vitamin_a_dv: 8
+              nf_vitamin_c_dv: 8
+              nf_calcium_dv: 3
+              nf_iron_dv: 2
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 2
+              nf_serving_size_unit: "stalks"
+              nf_serving_weight_grams: 75
+              _id: "513fceb575b8dbbc21001503"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+    - 
+      line: "1/2 cup kimchi, finely chopped"
+      profile: 
+        id: "Kimchi, Radish"
+        text: "Kimchi, Radish"
+      amount: "2"
+      unit: 
+        id: "51c3f39897c3e6de73cbdcfd"
+        text: "2 oz"
+        multiplier: 2
+        name: "oz"
+      name: "Kimchi, Radish"
+      notes: "1/2 cup kimchi, finely chopped"
+      units: 
+        - 
+          id: "51c3f39897c3e6de73cbdcfd"
+          text: "2 oz"
+          multiplier: 2
+          name: "oz"
+      combinedData: 
+        Kimchi, Korean: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "51c3f3b897c3e6de73cbddf0"
+            _score: 3.2896204
+            fields: 
+              old_api_id: null
+              item_name: "Kimchi, Korean"
+              brand_id: "51db37b8176fe9790a898ac3"
+              brand_name: "Wildbrine"
+              item_description: "Korean"
+              updated_at: "2013-10-25T22:38:11.000Z"
+              nf_ingredient_statement: "Napa Cabbage, Sea Vegetable, Chili Pepper, Green Onions, Water, Sea Salt, Sesame Seeds, Garlic, Ginger. Gluten free.</p><p>Made in a facility that uses soy."
+              nf_water_grams: null
+              nf_calories: 10
+              nf_calories_from_fat: 0
+              nf_total_fat: 0
+              nf_saturated_fat: null
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: null
+              nf_monounsaturated_fat: null
+              nf_cholesterol: null
+              nf_sodium: 260
+              nf_total_carbohydrate: 1
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 2
+              nf_vitamin_c_dv: 15
+              nf_calcium_dv: 2
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: 17
+              nf_serving_size_qty: 2
+              nf_serving_size_unit: "tbsp"
+              nf_serving_weight_grams: 30
+              _id: "51c3f3b897c3e6de73cbddf0"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Kimchi, Radish: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "51c3f39897c3e6de73cbdcfd"
+            _score: 3.1236553
+            fields: 
+              old_api_id: null
+              item_name: "Kimchi, Radish"
+              brand_id: "51db380d176fe9790a89b143"
+              brand_name: "Sunja's"
+              item_description: "Radish"
+              updated_at: "2013-10-25T22:17:14.000Z"
+              nf_ingredient_statement: "All Natural: Cabbage, Radishes, Carrots, Red Peppers, Leeks, Green Onions, Garlic, Ginger, Sea Salt."
+              nf_water_grams: null
+              nf_calories: 15
+              nf_calories_from_fat: 0
+              nf_total_fat: 0
+              nf_saturated_fat: 0
+              nf_trans_fatty_acid: 0
+              nf_polyunsaturated_fat: null
+              nf_monounsaturated_fat: null
+              nf_cholesterol: 0
+              nf_sodium: 150
+              nf_total_carbohydrate: 3
+              nf_dietary_fiber: 1
+              nf_sugars: 2
+              nf_protein: 0
+              nf_vitamin_a_dv: 6
+              nf_vitamin_c_dv: 20
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: 8
+              nf_serving_size_qty: 2
+              nf_serving_size_unit: "oz"
+              nf_serving_weight_grams: 57
+              _id: "51c3f39897c3e6de73cbdcfd"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Kimchi, Thai: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "51c3f3b897c3e6de73cbddf1"
+            _score: 2.951683
+            fields: 
+              old_api_id: null
+              item_name: "Kimchi, Thai"
+              brand_id: "51db37b8176fe9790a898ac3"
+              brand_name: "Wildbrine"
+              item_description: "Thai"
+              updated_at: "2013-10-25T22:38:11.000Z"
+              nf_ingredient_statement: "Napa Cabbage, Onions, Carrots, Pineapple, Water, Sea Salt, Garlic, Ginger, Mint, Basil, Lime Juice, Chili Pepper, Lemongrass, Spices. Gluten free.</p><p>Made in a facility that uses soy."
+              nf_water_grams: null
+              nf_calories: 10
+              nf_calories_from_fat: 0
+              nf_total_fat: 0
+              nf_saturated_fat: null
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: null
+              nf_monounsaturated_fat: null
+              nf_cholesterol: null
+              nf_sodium: 250
+              nf_total_carbohydrate: 2
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 10
+              nf_vitamin_c_dv: 10
+              nf_calcium_dv: 2
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: 17
+              nf_serving_size_qty: 2
+              nf_serving_size_unit: "tbsp"
+              nf_serving_weight_grams: 30
+              _id: "51c3f3b897c3e6de73cbddf1"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Dried Kimchi: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "527f83a4a5564d0200001698"
+            _score: 2.951683
+            fields: 
+              old_api_id: null
+              item_name: "Dried Kimchi"
+              brand_id: "51db381b176fe9790a89b587"
+              brand_name: "Trader Joe's"
+              item_description: null
+              updated_at: "2014-05-07T16:44:15.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: null
+              nf_calories: 15
+              nf_calories_from_fat: 0
+              nf_total_fat: 0
+              nf_saturated_fat: 0
+              nf_trans_fatty_acid: 0
+              nf_polyunsaturated_fat: null
+              nf_monounsaturated_fat: null
+              nf_cholesterol: 0
+              nf_sodium: 210
+              nf_total_carbohydrate: 3
+              nf_dietary_fiber: 0.5
+              nf_sugars: 2
+              nf_protein: 0.5
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 10
+              nf_calcium_dv: 0
+              nf_iron_dv: 6
+              nf_refuse_pct: null
+              nf_servings_per_container: 4
+              nf_serving_size_qty: 0.25
+              nf_serving_size_unit: "bag"
+              nf_serving_weight_grams: 5
+              _id: "527f83a4a5564d0200001698"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Spicy Kimchi: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "51d2fd63cc9bff111580e98d"
+            _score: 2.850841
+            fields: 
+              old_api_id: null
+              item_name: "Spicy Kimchi"
+              brand_id: "51db37e0176fe9790a89a2db"
+              brand_name: "King's"
+              item_description: "Spicy"
+              updated_at: "2014-08-01T16:49:59.000Z"
+              nf_ingredient_statement: "Nappa Cabbage, Garlic, Green Onion, Hot Pepper, Sugar, Salt, Paprika, Ginger.</p><p>Fermentation creates natural bubbling & pressure that may bulge cap. To prevent leakage, cover cap with napkin and open slowly over sink."
+              nf_water_grams: null
+              nf_calories: 15
+              nf_calories_from_fat: 0
+              nf_total_fat: 0
+              nf_saturated_fat: 0
+              nf_trans_fatty_acid: 0
+              nf_polyunsaturated_fat: null
+              nf_monounsaturated_fat: null
+              nf_cholesterol: 0
+              nf_sodium: 240
+              nf_total_carbohydrate: 2
+              nf_dietary_fiber: 1
+              nf_sugars: 0.5
+              nf_protein: 1
+              nf_vitamin_a_dv: 15
+              nf_vitamin_c_dv: 4
+              nf_calcium_dv: 2
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: 7
+              nf_serving_size_qty: 2
+              nf_serving_size_unit: "oz"
+              nf_serving_weight_grams: 57
+              _id: "51d2fd63cc9bff111580e98d"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Radish Kimchi: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "52a15025bde358697f000961"
+            _score: 2.850841
+            fields: 
+              old_api_id: null
+              item_name: "Radish Kimchi"
+              brand_id: "51db380d176fe9790a89b143"
+              brand_name: "Sunja's"
+              item_description: null
+              updated_at: "2014-05-08T17:18:50.000Z"
+              nf_ingredient_statement: "All Natural: Cabbage, Radishes, Carrots, Red Peppers, Leeks, Green Onions, Garlic, Ginger, Sea Salt."
+              nf_water_grams: null
+              nf_calories: 15
+              nf_calories_from_fat: 0
+              nf_total_fat: 0
+              nf_saturated_fat: 0
+              nf_trans_fatty_acid: 0
+              nf_polyunsaturated_fat: null
+              nf_monounsaturated_fat: null
+              nf_cholesterol: 0
+              nf_sodium: 150
+              nf_total_carbohydrate: 3
+              nf_dietary_fiber: 1
+              nf_sugars: 2
+              nf_protein: 0
+              nf_vitamin_a_dv: 6
+              nf_vitamin_c_dv: 20
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: 8
+              nf_serving_size_qty: 2
+              nf_serving_size_unit: "oz"
+              nf_serving_weight_grams: 57
+              _id: "52a15025bde358697f000961"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Kimchi, Japanese, Miso Horseradish: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "51c3f3be97c3e6de73cbde16"
+            _score: 2.763281
+            fields: 
+              old_api_id: null
+              item_name: "Kimchi, Japanese, Miso Horseradish"
+              brand_id: "51db37b8176fe9790a898ac3"
+              brand_name: "Wildbrine"
+              item_description: "Japanese, Miso Horseradish"
+              updated_at: "2013-10-25T22:38:11.000Z"
+              nf_ingredient_statement: "Napa Cabbage, Daikon Radish, Carrots, Water, Horseradish Root, Soy Sauce (Water, Soybeans, Rice, Salt), Red Miso (Soybeans, Rice Koji, Water, Koji Spores), Sea Salt, Ginger, Garlic, Orange Peel, Chili Pepper. Gluten free.</p><p>Made in a facility that uses soy."
+              nf_water_grams: null
+              nf_calories: 5
+              nf_calories_from_fat: 0
+              nf_total_fat: 0
+              nf_saturated_fat: null
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: null
+              nf_monounsaturated_fat: null
+              nf_cholesterol: null
+              nf_sodium: 210
+              nf_total_carbohydrate: 2
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0
+              nf_vitamin_a_dv: 10
+              nf_vitamin_c_dv: 10
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: 17
+              nf_serving_size_qty: 2
+              nf_serving_size_unit: "tbsp"
+              nf_serving_weight_grams: 30
+              _id: "51c3f3be97c3e6de73cbde16"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Nappa Cabbage Kimchi: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "54072cb0a67cfab13a61a5c8"
+            _score: 2.7587469
+            fields: 
+              old_api_id: null
+              item_name: "Nappa Cabbage Kimchi"
+              brand_id: "53dbc525a3bf50ee1ddf99d8"
+              brand_name: "Mother In Law's Kimchi"
+              item_description: null
+              updated_at: "2014-09-03T15:52:26.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: null
+              nf_calories: 10
+              nf_calories_from_fat: 0
+              nf_total_fat: 0
+              nf_saturated_fat: 0
+              nf_trans_fatty_acid: 0
+              nf_polyunsaturated_fat: null
+              nf_monounsaturated_fat: null
+              nf_cholesterol: 0
+              nf_sodium: 180
+              nf_total_carbohydrate: 2
+              nf_dietary_fiber: 1
+              nf_sugars: 0
+              nf_protein: 1
+              nf_vitamin_a_dv: 4
+              nf_vitamin_c_dv: 6
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: 16
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "oz"
+              nf_serving_weight_grams: 28
+              _id: "54072cb0a67cfab13a61a5c8"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Noodles, Stirfried Kimchi: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "51c3d26b97c3e6d8d3b51c81"
+            _score: 2.6761928
+            fields: 
+              old_api_id: null
+              item_name: "Noodles, Stirfried Kimchi"
+              brand_id: "51db37cb176fe9790a899975"
+              brand_name: "Paldo"
+              item_description: "Stirfried Kimchi"
+              updated_at: "2013-10-28T01:40:54.000Z"
+              nf_ingredient_statement: "Wheat Flour, Palm Oil, Modified Starch, Salt, Emulsified Oil, Alkaline Agents, Guar Gum, Gluten. Soup Base: Mono Sodium L-Glutamate, Sugar, Ginger Powder, Black Pepper, Kimchi Base, Hot Sauce Powder, Garlic Extract. Kimchi Soup: Kimchi.</p><p>Manufactured in a facility that also processes milk, eggs, fish, crustacean shellfish, tree nuts, peanuts, wheat, soybean, shrimp, sulphites products."
+              nf_water_grams: null
+              nf_calories: 255
+              nf_calories_from_fat: 95
+              nf_total_fat: 10
+              nf_saturated_fat: 5
+              nf_trans_fatty_acid: 0
+              nf_polyunsaturated_fat: null
+              nf_monounsaturated_fat: null
+              nf_cholesterol: 0
+              nf_sodium: 1200
+              nf_total_carbohydrate: 35
+              nf_dietary_fiber: 1
+              nf_sugars: 1
+              nf_protein: 5
+              nf_vitamin_a_dv: 5
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 4
+              nf_iron_dv: 3
+              nf_refuse_pct: null
+              nf_servings_per_container: 2
+              nf_serving_size_qty: 2.64
+              nf_serving_size_unit: "oz"
+              nf_serving_weight_grams: 74.71
+              _id: "51c3d26b97c3e6d8d3b51c81"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Mother in Law's Kimchi: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "53dbc525a3bf50ee1ddf99d7"
+            _score: 2.6188896
+            fields: 
+              old_api_id: null
+              item_name: "Mother in Law's Kimchi"
+              brand_id: "53dbc524a3bf50ee1ddf99d6"
+              brand_name: "Daikon"
+              item_description: null
+              updated_at: "2014-08-01T16:51:29.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: null
+              nf_calories: 10
+              nf_calories_from_fat: 0
+              nf_total_fat: 0
+              nf_saturated_fat: 0
+              nf_trans_fatty_acid: 0
+              nf_polyunsaturated_fat: null
+              nf_monounsaturated_fat: null
+              nf_cholesterol: 0
+              nf_sodium: 180
+              nf_total_carbohydrate: 2
+              nf_dietary_fiber: 1
+              nf_sugars: 0
+              nf_protein: 1
+              nf_vitamin_a_dv: 4
+              nf_vitamin_c_dv: 6
+              nf_calcium_dv: 0
+              nf_iron_dv: 0
+              nf_refuse_pct: null
+              nf_servings_per_container: 16
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "oz"
+              nf_serving_weight_grams: 28
+              _id: "53dbc525a3bf50ee1ddf99d7"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+    - 
+      line: "3 cups cooked white or brown rice (see note below)"
+      profile: 
+        id: "Brown Rice"
+        text: "Brown Rice"
+      amount: "3"
+      unit: 
+        id: "513fceb775b8dbbc21002dc4"
+        text: "cup"
+        multiplier: 1
+        name: "cup"
+      name: "Brown Rice"
+      notes: "3 cups cooked white or brown rice (see note below)"
+      units: 
+        - 
+          id: "513fceb775b8dbbc21002dc4"
+          text: "cup"
+          multiplier: 1
+          name: "cup"
+      combinedData: 
+        Brown Rice: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb775b8dbbc21002dc4"
+            _score: 11.965396
+            fields: 
+              old_api_id: null
+              item_name: "Brown Rice - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:42:53.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 142.27
+              nf_calories: 218.4
+              nf_calories_from_fat: 14.57
+              nf_total_fat: 1.62
+              nf_saturated_fat: 0.32
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.58
+              nf_monounsaturated_fat: 0.58
+              nf_cholesterol: 0
+              nf_sodium: 1.95
+              nf_total_carbohydrate: 45.84
+              nf_dietary_fiber: 3.51
+              nf_sugars: 0
+              nf_protein: 4.52
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 2
+              nf_iron_dv: 6
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 195
+              _id: "513fceb775b8dbbc21002dc4"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Rice flour, brown: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb775b8dbbc21002df0"
+            _score: 1.2566855
+            fields: 
+              old_api_id: null
+              item_name: "Rice flour, brown - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:41:54.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 18.91
+              nf_calories: 573.54
+              nf_calories_from_fat: 39.53
+              nf_total_fat: 4.39
+              nf_saturated_fat: 0.88
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 1.57
+              nf_monounsaturated_fat: 1.59
+              nf_cholesterol: 0
+              nf_sodium: 12.64
+              nf_total_carbohydrate: 120.84
+              nf_dietary_fiber: 7.27
+              nf_sugars: 1.34
+              nf_protein: 11.42
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 2
+              nf_iron_dv: 17
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 158
+              _id: "513fceb775b8dbbc21002df0"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Rice, brown, long: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb775b8dbbc21002dc0"
+            _score: 1.2316427
+            fields: 
+              old_api_id: null
+              item_name: "Rice, brown, long - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:42:52.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 19.18
+              nf_calories: 684.5
+              nf_calories_from_fat: 48.62
+              nf_total_fat: 5.4
+              nf_saturated_fat: 1.08
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 1.93
+              nf_monounsaturated_fat: 1.95
+              nf_cholesterol: 0
+              nf_sodium: 12.95
+              nf_total_carbohydrate: 142.89
+              nf_dietary_fiber: 6.47
+              nf_sugars: 1.57
+              nf_protein: 14.69
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 4
+              nf_iron_dv: 15
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 185
+              _id: "513fceb775b8dbbc21002dc0"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb775b8dbbc21002dc1"
+            _score: 1.1939583
+            fields: 
+              old_api_id: null
+              item_name: "Rice, brown, long - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:41:45.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 142.53
+              nf_calories: 216.45
+              nf_calories_from_fat: 15.8
+              nf_total_fat: 1.75
+              nf_saturated_fat: 0.35
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.63
+              nf_monounsaturated_fat: 0.64
+              nf_cholesterol: 0
+              nf_sodium: 9.75
+              nf_total_carbohydrate: 44.77
+              nf_dietary_fiber: 3.51
+              nf_sugars: 0.68
+              nf_protein: 5.03
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 2
+              nf_iron_dv: 5
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 195
+              _id: "513fceb775b8dbbc21002dc1"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Rice, brown, medium: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb775b8dbbc21002dc3"
+            _score: 1.1611109
+            fields: 
+              old_api_id: null
+              item_name: "Rice, brown, medium - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:41:45.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 23.5
+              nf_calories: 687.8
+              nf_calories_from_fat: 45.83
+              nf_total_fat: 5.09
+              nf_saturated_fat: 1.02
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 1.82
+              nf_monounsaturated_fat: 1.84
+              nf_cholesterol: 0
+              nf_sodium: 7.6
+              nf_total_carbohydrate: 144.72
+              nf_dietary_fiber: 6.46
+              nf_sugars: 0
+              nf_protein: 14.25
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 6
+              nf_iron_dv: 19
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 190
+              _id: "513fceb775b8dbbc21002dc3"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Snacks, rice cakes, brown rice, plain: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb775b8dbbc21002af7"
+            _score: 1.1551703
+            fields: 
+              old_api_id: null
+              item_name: "Snacks, rice cakes, brown rice, plain - 1 cake"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:40:30.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0.52
+              nf_calories: 34.83
+              nf_calories_from_fat: 2.27
+              nf_total_fat: 0.25
+              nf_saturated_fat: 0.05
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.09
+              nf_monounsaturated_fat: 0.09
+              nf_cholesterol: 0
+              nf_sodium: 29.34
+              nf_total_carbohydrate: 7.34
+              nf_dietary_fiber: 0.38
+              nf_sugars: 0.08
+              nf_protein: 0.74
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 1
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cake"
+              nf_serving_weight_grams: 9
+              _id: "513fceb775b8dbbc21002af7"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Snacks, rice cakes, brown rice, rye: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb775b8dbbc21002d02"
+            _score: 1.1551703
+            fields: 
+              old_api_id: null
+              item_name: "Snacks, rice cakes, brown rice, rye - 2 cakes"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:41:07.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 1.22
+              nf_calories: 69.48
+              nf_calories_from_fat: 6.16
+              nf_total_fat: 0.68
+              nf_saturated_fat: 0.1
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.28
+              nf_monounsaturated_fat: 0.24
+              nf_cholesterol: 0
+              nf_sodium: 19.8
+              nf_total_carbohydrate: 14.38
+              nf_dietary_fiber: 0.72
+              nf_sugars: 0
+              nf_protein: 1.46
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 2
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 2
+              nf_serving_size_unit: "cakes"
+              nf_serving_weight_grams: 18
+              _id: "513fceb775b8dbbc21002d02"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb775b8dbbc21002d03"
+            _score: 1.1301969
+            fields: 
+              old_api_id: null
+              item_name: "Snacks, rice cakes, brown rice, rye - 1 cake"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:42:16.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0.61
+              nf_calories: 34.74
+              nf_calories_from_fat: 3.08
+              nf_total_fat: 0.34
+              nf_saturated_fat: 0.05
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.14
+              nf_monounsaturated_fat: 0.12
+              nf_cholesterol: 0
+              nf_sodium: 9.9
+              nf_total_carbohydrate: 7.19
+              nf_dietary_fiber: 0.36
+              nf_sugars: 0
+              nf_protein: 0.73
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 1
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cake"
+              nf_serving_weight_grams: 9
+              _id: "513fceb775b8dbbc21002d03"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Snacks, rice cakes, brown rice, buckwheat, unsalted: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb775b8dbbc21002d52"
+            _score: 1.1551702
+            fields: 
+              old_api_id: null
+              item_name: "Snacks, rice cakes, brown rice, buckwheat, unsalted - 1 cake"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:42:32.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0.53
+              nf_calories: 34.2
+              nf_calories_from_fat: 2.84
+              nf_total_fat: 0.32
+              nf_saturated_fat: 0.06
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.1
+              nf_monounsaturated_fat: 0.1
+              nf_cholesterol: 0
+              nf_sodium: 0.36
+              nf_total_carbohydrate: 7.21
+              nf_dietary_fiber: 0
+              nf_sugars: 0
+              nf_protein: 0.81
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 1
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cake"
+              nf_serving_weight_grams: 9
+              _id: "513fceb775b8dbbc21002d52"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Snacks, rice cakes, brown rice, multigrain: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb775b8dbbc21002cff"
+            _score: 1.1551702
+            fields: 
+              old_api_id: null
+              item_name: "Snacks, rice cakes, brown rice, multigrain - 1 cake"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:42:14.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 0.57
+              nf_calories: 34.83
+              nf_calories_from_fat: 2.84
+              nf_total_fat: 0.32
+              nf_saturated_fat: 0.05
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.13
+              nf_monounsaturated_fat: 0.1
+              nf_cholesterol: 0
+              nf_sodium: 22.68
+              nf_total_carbohydrate: 7.21
+              nf_dietary_fiber: 0.27
+              nf_sugars: 0
+              nf_protein: 0.76
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 0
+              nf_iron_dv: 1
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cake"
+              nf_serving_weight_grams: 9
+              _id: "513fceb775b8dbbc21002cff"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+    - 
+      line: "1/2 cup bean sprouts"
+      profile: 
+        id: "Mung beans, mature seeds, sprouted, cooked, stir"
+        text: "Mung beans, mature seeds, sprouted, cooked, stir"
+      amount: "1/2"
+      unit: 
+        id: "513fceb575b8dbbc2100146f"
+        text: "cup"
+        multiplier: 1
+        name: "cup"
+      name: "Mung beans, mature seeds, sprouted, cooked, stir"
+      notes: "1/2 cup bean sprouts"
+      units: 
+        - 
+          id: "513fceb575b8dbbc2100146f"
+          text: "cup"
+          multiplier: 1
+          name: "cup"
+      combinedData: 
+        Mung Beans: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc2100146d"
+            _score: 2.047112
+            fields: 
+              old_api_id: null
+              item_name: "Mung Beans - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:19:06.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 94.02
+              nf_calories: 31.2
+              nf_calories_from_fat: 1.68
+              nf_total_fat: 0.19
+              nf_saturated_fat: 0.05
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.06
+              nf_monounsaturated_fat: 0.02
+              nf_cholesterol: 0
+              nf_sodium: 6.24
+              nf_total_carbohydrate: 6.18
+              nf_dietary_fiber: 1.87
+              nf_sugars: 4.3
+              nf_protein: 3.16
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 23
+              nf_calcium_dv: 1
+              nf_iron_dv: 5
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 104
+              _id: "513fceb575b8dbbc2100146d"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc2100146c"
+            _score: 1.634967
+            fields: 
+              old_api_id: null
+              item_name: "Mung Beans - 1 package (12 oz)"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:20:13.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 307.36
+              nf_calories: 102
+              nf_calories_from_fat: 5.51
+              nf_total_fat: 0.61
+              nf_saturated_fat: 0.16
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.2
+              nf_monounsaturated_fat: 0.07
+              nf_cholesterol: 0
+              nf_sodium: 20.4
+              nf_total_carbohydrate: 20.2
+              nf_dietary_fiber: 6.12
+              nf_sugars: 14.04
+              nf_protein: 10.34
+              nf_vitamin_a_dv: 1
+              nf_vitamin_c_dv: 75
+              nf_calcium_dv: 4
+              nf_iron_dv: 17
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "package (12 oz)"
+              nf_serving_weight_grams: 340
+              _id: "513fceb575b8dbbc2100146c"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Mung beans, mature seeds, raw: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb675b8dbbc210021e5"
+            _score: 1.4314849
+            fields: 
+              old_api_id: null
+              item_name: "Mung beans, mature seeds, raw - 1 tbsp"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:32:12.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 1.18
+              nf_calories: 45.11
+              nf_calories_from_fat: 1.35
+              nf_total_fat: 0.15
+              nf_saturated_fat: 0.05
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.05
+              nf_monounsaturated_fat: 0.02
+              nf_cholesterol: 0
+              nf_sodium: 1.95
+              nf_total_carbohydrate: 8.14
+              nf_dietary_fiber: 2.12
+              nf_sugars: 0.86
+              nf_protein: 3.1
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 1
+              nf_calcium_dv: 2
+              nf_iron_dv: 5
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "tbsp"
+              nf_serving_weight_grams: 13
+              _id: "513fceb675b8dbbc210021e5"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb675b8dbbc210021e6"
+            _score: 1.3972739
+            fields: 
+              old_api_id: null
+              item_name: "Mung beans, mature seeds, raw - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:32:12.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 18.73
+              nf_calories: 718.29
+              nf_calories_from_fat: 21.42
+              nf_total_fat: 2.38
+              nf_saturated_fat: 0.72
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.79
+              nf_monounsaturated_fat: 0.33
+              nf_cholesterol: 0
+              nf_sodium: 31.05
+              nf_total_carbohydrate: 129.62
+              nf_dietary_fiber: 33.74
+              nf_sugars: 13.66
+              nf_protein: 49.39
+              nf_vitamin_a_dv: 5
+              nf_vitamin_c_dv: 17
+              nf_calcium_dv: 27
+              nf_iron_dv: 78
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 207
+              _id: "513fceb675b8dbbc210021e6"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Mung beans, mature seeds, sprouted, cooked, stir: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc2100146f"
+            _score: 1.2920645
+            fields: 
+              old_api_id: null
+              item_name: "Mung beans, mature seeds, sprouted, cooked, stir - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:19:06.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 104.53
+              nf_calories: 62
+              nf_calories_from_fat: 2.34
+              nf_total_fat: 0.26
+              nf_saturated_fat: 0.05
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.08
+              nf_monounsaturated_fat: 0.07
+              nf_cholesterol: 0
+              nf_sodium: 11.16
+              nf_total_carbohydrate: 13.13
+              nf_dietary_fiber: 2.36
+              nf_sugars: 0
+              nf_protein: 5.33
+              nf_vitamin_a_dv: 1
+              nf_vitamin_c_dv: 33
+              nf_calcium_dv: 2
+              nf_iron_dv: 13
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 124
+              _id: "513fceb575b8dbbc2100146f"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Noodles, chinese, cellophane or long rice (mung beans), dehydrated: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb675b8dbbc210021e8"
+            _score: 1.1856705
+            fields: 
+              old_api_id: null
+              item_name: "Noodles, chinese, cellophane or long rice (mung beans), dehydrated - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:32:13.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 18.79
+              nf_calories: 491.4
+              nf_calories_from_fat: 0.76
+              nf_total_fat: 0.08
+              nf_saturated_fat: 0.02
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.03
+              nf_monounsaturated_fat: 0.01
+              nf_cholesterol: 0
+              nf_sodium: 14
+              nf_total_carbohydrate: 120.53
+              nf_dietary_fiber: 0.7
+              nf_sugars: 0
+              nf_protein: 0.22
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 0
+              nf_calcium_dv: 4
+              nf_iron_dv: 17
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 140
+              _id: "513fceb675b8dbbc210021e8"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Mung beans, mature seeds, sprouted, cooked, boiled, drained, without salt: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc2100146e"
+            _score: 1.1856705
+            fields: 
+              old_api_id: null
+              item_name: "Mung beans, mature seeds, sprouted, cooked, boiled, drained, without salt - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:20:14.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 115.8
+              nf_calories: 26.04
+              nf_calories_from_fat: 1
+              nf_total_fat: 0.11
+              nf_saturated_fat: 0.03
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.04
+              nf_monounsaturated_fat: 0.01
+              nf_cholesterol: 0
+              nf_sodium: 12.4
+              nf_total_carbohydrate: 5.2
+              nf_dietary_fiber: 0.99
+              nf_sugars: 3.52
+              nf_protein: 2.52
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 24
+              nf_calcium_dv: 1
+              nf_iron_dv: 4
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 124
+              _id: "513fceb575b8dbbc2100146e"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Beans, mung, mature seeds, sprouted, canned, drained solids: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb575b8dbbc210017a6"
+            _score: 1.1852263
+            fields: 
+              old_api_id: null
+              item_name: "Beans, mung, mature seeds, sprouted, canned, drained solids - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:21:51.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 120.12
+              nf_calories: 15
+              nf_calories_from_fat: 0.68
+              nf_total_fat: 0.08
+              nf_saturated_fat: 0.02
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.02
+              nf_monounsaturated_fat: 0.01
+              nf_cholesterol: 0
+              nf_sodium: 175
+              nf_total_carbohydrate: 2.67
+              nf_dietary_fiber: 1
+              nf_sugars: 1.68
+              nf_protein: 1.75
+              nf_vitamin_a_dv: 0
+              nf_vitamin_c_dv: 1
+              nf_calcium_dv: 2
+              nf_iron_dv: 3
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 125
+              _id: "513fceb575b8dbbc210017a6"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Mung beans, mature seeds, cooked, boiled, without salt: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb675b8dbbc210021e7"
+            _score: 1.1852263
+            fields: 
+              old_api_id: null
+              item_name: "Mung beans, mature seeds, cooked, boiled, without salt - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:31:05.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 146.77
+              nf_calories: 212.1
+              nf_calories_from_fat: 6.91
+              nf_total_fat: 0.77
+              nf_saturated_fat: 0.23
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.26
+              nf_monounsaturated_fat: 0.11
+              nf_cholesterol: 0
+              nf_sodium: 4.04
+              nf_total_carbohydrate: 38.68
+              nf_dietary_fiber: 15.35
+              nf_sugars: 4.04
+              nf_protein: 14.18
+              nf_vitamin_a_dv: 1
+              nf_vitamin_c_dv: 3
+              nf_calcium_dv: 5
+              nf_iron_dv: 16
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 202
+              _id: "513fceb675b8dbbc210021e7"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+        Mung beans, mature seeds, cooked, boiled, with salt: 
+          - 
+            _index: "f762ef22-e660-434f-9071-a10ea6691c27"
+            _type: "item"
+            _id: "513fceb675b8dbbc210022d4"
+            _score: 1.1523241
+            fields: 
+              old_api_id: null
+              item_name: "Mung beans, mature seeds, cooked, boiled, with salt - 1 cup"
+              brand_id: "513fcc648110a4cafb90ca5e"
+              brand_name: "USDA"
+              item_description: null
+              updated_at: "2014-05-10T20:33:09.000Z"
+              nf_ingredient_statement: null
+              nf_water_grams: 146.77
+              nf_calories: 212.1
+              nf_calories_from_fat: 6.91
+              nf_total_fat: 0.77
+              nf_saturated_fat: 0.23
+              nf_trans_fatty_acid: null
+              nf_polyunsaturated_fat: 0.26
+              nf_monounsaturated_fat: 0.11
+              nf_cholesterol: 0
+              nf_sodium: 480.76
+              nf_total_carbohydrate: 38.68
+              nf_dietary_fiber: 15.35
+              nf_sugars: 4.04
+              nf_protein: 14.18
+              nf_vitamin_a_dv: 1
+              nf_vitamin_c_dv: 3
+              nf_calcium_dv: 5
+              nf_iron_dv: 16
+              nf_refuse_pct: null
+              nf_servings_per_container: null
+              nf_serving_size_qty: 1
+              nf_serving_size_unit: "cup"
+              nf_serving_weight_grams: 202
+              _id: "513fceb675b8dbbc210022d4"
+              allergen_contains_milk: null
+              allergen_contains_eggs: null
+              allergen_contains_fish: null
+              allergen_contains_shellfish: null
+              allergen_contains_tree_nuts: null
+              allergen_contains_peanuts: null
+              allergen_contains_wheat: null
+              allergen_contains_soybeans: null
+              allergen_contains_gluten: null
+  instructions: "Heat oil over medium-high heat in wok or large skillet. Add carrots, celery and kimchi. Cook 2 minutes or until vegetables begin to soften, stirring constantly.\nAdd cooked rice, bean sprouts and peas. Cook 3 to 4 minutes or until rice begins to brown and all vegetables are cooked through, stirring frequently. Season with soy sauce and white pepper, to taste."
+  subdomain: "admin"
+  controller: "admin/recipe"
+  action: "create"
+  recipe: 
+    id: "Kimchi-Fried-Rice-501964"
+    name: "Kimchi Fried Rice"
+    source: 
+      sourceRecipeUrl: "http://foxeslovelemons.com/2013/03/kimchi-fried-rice.html"
+      sourceSiteUrl: "http://foxeslovelemons.com"
+      sourceDisplayName: "Foxes Love Lemons"
+    yield: "4 servings"
+    instructions: "Heat oil over medium-high heat in wok or large skillet. Add carrots, celery and kimchi. Cook 2 minutes or until vegetables begin to soften, stirring constantly.\nAdd cooked rice, bean sprouts and peas. Cook 3 to 4 minutes or until rice begins to brown and all vegetables are cooked through, stirring frequently. Season with soy sauce and white pepper, to taste."

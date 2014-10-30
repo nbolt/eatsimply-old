@@ -11,5 +11,9 @@ module Eatt
     #Stylus.setup Sprockets, config.assets rescue nil
     config.action_mailer.delivery_method = :postmark
     config.action_mailer.postmark_settings = { :api_key => ENV['POSTMARK_API_KEY'] }
+    config.generators do |g|
+      g.test_framework :mini_test, :spec => true, :fixture => true
+      g.integration_tool :mini_test
+    end
   end
 end

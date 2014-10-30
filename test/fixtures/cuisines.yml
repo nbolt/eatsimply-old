@@ -1,0 +1,3 @@
+asian:
+  name: 'Asian'
+  yummly_attr: 'cuisine^cuisine-asian'

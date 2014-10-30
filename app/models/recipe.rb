@@ -68,6 +68,7 @@ class Recipe < ActiveRecord::Base
         recipe_image = recipe.recipe_images.build
         recipe_image.remote_image_url = params['images'][0]['hostedLargeUrl']
         recipe_image.save
+        puts recipe_image.image.url
         if recipe.save
           { success: true, recipe: recipe }
         else
