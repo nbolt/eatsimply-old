@@ -9,7 +9,8 @@ describe Recipe do
   let(:asian) { cuisines(:asian) }
 
   it 'successfully imports' do
-    rsp = Recipe.import params['id']
+    rsp = nil
+    VCR.use_cassette('test') { rsp = Recipe.import params['id'] }
     rsp[:success].must_equal true
     rsp[:recipe].courses.must_include main
     rsp[:recipe].cuisines.must_include asian

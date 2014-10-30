@@ -29,11 +29,12 @@ end
 group :test do
   gem 'rr'
   gem 'shoulda-matchers'
+  gem 'minitest-rails'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 gem 'coveralls', require: false, group: :test
-
-gem 'minitest-rails', group: [:development, :test]
 
 #gem 'active_nutrition', github: 'Eatt/active_nutrition', branch: 'master'
 gem 'stylus',           github: 'lucasmazza/ruby-stylus', group: :assets
