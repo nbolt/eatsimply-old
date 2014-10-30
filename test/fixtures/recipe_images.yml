@@ -1,0 +1,7 @@
+kimchi: 
+  id: 52
+  image: 
+    url: "/recipe_image/image/52/unnamed__DEV.jpg"
+  recipe_id: 1
+  created_at: "2014-10-30T01:36:45.209Z"
+  updated_at: "2014-10-30T01:36:45.209Z"

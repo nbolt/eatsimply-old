@@ -1,0 +1,20 @@
+kimchi-fried-rice:
+  id: 1
+  name: "Kimchi Fried Rice"
+  yummly_id: "Kimchi-Fried-Rice-501964"
+  created_at: "2014-10-30T01:36:41.109Z"
+  updated_at: "2014-10-30T01:36:41.109Z"
+  portion_size: 4
+  time: 1500
+  photo: null
+  source: "http://foxeslovelemons.com/2013/03/kimchi-fried-rice.html"
+  source_name: "Foxes Love Lemons"
+  yield: "4 servings"
+  algo_count: 0
+  nutritionix_id: null
+  ingredient_lines: null
+  instructions: "Heat oil over medium-high heat in wok or large skillet. Add carrots, celery and kimchi. Cook 2 minutes or until vegetables begin to soften, stirring constantly.\nAdd cooked rice, bean sprouts and peas. Cook 3 to 4 minutes or until rice begins to brown and all vegetables are cooked through, stirring frequently. Season with soy sauce and white pepper, to taste."
+  veganize: null
+  added_by: null
+  review: false
+  public: false

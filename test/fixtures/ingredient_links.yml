@@ -1,0 +1,54 @@
+one:
+  id: 1
+  ingredient_id: 115
+  recipe_id: 1
+  description: "1 tablespoon canola oil"
+  unit_id: 3
+  amount: 1
+  display_amount: 1
+  nutri_id: "513fceb475b8dbbc21000682"
+two:
+  id: 2
+  ingredient_id: 116
+  recipe_id: 1
+  description: "2 carrots, finely chopped"
+  unit_id: 17
+  amount: 2
+  display_amount: 2
+  nutri_id: "513fceb575b8dbbc210014dd"
+three:
+  id: 3
+  ingredient_id: 117
+  recipe_id: 1
+  description: "2 celery stalks, finely chopped"
+  unit_id: 16
+  amount: 2
+  display_amount: 2
+  nutri_id: "513fceb575b8dbbc210014fe"
+four:
+  id: 4
+  ingredient_id: 118
+  recipe_id: 1
+  description: "1/2 cup kimchi, finely chopped"
+  unit_id: 4
+  amount: 2
+  display_amount: 4
+  nutri_id: "51c3f39897c3e6de73cbdcfd"
+five:
+  id: 5
+  ingredient_id: 119
+  recipe_id: 1
+  description: "3 cups cooked white or brown rice (see note below)"
+  unit_id: 5
+  amount: 3
+  display_amount: 3
+  nutri_id: "513fceb775b8dbbc21002dc4"
+six:
+  id: 6
+  ingredient_id: 120
+  recipe_id: 1
+  description: "1/2 cup bean sprouts"
+  unit_id: 5
+  amount: 0.5
+  display_amount: 0.5
+  nutri_id: "513fceb575b8dbbc2100146f"

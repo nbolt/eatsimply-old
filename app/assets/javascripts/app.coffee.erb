@@ -664,7 +664,6 @@ app = angular.module('eatt', ['ngCookies', 'ui.select2'])
 
       _(info.ingredients).each (ingredient) ->
         link = _(info.ingredient_links).find((l) -> l.ingredient_id == ingredient.id)
-        nutri_id = _(ingredient.ingredients_units).find((l) -> l.unit_id == link.unit_id).nutri_id 
         ingredient.amount = link.amount
         ingredient.notes = link.description
         ingredient.update = false
@@ -678,7 +677,7 @@ app = angular.module('eatt', ['ngCookies', 'ui.select2'])
           ingredient.units = [{ id: rsp.id, name: rsp.name, text: rsp.name, multiplier: 1 }]
           ingredient.unit = ingredient.units[0].id
 
-        $http.get("/recipe/#{nutri_id}/fetch_ingredient").success (rsp) ->
+        $http.get("/recipe/#{link.nutri_id}/fetch_ingredient").success (rsp) ->
           ingredient.combinedData = {}
           ingredient.combinedData["#{ingredient.name}"] = rsp
           el = angular.element("#i#{ingredient.$$hashKey}".replace(':', '\\:'))

@@ -17,7 +17,6 @@ group :assets do
 end
 
 group :development do
-  gem 'pry-rails'
   gem 'seed_dump'
 end
 
@@ -35,6 +34,7 @@ group :test do
 end
 
 gem 'coveralls', require: false, group: :test
+gem 'pry-rails', groups: [:test, :development]
 
 #gem 'active_nutrition', github: 'Eatt/active_nutrition', branch: 'master'
 gem 'stylus',           github: 'lucasmazza/ruby-stylus', group: :assets

@@ -1,0 +1,2141 @@
+---
+  id: "1"
+  name: "Kimchi Fried Rice"
+  yummly_id: "Kimchi-Fried-Rice-501964"
+  created_at: "2014-10-30T01:36:41.109Z"
+  updated_at: "2014-10-30T01:36:41.109Z"
+  portion_size: 4
+  time: 1500
+  photo: null
+  source: "http://foxeslovelemons.com/2013/03/kimchi-fried-rice.html"
+  source_name: "Foxes Love Lemons"
+  yield: "4 servings"
+  algo_count: 0
+  nutritionix_id: null
+  ingredient_lines: null
+  instructions: "Heat oil over medium-high heat in wok or large skillet. Add carrots, celery and kimchi. Cook 2 minutes or until vegetables begin to soften, stirring constantly.\nAdd cooked rice, bean sprouts and peas. Cook 3 to 4 minutes or until rice begins to brown and all vegetables are cooked through, stirring frequently. Season with soy sauce and white pepper, to taste."
+  veganize: null
+  added_by: null
+  review: false
+  public: false
+  recipe_images: 
+    - 
+      id: 52
+      image: 
+        url: "/recipe_image/image/52/unnamed__DEV.jpg"
+      recipe_id: 62
+      created_at: "2014-10-30T01:36:45.209Z"
+      updated_at: "2014-10-30T01:36:45.209Z"
+  courses: 
+    - 
+      id: 1
+      name: "Main Dishes"
+      created_at: "2014-10-11T23:02:26.726Z"
+      updated_at: "2014-10-11T23:02:26.726Z"
+      yummly_attr: "course^course-Main Dishes"
+  cuisines: 
+    - 
+      id: 3
+      name: "Asian"
+      created_at: "2014-10-11T23:02:27.234Z"
+      updated_at: "2014-10-11T23:02:27.234Z"
+      yummly_attr: "cuisine^cuisine-asian"
+  diets: 
+    - 
+      id: 1
+      name: "Vegan"
+      created_at: "2014-10-11T23:02:27.737Z"
+      updated_at: "2014-10-11T23:02:27.737Z"
+      yummly_attr: "386^Vegan"
+    - 
+      id: 5
+      name: "Vegetarian"
+      created_at: "2014-10-11T23:02:27.857Z"
+      updated_at: "2014-10-11T23:02:27.857Z"
+      yummly_attr: "387^Lacto-ovo vegetarian"
+    - 
+      id: 4
+      name: "Pescetarian"
+      created_at: "2014-10-11T23:02:27.835Z"
+      updated_at: "2014-10-11T23:02:27.835Z"
+      yummly_attr: "390^Pescetarian"
+  ingredient_links: 
+    - 
+      id: 183
+      ingredient_id: 115
+      recipe_id: 62
+      description: "1 tablespoon canola oil"
+      unit_id: 3
+      amount: 1
+    - 
+      id: 184
+      ingredient_id: 116
+      recipe_id: 62
+      description: "2 carrots, finely chopped"
+      unit_id: 172
+      amount: 2
+    - 
+      id: 185
+      ingredient_id: 117
+      recipe_id: 62
+      description: "2 celery stalks, finely chopped"
+      unit_id: 173
+      amount: 2
+    - 
+      id: 186
+      ingredient_id: 118
+      recipe_id: 62
+      description: "1/2 cup kimchi, finely chopped"
+      unit_id: 4
+      amount: 4
+    - 
+      id: 187
+      ingredient_id: 119
+      recipe_id: 62
+      description: "3 cups cooked white or brown rice (see note below)"
+      unit_id: 5
+      amount: 3
+    - 
+      id: 188
+      ingredient_id: 120
+      recipe_id: 62
+      description: "1/2 cup bean sprouts"
+      unit_id: 5
+      amount: 0.5
+  ingredients: 
+    - 
+      id: 115
+      name: "Canola Oil"
+      group: null
+      created_at: "2014-10-30T01:24:26.697Z"
+      updated_at: "2014-10-30T01:24:26.697Z"
+      allergen_contains_eggs: null
+      allergen_contains_tree_nuts: null
+      allergen_contains_shellfish: null
+      allergen_contains_peanuts: null
+      allergen_contains_wheat: null
+      allergen_contains_gluten: null
+      allergen_contains_fish: null
+      allergen_contains_soybeans: null
+      allergen_contains_milk: null
+      ingredients_units: 
+        - 
+          id: 161
+          unit_id: 3
+          ingredient_id: 115
+          nutri_id: "513fceb475b8dbbc21000682"
+      amount: 1
+      notes: "1 tablespoon canola oil"
+      update: false
+      profile: null
+      units: 
+        - 
+          id: 3
+          name: "tablespoon"
+          text: "tablespoon"
+          multiplier: 1
+      unit: 
+        id: 3
+        text: "tablespoon"
+        abbr: "tbsp."
+      combinedData: 
+        Canola Oil: 
+          old_api_id: null
+          item_id: "513fceb475b8dbbc21000682"
+          item_name: "Canola Oil - 1 tbsp"
+          leg_loc_id: 328
+          brand_id: "513fcc648110a4cafb90ca5e"
+          brand_name: "USDA"
+          item_description: null
+          updated_at: "2014-05-10T20:05:14.000Z"
+          nf_ingredient_statement: null
+          nf_water_grams: 0
+          nf_calories: 123.76
+          nf_calories_from_fat: 126
+          nf_total_fat: 14
+          nf_saturated_fat: 1.03
+          nf_trans_fatty_acid: null
+          nf_polyunsaturated_fat: 3.94
+          nf_monounsaturated_fat: 8.86
+          nf_cholesterol: 0
+          nf_sodium: 0
+          nf_total_carbohydrate: 0
+          nf_dietary_fiber: 0
+          nf_sugars: 0
+          nf_protein: 0
+          nf_vitamin_a_dv: 0
+          nf_vitamin_c_dv: 0
+          nf_calcium_dv: 0
+          nf_iron_dv: 0
+          nf_refuse_pct: null
+          nf_servings_per_container: null
+          nf_serving_size_qty: 1
+          nf_serving_size_unit: "tbsp"
+          nf_serving_weight_grams: 14
+          allergen_contains_milk: null
+          allergen_contains_eggs: null
+          allergen_contains_fish: null
+          allergen_contains_shellfish: null
+          allergen_contains_tree_nuts: null
+          allergen_contains_peanuts: null
+          allergen_contains_wheat: null
+          allergen_contains_soybeans: null
+          allergen_contains_gluten: null
+          usda_fields: 
+            VITA_IU: 
+              value: 0
+              uom: "IU"
+              desc: "Vitamin A, IU"
+            VITA_E:
+              value: 0
+              uom: "mg"
+              desc: "Vitamin E, added"
+            NIA: 
+              value: 0
+              uom: "mg"
+              desc: "Niacin"
+            FATRNP: 
+              value: 0.05
+              uom: "g"
+              desc: "Fatty acids, total trans-polyenoic"
+            F20D2CN6: 
+              value: 0
+              uom: "g"
+              desc: "20:2 n-6 c,c"
+            F6D0: 
+              value: 0
+              uom: "g"
+              desc: "6:0"
+            F20D4: 
+              value: 0
+              uom: "g"
+              desc: "20:4 undifferentiated"
+            TOCTRB: 
+              value: 0
+              uom: "mg"
+              desc: "Tocotrienol, beta"
+            F10D0: 
+              value: 0
+              uom: "g"
+              desc: "10:0"
+            F18D2: 
+              value: 2.66
+              uom: "g"
+              desc: "18:2 undifferentiated"
+            THEBRN: 
+              value: 0
+              uom: "mg"
+              desc: "Theobromine"
+            F18D4: 
+              value: 0
+              uom: "g"
+              desc: "18:4"
+            FE: 
+              value: 0
+              uom: "mg"
+              desc: "Iron, Fe"
+            TOCTRD: 
+              value: 0
+              uom: "mg"
+              desc: "Tocotrienol, delta"
+            F18D3CN6: 
+              value: 0
+              uom: "g"
+              desc: "18:3 n-6 c,c,c"
+            FATRNM: 
+              value: 0
+              uom: "g"
+              desc: "Fatty acids, total trans-monoenoic"
+            F15D1: 
+              value: 0
+              uom: "g"
+              desc: "15:1"
+            F17D0: 
+              value: 0
+              uom: "g"
+              desc: "17:0"
+            PANTAC: 
+              value: 0
+              uom: "mg"
+              desc: "Pantothenic acid"
+            CAFFN: 
+              value: 0
+              uom: "mg"
+              desc: "Caffeine"
+            PROCNT: 
+              value: 0
+              uom: "g"
+              desc: "Protein"
+            VITB6A: 
+              value: 0
+              uom: "mg"
+              desc: "Vitamin B-6"
+            F20D3: 
+              value: 0
+              uom: "g"
+              desc: "20:3 undifferentiated"
+            NA: 
+              value: 0
+              uom: "mg"
+              desc: "Sodium, Na"
+            FASAT: 
+              value: 1.03
+              uom: "g"
+              desc: "Fatty acids, total saturated"
+            F18D1T: 
+              value: 0
+              uom: "g"
+              desc: "18:1 t"
+            FAT: 
+              value: 14
+              uom: "g"
+              desc: "Total lipid (fat)"
+            BETN: 
+              value: 0
+              uom: "mg"
+              desc: "Betaine"
+            CHOLN: 
+              value: 0.03
+              uom: "mg"
+              desc: "Choline, total"
+            FATRN: 
+              value: 0.05
+              uom: "g"
+              desc: "Fatty acids, total trans"
+            F15D0: 
+              value: 0
+              uom: "g"
+              desc: "15:0"
+            CHOLE: 
+              value: 0
+              uom: "mg"
+              desc: "Cholesterol"
+            ASH: 
+              value: 0
+              uom: "g"
+              desc: "Ash"
+            K: 
+              value: 0
+              uom: "mg"
+              desc: "Potassium, K"
+            F16D0: 
+              value: 0.6
+              uom: "g"
+              desc: "16:0"
+            RIBF: 
+              value: 0
+              uom: "mg"
+              desc: "Riboflavin"
+            CAMD5: 
+              value: 33.74
+              uom: "mg"
+              desc: "Campesterol"
+            ZN: 
+              value: 0
+              uom: "mg"
+              desc: "Zinc, Zn"
+            F18D3: 
+              value: 1.28
+              uom: "g"
+              desc: "18:3 undifferentiated"
+            FIBTG: 
+              value: 0
+              uom: "g"
+              desc: "Fiber, total dietary"
+            F18D2CN6: 
+              value: 2.61
+              uom: "g"
+              desc: "18:2 n-6 c,c"
+            CA: 
+              value: 0
+              uom: "mg"
+              desc: "Calcium, Ca"
+            FAMS: 
+              value: 8.86
+              uom: "g"
+              desc: "Fatty acids, total monounsaturated"
+            F14D0: 
+              value: 0
+              uom: "g"
+              desc: "14:0"
+            F14D1: 
+              value: 0
+              uom: "g"
+              desc: "14:1"
+            SUGAR: 
+              value: 0
+              uom: "g"
+              desc: "Sugars, total"
+            P: 
+              value: 0
+              uom: "mg"
+              desc: "Phosphorus, P"
+            CHOCDF: 
+              value: 0
+              uom: "g"
+              desc: "Carbohydrate, by difference"
+            F4D0: 
+              value: 0
+              uom: "g"
+              desc: "4:0"
+            VITC: 
+              value: 0
+              uom: "mg"
+              desc: "Vitamin C, total ascorbic acid"
+            ENERC_KJ: 
+              value: 517.86
+              uom: "kJ"
+              desc: "Energy"
+            F8D0: 
+              value: 0
+              uom: "g"
+              desc: "8:0"
+            SITSTR: 
+              value: 57.82
+              uom: "mg"
+              desc: "Beta-sitosterol"
+            F18D3CN3: 
+              value: 1.28
+              uom: "g"
+              desc: "18:3 n-3 c,c,c (ALA)"
+            ENERC_KCAL: 
+              value: 123.76
+              uom: "kcal"
+              desc: "Energy"
+            CU: 
+              value: 0
+              uom: "mg"
+              desc: "Copper, Cu"
+            VITD: 
+              value: 0
+              uom: "IU"
+              desc: "Vitamin D"
+            F18D2TT: 
+              value: 0.05
+              uom: "g"
+              desc: "18:2 t,t"
+            F18D0: 
+              value: 0.29
+              uom: "g"
+              desc: "18:0"
+            MG: 
+              value: 0
+              uom: "mg"
+              desc: "Magnesium, Mg"
+            F22D0: 
+              value: 0.05
+              uom: "g"
+              desc: "22:0"
+            F12D0: 
+              value: 0
+              uom: "g"
+              desc: "12:0"
+            F22D6: 
+              value: 0
+              uom: "g"
+              desc: "22:6 n-3 (DHA)"
+            F22D5: 
+              value: 0
+              uom: "g"
+              desc: "22:5 n-3 (DPA)"
+            F18D1: 
+              value: 8.64
+              uom: "g"
+              desc: "18:1 undifferentiated"
+            F20D1: 
+              value: 0.18
+              uom: "g"
+              desc: "20:1"
+            F20D0: 
+              value: 0.09
+              uom: "g"
+              desc: "20:0"
+            FAPU: 
+              value: 3.94
+              uom: "g"
+              desc: "Fatty acids, total polyunsaturated"
+            MN: 
+              value: 0
+              uom: "mg"
+              desc: "Manganese, Mn"
+            F20D5: 
+              value: 0
+              uom: "g"
+              desc: "20:5 n-3 (EPA)"
+            ALC: 
+              value: 0
+              uom: "g"
+              desc: "Alcohol, ethyl"
+            STID7: 
+              value: 0.42
+              uom: "mg"
+              desc: "Stigmasterol"
+            F17D1: 
+              value: 0
+              uom: "g"
+              desc: "17:1"
+            WATER: 
+              value: 0
+              uom: "g"
+              desc: "Water"
+            TOCPHA: 
+              value: 2.44
+              uom: "mg"
+              desc: "Vitamin E (alpha-tocopherol)"
+            TOCPHB: 
+              value: 0
+              uom: "mg"
+              desc: "Tocopherol, beta"
+            TOCTRA: 
+              value: 0
+              uom: "mg"
+              desc: "Tocotrienol, alpha"
+            TOCPHD: 
+              value: 0.14
+              uom: "mg"
+              desc: "Tocopherol, delta"
+            TOCPHG: 
+              value: 3.83
+              uom: "mg"
+              desc: "Tocopherol, gamma"
+            F18D1C: 
+              value: 8.64
+              uom: "g"
+              desc: "18:1 c"
+            THIA: 
+              value: 0
+              uom: "mg"
+              desc: "Thiamin"
+            F16D1: 
+              value: 0.03
+              uom: "g"
+              desc: "16:1 undifferentiated"
+            F22D1: 
+              value: 0
+              uom: "g"
+              desc: "22:1 undifferentiated"
+            TOCTRG: 
+              value: 0
+              uom: "mg"
+              desc: "Tocotrienol, gamma"
+    - 
+      id: 116
+      name: "Carrot, Raw"
+      group: null
+      created_at: "2014-10-30T01:25:03.400Z"
+      updated_at: "2014-10-30T01:25:03.400Z"
+      allergen_contains_eggs: null
+      allergen_contains_tree_nuts: null
+      allergen_contains_shellfish: null
+      allergen_contains_peanuts: null
+      allergen_contains_wheat: null
+      allergen_contains_gluten: null
+      allergen_contains_fish: null
+      allergen_contains_soybeans: null
+      allergen_contains_milk: null
+      ingredients_units: 
+        - 
+          id: 162
+          unit_id: 172
+          ingredient_id: 116
+          nutri_id: "513fceb575b8dbbc210014dd"
+      amount: 2
+      notes: "2 carrots, finely chopped"
+      update: false
+      profile: null
+      combinedData: 
+        Carrot, Raw: 
+          old_api_id: null
+          item_id: "513fceb575b8dbbc210014dd"
+          item_name: "Carrot, Raw - 1 medium"
+          leg_loc_id: 328
+          brand_id: "513fcc648110a4cafb90ca5e"
+          brand_name: "USDA"
+          item_description: null
+          updated_at: "2014-05-10T20:20:35.000Z"
+          nf_ingredient_statement: null
+          nf_water_grams: 53.86
+          nf_calories: 25.01
+          nf_calories_from_fat: 1.32
+          nf_total_fat: 0.15
+          nf_saturated_fat: 0.02
+          nf_trans_fatty_acid: null
+          nf_polyunsaturated_fat: 0.07
+          nf_monounsaturated_fat: 0.01
+          nf_cholesterol: 0
+          nf_sodium: 42.09
+          nf_total_carbohydrate: 5.84
+          nf_dietary_fiber: 1.71
+          nf_sugars: 2.89
+          nf_protein: 0.57
+          nf_vitamin_a_dv: 204
+          nf_vitamin_c_dv: 6
+          nf_calcium_dv: 2
+          nf_iron_dv: 1
+          nf_refuse_pct: 11
+          nf_servings_per_container: null
+          nf_serving_size_qty: 1
+          nf_serving_size_unit: "medium"
+          nf_serving_weight_grams: 61
+          allergen_contains_milk: null
+          allergen_contains_eggs: null
+          allergen_contains_fish: null
+          allergen_contains_shellfish: null
+          allergen_contains_tree_nuts: null
+          allergen_contains_peanuts: null
+          allergen_contains_wheat: null
+          allergen_contains_soybeans: null
+          allergen_contains_gluten: null
+          usda_fields: 
+            VITA_IU: 
+              value: 10190.66
+              uom: "IU"
+              desc: "Vitamin A, IU"
+            VITA_E:
+              value: 0
+              uom: "mg"
+              desc: "Vitamin E, added"
+            ARG_G: 
+              value: 0.05
+              uom: "g"
+              desc: "Arginine"
+            F6D0: 
+              value: 0
+              uom: "g"
+              desc: "6:0"
+            LACS: 
+              value: 0
+              uom: "g"
+              desc: "Lactose"
+            LYS_G: 
+              value: 0.06
+              uom: "g"
+              desc: "Lysine"
+            LEU_G: 
+              value: 0.06
+              uom: "g"
+              desc: "Leucine"
+            RIBF: 
+              value: 0.03
+              uom: "mg"
+              desc: "Riboflavin"
+            STARCH: 
+              value: 0.87
+              uom: "g"
+              desc: "Starch"
+            F12D0: 
+              value: 0
+              uom: "g"
+              desc: "12:0"
+            FAMS: 
+              value: 0.01
+              uom: "g"
+              desc: "Fatty acids, total monounsaturated"
+            P: 
+              value: 21.35
+              uom: "mg"
+              desc: "Phosphorus, P"
+            ALA_G: 
+              value: 0.07
+              uom: "g"
+              desc: "Alanine"
+            F24D0: 
+              value: 0
+              uom: "g"
+              desc: "24:0"
+            F20D1: 
+              value: 0
+              uom: "g"
+              desc: "20:1"
+            F20D0: 
+              value: 0
+              uom: "g"
+              desc: "20:0"
+            F20D3: 
+              value: 0
+              uom: "g"
+              desc: "20:3 undifferentiated"
+            NIA: 
+              value: 0.6
+              uom: "mg"
+              desc: "Niacin"
+            F20D5: 
+              value: 0
+              uom: "g"
+              desc: "20:5 n-3 (EPA)"
+            F20D4: 
+              value: 0
+              uom: "g"
+              desc: "20:4 undifferentiated"
+            WATER: 
+              value: 53.86
+              uom: "g"
+              desc: "Water"
+            TRP_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Tryptophan"
+            TOCPHB: 
+              value: 0.01
+              uom: "mg"
+              desc: "Tocopherol, beta"
+            TOCPHD: 
+              value: 0
+              uom: "mg"
+              desc: "Tocopherol, delta"
+            TOCPHG: 
+              value: 0
+              uom: "mg"
+              desc: "Tocopherol, gamma"
+            THIA: 
+              value: 0.04
+              uom: "mg"
+              desc: "Thiamin"
+            SUCS: 
+              value: 2.19
+              uom: "g"
+              desc: "Sucrose"
+            GLUS: 
+              value: 0.36
+              uom: "g"
+              desc: "Glucose (dextrose)"
+            F18D0: 
+              value: 0
+              uom: "g"
+              desc: "18:0"
+            F18D1: 
+              value: 0.01
+              uom: "g"
+              desc: "18:1 undifferentiated"
+            F18D2: 
+              value: 0.07
+              uom: "g"
+              desc: "18:2 undifferentiated"
+            F18D3: 
+              value: 0
+              uom: "g"
+              desc: "18:3 undifferentiated"
+            F18D4: 
+              value: 0
+              uom: "g"
+              desc: "18:4"
+            PANTAC: 
+              value: 0.16
+              uom: "mg"
+              desc: "Pantothenic acid"
+            TOCPHA: 
+              value: 0.4
+              uom: "mg"
+              desc: "Vitamin E (alpha-tocopherol)"
+            MALS: 
+              value: 0
+              uom: "g"
+              desc: "Maltose"
+            F17D1: 
+              value: 0
+              uom: "g"
+              desc: "17:1"
+            F17D0: 
+              value: 0
+              uom: "g"
+              desc: "17:0"
+            VAL_G: 
+              value: 0.04
+              uom: "g"
+              desc: "Valine"
+            CHOLN: 
+              value: 5.37
+              uom: "mg"
+              desc: "Choline, total"
+            CHOLE: 
+              value: 0
+              uom: "mg"
+              desc: "Cholesterol"
+            K: 
+              value: 195.2
+              uom: "mg"
+              desc: "Potassium, K"
+            F16D0: 
+              value: 0.02
+              uom: "g"
+              desc: "16:0"
+            F16D1: 
+              value: 0
+              uom: "g"
+              desc: "16:1 undifferentiated"
+            CYS_G: 
+              value: 0.05
+              uom: "g"
+              desc: "Cystine"
+            ZN: 
+              value: 0.15
+              uom: "mg"
+              desc: "Zinc, Zn"
+            PHE_G: 
+              value: 0.04
+              uom: "g"
+              desc: "Phenylalanine"
+            SUGAR: 
+              value: 2.89
+              uom: "g"
+              desc: "Sugars, total"
+            VITC: 
+              value: 3.6
+              uom: "mg"
+              desc: "Vitamin C, total ascorbic acid"
+            VITD: 
+              value: 0
+              uom: "IU"
+              desc: "Vitamin D"
+            MG: 
+              value: 7.32
+              uom: "mg"
+              desc: "Magnesium, Mg"
+            MN: 
+              value: 0.09
+              uom: "mg"
+              desc: "Manganese, Mn"
+            TYR_G: 
+              value: 0.02
+              uom: "g"
+              desc: "Tyrosine"
+            HISTN_G: 
+              value: 0.02
+              uom: "g"
+              desc: "Histidine"
+            SER_G: 
+              value: 0.03
+              uom: "g"
+              desc: "Serine"
+            THEBRN: 
+              value: 0
+              uom: "mg"
+              desc: "Theobromine"
+            FE: 
+              value: 0.18
+              uom: "mg"
+              desc: "Iron, Fe"
+            CAFFN: 
+              value: 0
+              uom: "mg"
+              desc: "Caffeine"
+            PROCNT: 
+              value: 0.57
+              uom: "g"
+              desc: "Protein"
+            NA: 
+              value: 42.09
+              uom: "mg"
+              desc: "Sodium, Na"
+            FASAT: 
+              value: 0.02
+              uom: "g"
+              desc: "Fatty acids, total saturated"
+            FATRN: 
+              value: 0
+              uom: "g"
+              desc: "Fatty acids, total trans"
+            F15D0: 
+              value: 0
+              uom: "g"
+              desc: "15:0"
+            ASH: 
+              value: 0.59
+              uom: "g"
+              desc: "Ash"
+            ASP_G: 
+              value: 0.12
+              uom: "g"
+              desc: "Aspartic acid"
+            F15D1: 
+              value: 0
+              uom: "g"
+              desc: "15:1"
+            FIBTG: 
+              value: 1.71
+              uom: "g"
+              desc: "Fiber, total dietary"
+            GALS: 
+              value: 0
+              uom: "g"
+              desc: "Galactose"
+            CA: 
+              value: 20.13
+              uom: "mg"
+              desc: "Calcium, Ca"
+            F14D0: 
+              value: 0
+              uom: "g"
+              desc: "14:0"
+            F14D1: 
+              value: 0
+              uom: "g"
+              desc: "14:1"
+            GLU_G: 
+              value: 0.22
+              uom: "g"
+              desc: "Glutamic acid"
+            CHOCDF: 
+              value: 5.84
+              uom: "g"
+              desc: "Carbohydrate, by difference"
+            F4D0: 
+              value: 0
+              uom: "g"
+              desc: "4:0"
+            F10D0: 
+              value: 0
+              uom: "g"
+              desc: "10:0"
+            F8D0: 
+              value: 0
+              uom: "g"
+              desc: "8:0"
+            BETN: 
+              value: 0.24
+              uom: "mg"
+              desc: "Betaine"
+            CU: 
+              value: 0.02
+              uom: "mg"
+              desc: "Copper, Cu"
+            F22D1: 
+              value: 0
+              uom: "g"
+              desc: "22:1 undifferentiated"
+            F22D0: 
+              value: 0
+              uom: "g"
+              desc: "22:0"
+            F22D6: 
+              value: 0
+              uom: "g"
+              desc: "22:6 n-3 (DHA)"
+            F22D5: 
+              value: 0
+              uom: "g"
+              desc: "22:5 n-3 (DPA)"
+            FRUS: 
+              value: 0.34
+              uom: "g"
+              desc: "Fructose"
+            FAPU: 
+              value: 0.07
+              uom: "g"
+              desc: "Fatty acids, total polyunsaturated"
+            ALC: 
+              value: 0
+              uom: "g"
+              desc: "Alcohol, ethyl"
+            TOCTRB: 
+              value: 0
+              uom: "mg"
+              desc: "Tocotrienol, beta"
+            TOCTRA: 
+              value: 0.01
+              uom: "mg"
+              desc: "Tocotrienol, alpha"
+            TOCTRG: 
+              value: 0
+              uom: "mg"
+              desc: "Tocotrienol, gamma"
+            TOCTRD: 
+              value: 0
+              uom: "mg"
+              desc: "Tocotrienol, delta"
+            MET_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Methionine"
+            THR_G: 
+              value: 0.12
+              uom: "g"
+              desc: "Threonine"
+            ILE_G: 
+              value: 0.04
+              uom: "g"
+              desc: "Isoleucine"
+            VITB6A: 
+              value: 0.08
+              uom: "mg"
+              desc: "Vitamin B-6"
+            FAT: 
+              value: 0.15
+              uom: "g"
+              desc: "Total lipid (fat)"
+            GLY_G: 
+              value: 0.02
+              uom: "g"
+              desc: "Glycine"
+            F20D2CN6: 
+              value: 0
+              uom: "g"
+              desc: "20:2 n-6 c,c"
+            ENERC_KJ: 
+              value: 105.53
+              uom: "kJ"
+              desc: "Energy"
+            ENERC_KCAL: 
+              value: 25.01
+              uom: "kcal"
+              desc: "Energy"
+            PRO_G: 
+              value: 0.03
+              uom: "g"
+              desc: "Proline"
+      units: 
+        - 
+          id: 172
+          name: "media"
+          text: "media"
+          multiplier: 1
+      unit: 
+        id: 172
+        text: "media"
+        abbr: null
+    - 
+      id: 117
+      name: "Celery, Raw"
+      group: null
+      created_at: "2014-10-30T01:25:03.999Z"
+      updated_at: "2014-10-30T01:25:03.999Z"
+      allergen_contains_eggs: null
+      allergen_contains_tree_nuts: null
+      allergen_contains_shellfish: null
+      allergen_contains_peanuts: null
+      allergen_contains_wheat: null
+      allergen_contains_gluten: null
+      allergen_contains_fish: null
+      allergen_contains_soybeans: null
+      allergen_contains_milk: null
+      ingredients_units: 
+        - 
+          id: 163
+          unit_id: 173
+          ingredient_id: 117
+          nutri_id: "513fceb575b8dbbc210014fe"
+      amount: 2
+      notes: "2 celery stalks, finely chopped"
+      update: false
+      profile: null
+      units: 
+        - 
+          id: 173
+          name: "stalk, medium (7-1/2\" - 8\" long)s"
+          text: "stalk, medium (7-1/2\" - 8\" long)s"
+          multiplier: 1
+      unit: 
+        id: 173
+        text: "stalk, medium (7-1/2\" - 8\" long)s"
+        abbr: null
+      combinedData: 
+        Celery, Raw: 
+          old_api_id: null
+          item_id: "513fceb575b8dbbc210014fe"
+          item_name: "Celery, Raw - 1 stalk, medium (7-1/2\" - 8\" long)"
+          leg_loc_id: 328
+          brand_id: "513fcc648110a4cafb90ca5e"
+          brand_name: "USDA"
+          item_description: null
+          updated_at: "2014-05-10T20:19:33.000Z"
+          nf_ingredient_statement: null
+          nf_water_grams: 38.17
+          nf_calories: 6.4
+          nf_calories_from_fat: 0.61
+          nf_total_fat: 0.07
+          nf_saturated_fat: 0.02
+          nf_trans_fatty_acid: null
+          nf_polyunsaturated_fat: 0.03
+          nf_monounsaturated_fat: 0.01
+          nf_cholesterol: 0
+          nf_sodium: 32
+          nf_total_carbohydrate: 1.19
+          nf_dietary_fiber: 0.64
+          nf_sugars: 0.73
+          nf_protein: 0.28
+          nf_vitamin_a_dv: 4
+          nf_vitamin_c_dv: 2
+          nf_calcium_dv: 2
+          nf_iron_dv: 0
+          nf_refuse_pct: 11
+          nf_servings_per_container: null
+          nf_serving_size_qty: 1
+          nf_serving_size_unit: "stalk, medium (7-1/2\" - 8\" long)"
+          nf_serving_weight_grams: 40
+          allergen_contains_milk: null
+          allergen_contains_eggs: null
+          allergen_contains_fish: null
+          allergen_contains_shellfish: null
+          allergen_contains_tree_nuts: null
+          allergen_contains_peanuts: null
+          allergen_contains_wheat: null
+          allergen_contains_soybeans: null
+          allergen_contains_gluten: null
+          usda_fields: 
+            VITA_IU: 
+              value: 179.6
+              uom: "IU"
+              desc: "Vitamin A, IU"
+            VITA_E:
+              value: 0
+              uom: "mg"
+              desc: "Vitamin E, added"
+            ARG_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Arginine"
+            F6D0: 
+              value: 0
+              uom: "g"
+              desc: "6:0"
+            LACS: 
+              value: 0
+              uom: "g"
+              desc: "Lactose"
+            LYS_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Lysine"
+            LEU_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Leucine"
+            RIBF: 
+              value: 0.02
+              uom: "mg"
+              desc: "Riboflavin"
+            STARCH: 
+              value: 0
+              uom: "g"
+              desc: "Starch"
+            F12D0: 
+              value: 0
+              uom: "g"
+              desc: "12:0"
+            FAMS: 
+              value: 0.01
+              uom: "g"
+              desc: "Fatty acids, total monounsaturated"
+            P: 
+              value: 9.6
+              uom: "mg"
+              desc: "Phosphorus, P"
+            ALA_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Alanine"
+            F20D1: 
+              value: 0
+              uom: "g"
+              desc: "20:1"
+            NIA: 
+              value: 0.13
+              uom: "mg"
+              desc: "Niacin"
+            F20D5: 
+              value: 0
+              uom: "g"
+              desc: "20:5 n-3 (EPA)"
+            F20D4: 
+              value: 0
+              uom: "g"
+              desc: "20:4 undifferentiated"
+            WATER: 
+              value: 38.17
+              uom: "g"
+              desc: "Water"
+            TRP_G: 
+              value: 0
+              uom: "g"
+              desc: "Tryptophan"
+            TOCPHB: 
+              value: 0
+              uom: "mg"
+              desc: "Tocopherol, beta"
+            TOCPHD: 
+              value: 0
+              uom: "mg"
+              desc: "Tocopherol, delta"
+            TOCPHG: 
+              value: 0
+              uom: "mg"
+              desc: "Tocopherol, gamma"
+            THIA: 
+              value: 0.01
+              uom: "mg"
+              desc: "Thiamin"
+            SUCS: 
+              value: 0.04
+              uom: "g"
+              desc: "Sucrose"
+            GLUS: 
+              value: 0.22
+              uom: "g"
+              desc: "Glucose (dextrose)"
+            F18D0: 
+              value: 0
+              uom: "g"
+              desc: "18:0"
+            F18D1: 
+              value: 0.01
+              uom: "g"
+              desc: "18:1 undifferentiated"
+            F18D2: 
+              value: 0.03
+              uom: "g"
+              desc: "18:2 undifferentiated"
+            F18D3: 
+              value: 0
+              uom: "g"
+              desc: "18:3 undifferentiated"
+            F18D4: 
+              value: 0
+              uom: "g"
+              desc: "18:4"
+            PANTAC: 
+              value: 0.1
+              uom: "mg"
+              desc: "Pantothenic acid"
+            TOCPHA: 
+              value: 0.11
+              uom: "mg"
+              desc: "Vitamin E (alpha-tocopherol)"
+            MALS: 
+              value: 0
+              uom: "g"
+              desc: "Maltose"
+            VAL_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Valine"
+            CHOLN: 
+              value: 2.44
+              uom: "mg"
+              desc: "Choline, total"
+            CHOLE: 
+              value: 0
+              uom: "mg"
+              desc: "Cholesterol"
+            K: 
+              value: 104
+              uom: "mg"
+              desc: "Potassium, K"
+            F16D0: 
+              value: 0.01
+              uom: "g"
+              desc: "16:0"
+            F16D1: 
+              value: 0
+              uom: "g"
+              desc: "16:1 undifferentiated"
+            CYS_G: 
+              value: 0
+              uom: "g"
+              desc: "Cystine"
+            ZN: 
+              value: 0.05
+              uom: "mg"
+              desc: "Zinc, Zn"
+            PHE_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Phenylalanine"
+            SUGAR: 
+              value: 0.73
+              uom: "g"
+              desc: "Sugars, total"
+            VITC: 
+              value: 1.24
+              uom: "mg"
+              desc: "Vitamin C, total ascorbic acid"
+            VITD: 
+              value: 0
+              uom: "IU"
+              desc: "Vitamin D"
+            MG: 
+              value: 4.4
+              uom: "mg"
+              desc: "Magnesium, Mg"
+            MN: 
+              value: 0.04
+              uom: "mg"
+              desc: "Manganese, Mn"
+            TYR_G: 
+              value: 0
+              uom: "g"
+              desc: "Tyrosine"
+            HISTN_G: 
+              value: 0
+              uom: "g"
+              desc: "Histidine"
+            SER_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Serine"
+            THEBRN: 
+              value: 0
+              uom: "mg"
+              desc: "Theobromine"
+            FE: 
+              value: 0.08
+              uom: "mg"
+              desc: "Iron, Fe"
+            CAFFN: 
+              value: 0
+              uom: "mg"
+              desc: "Caffeine"
+            PROCNT: 
+              value: 0.28
+              uom: "g"
+              desc: "Protein"
+            NA: 
+              value: 32
+              uom: "mg"
+              desc: "Sodium, Na"
+            FASAT: 
+              value: 0.02
+              uom: "g"
+              desc: "Fatty acids, total saturated"
+            ASH: 
+              value: 0.3
+              uom: "g"
+              desc: "Ash"
+            ASP_G: 
+              value: 0.04
+              uom: "g"
+              desc: "Aspartic acid"
+            FIBTG: 
+              value: 0.64
+              uom: "g"
+              desc: "Fiber, total dietary"
+            GALS: 
+              value: 0.26
+              uom: "g"
+              desc: "Galactose"
+            CA: 
+              value: 16
+              uom: "mg"
+              desc: "Calcium, Ca"
+            F14D0: 
+              value: 0
+              uom: "g"
+              desc: "14:0"
+            GLU_G: 
+              value: 0.04
+              uom: "g"
+              desc: "Glutamic acid"
+            CHOCDF: 
+              value: 1.19
+              uom: "g"
+              desc: "Carbohydrate, by difference"
+            F4D0: 
+              value: 0
+              uom: "g"
+              desc: "4:0"
+            F10D0: 
+              value: 0
+              uom: "g"
+              desc: "10:0"
+            F8D0: 
+              value: 0
+              uom: "g"
+              desc: "8:0"
+            BETN: 
+              value: 0.04
+              uom: "mg"
+              desc: "Betaine"
+            CU: 
+              value: 0.01
+              uom: "mg"
+              desc: "Copper, Cu"
+            F22D1: 
+              value: 0
+              uom: "g"
+              desc: "22:1 undifferentiated"
+            F22D6: 
+              value: 0
+              uom: "g"
+              desc: "22:6 n-3 (DHA)"
+            F22D5: 
+              value: 0
+              uom: "g"
+              desc: "22:5 n-3 (DPA)"
+            FRUS: 
+              value: 0.2
+              uom: "g"
+              desc: "Fructose"
+            FAPU: 
+              value: 0.03
+              uom: "g"
+              desc: "Fatty acids, total polyunsaturated"
+            ALC: 
+              value: 0
+              uom: "g"
+              desc: "Alcohol, ethyl"
+            TOCTRB: 
+              value: 0
+              uom: "mg"
+              desc: "Tocotrienol, beta"
+            TOCTRA: 
+              value: 0
+              uom: "mg"
+              desc: "Tocotrienol, alpha"
+            TOCTRG: 
+              value: 0
+              uom: "mg"
+              desc: "Tocotrienol, gamma"
+            TOCTRD: 
+              value: 0
+              uom: "mg"
+              desc: "Tocotrienol, delta"
+            MET_G: 
+              value: 0
+              uom: "g"
+              desc: "Methionine"
+            THR_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Threonine"
+            ILE_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Isoleucine"
+            VITB6A: 
+              value: 0.03
+              uom: "mg"
+              desc: "Vitamin B-6"
+            FAT: 
+              value: 0.07
+              uom: "g"
+              desc: "Total lipid (fat)"
+            GLY_G: 
+              value: 0.01
+              uom: "g"
+              desc: "Glycine"
+            ENERC_KJ: 
+              value: 26.8
+              uom: "kJ"
+              desc: "Energy"
+            ENERC_KCAL: 
+              value: 6.4
+              uom: "kcal"
+              desc: "Energy"
+            PHYSTR: 
+              value: 2.4
+              uom: "mg"
+              desc: "Phytosterols"
+            PRO_G: 
+              value: 0
+              uom: "g"
+              desc: "Proline"
+    - 
+      id: 118
+      name: "Kimchi, Radish"
+      group: null
+      created_at: "2014-10-30T01:25:04.685Z"
+      updated_at: "2014-10-30T01:25:04.685Z"
+      allergen_contains_eggs: null
+      allergen_contains_tree_nuts: null
+      allergen_contains_shellfish: null
+      allergen_contains_peanuts: null
+      allergen_contains_wheat: null
+      allergen_contains_gluten: null
+      allergen_contains_fish: null
+      allergen_contains_soybeans: null
+      allergen_contains_milk: null
+      ingredients_units: 
+        - 
+          id: 164
+          unit_id: 4
+          ingredient_id: 118
+          nutri_id: "51c3f39897c3e6de73cbdcfd"
+      amount: 4
+      notes: "1/2 cup kimchi, finely chopped"
+      update: false
+      profile: null
+      units: 
+        - 
+          id: 4
+          name: "ounce"
+          text: "ounce"
+          multiplier: 1
+      unit: 
+        id: 4
+        text: "ounce"
+        abbr: "oz."
+      combinedData: 
+        Kimchi, Radish: 
+          old_api_id: null
+          item_id: "51c3f39897c3e6de73cbdcfd"
+          item_name: "Kimchi, Radish"
+          leg_loc_id: null
+          brand_id: "51db380d176fe9790a89b143"
+          brand_name: "Sunja's"
+          item_description: "Radish"
+          updated_at: "2013-10-25T22:17:14.000Z"
+          nf_ingredient_statement: "All Natural: Cabbage, Radishes, Carrots, Red Peppers, Leeks, Green Onions, Garlic, Ginger, Sea Salt."
+          nf_water_grams: null
+          nf_calories: 15
+          nf_calories_from_fat: 0
+          nf_total_fat: 0
+          nf_saturated_fat: 0
+          nf_trans_fatty_acid: 0
+          nf_polyunsaturated_fat: null
+          nf_monounsaturated_fat: null
+          nf_cholesterol: 0
+          nf_sodium: 150
+          nf_total_carbohydrate: 3
+          nf_dietary_fiber: 1
+          nf_sugars: 2
+          nf_protein: 0
+          nf_vitamin_a_dv: 6
+          nf_vitamin_c_dv: 20
+          nf_calcium_dv: 0
+          nf_iron_dv: 0
+          nf_refuse_pct: null
+          nf_servings_per_container: 8
+          nf_serving_size_qty: 2
+          nf_serving_size_unit: "oz"
+          nf_serving_weight_grams: 57
+          allergen_contains_milk: null
+          allergen_contains_eggs: null
+          allergen_contains_fish: null
+          allergen_contains_shellfish: null
+          allergen_contains_tree_nuts: null
+          allergen_contains_peanuts: null
+          allergen_contains_wheat: null
+          allergen_contains_soybeans: null
+          allergen_contains_gluten: null
+          usda_fields: null
+    - 
+      id: 119
+      name: "Brown Rice"
+      group: null
+      created_at: "2014-10-30T01:26:10.582Z"
+      updated_at: "2014-10-30T01:26:10.582Z"
+      allergen_contains_eggs: null
+      allergen_contains_tree_nuts: null
+      allergen_contains_shellfish: null
+      allergen_contains_peanuts: null
+      allergen_contains_wheat: null
+      allergen_contains_gluten: null
+      allergen_contains_fish: null
+      allergen_contains_soybeans: null
+      allergen_contains_milk: null
+      ingredients_units: 
+        - 
+          id: 165
+          unit_id: 5
+          ingredient_id: 119
+          nutri_id: "513fceb775b8dbbc21002dc4"
+      amount: 3
+      notes: "3 cups cooked white or brown rice (see note below)"
+      update: false
+      profile: null
+      units: 
+        - 
+          id: 5
+          name: "cup"
+          text: "cup"
+          multiplier: 1
+      unit: 
+        id: 5
+        text: "cup"
+        abbr: "C"
+      combinedData: 
+        Brown Rice: 
+          old_api_id: null
+          item_id: "513fceb775b8dbbc21002dc4"
+          item_name: "Brown Rice - 1 cup"
+          leg_loc_id: 328
+          brand_id: "513fcc648110a4cafb90ca5e"
+          brand_name: "USDA"
+          item_description: null
+          updated_at: "2014-05-10T20:42:53.000Z"
+          nf_ingredient_statement: null
+          nf_water_grams: 142.27
+          nf_calories: 218.4
+          nf_calories_from_fat: 14.57
+          nf_total_fat: 1.62
+          nf_saturated_fat: 0.32
+          nf_trans_fatty_acid: null
+          nf_polyunsaturated_fat: 0.58
+          nf_monounsaturated_fat: 0.58
+          nf_cholesterol: 0
+          nf_sodium: 1.95
+          nf_total_carbohydrate: 45.84
+          nf_dietary_fiber: 3.51
+          nf_sugars: 0
+          nf_protein: 4.52
+          nf_vitamin_a_dv: 0
+          nf_vitamin_c_dv: 0
+          nf_calcium_dv: 2
+          nf_iron_dv: 6
+          nf_refuse_pct: null
+          nf_servings_per_container: null
+          nf_serving_size_qty: 1
+          nf_serving_size_unit: "cup"
+          nf_serving_weight_grams: 195
+          allergen_contains_milk: null
+          allergen_contains_eggs: null
+          allergen_contains_fish: null
+          allergen_contains_shellfish: null
+          allergen_contains_tree_nuts: null
+          allergen_contains_peanuts: null
+          allergen_contains_wheat: null
+          allergen_contains_soybeans: null
+          allergen_contains_gluten: null
+          usda_fields: 
+            VITA_IU: 
+              value: 0
+              uom: "IU"
+              desc: "Vitamin A, IU"
+            NIA: 
+              value: 2.59
+              uom: "mg"
+              desc: "Niacin"
+            SER_G: 
+              value: 0.23
+              uom: "g"
+              desc: "Serine"
+            ARG_G: 
+              value: 0.33
+              uom: "g"
+              desc: "Arginine"
+            GLU_G: 
+              value: 0.92
+              uom: "g"
+              desc: "Glutamic acid"
+            F18D0: 
+              value: 0.02
+              uom: "g"
+              desc: "18:0"
+            F18D1: 
+              value: 0.57
+              uom: "g"
+              desc: "18:1 undifferentiated"
+            F18D2: 
+              value: 0.55
+              uom: "g"
+              desc: "18:2 undifferentiated"
+            F18D3: 
+              value: 0.02
+              uom: "g"
+              desc: "18:3 undifferentiated"
+            FE: 
+              value: 1.03
+              uom: "mg"
+              desc: "Iron, Fe"
+            MET_G: 
+              value: 0.1
+              uom: "g"
+              desc: "Methionine"
+            LYS_G: 
+              value: 0.16
+              uom: "g"
+              desc: "Lysine"
+            PANTAC: 
+              value: 0.76
+              uom: "mg"
+              desc: "Pantothenic acid"
+            ILE_G: 
+              value: 0.18
+              uom: "g"
+              desc: "Isoleucine"
+            PROCNT: 
+              value: 4.52
+              uom: "g"
+              desc: "Protein"
+            VITB6A: 
+              value: 0.27
+              uom: "mg"
+              desc: "Vitamin B-6"
+            PHE_G: 
+              value: 0.21
+              uom: "g"
+              desc: "Phenylalanine"
+            NA: 
+              value: 1.95
+              uom: "mg"
+              desc: "Sodium, Na"
+            FASAT: 
+              value: 0.31
+              uom: "g"
+              desc: "Fatty acids, total saturated"
+            FAT: 
+              value: 1.62
+              uom: "g"
+              desc: "Total lipid (fat)"
+            THR_G: 
+              value: 0.16
+              uom: "g"
+              desc: "Threonine"
+            ASP_G: 
+              value: 0.41
+              uom: "g"
+              desc: "Aspartic acid"
+            VAL_G: 
+              value: 0.25
+              uom: "g"
+              desc: "Valine"
+            LEU_G: 
+              value: 0.37
+              uom: "g"
+              desc: "Leucine"
+            CHOLE: 
+              value: 0
+              uom: "mg"
+              desc: "Cholesterol"
+            GLY_G: 
+              value: 0.21
+              uom: "g"
+              desc: "Glycine"
+            ASH: 
+              value: 0.76
+              uom: "g"
+              desc: "Ash"
+            K: 
+              value: 154.05
+              uom: "mg"
+              desc: "Potassium, K"
+            F16D0: 
+              value: 0.27
+              uom: "g"
+              desc: "16:0"
+            RIBF: 
+              value: 0.02
+              uom: "mg"
+              desc: "Riboflavin"
+            CYS_G: 
+              value: 0.04
+              uom: "g"
+              desc: "Cystine"
+            ZN: 
+              value: 1.21
+              uom: "mg"
+              desc: "Zinc, Zn"
+            FIBTG: 
+              value: 3.51
+              uom: "g"
+              desc: "Fiber, total dietary"
+            F16D1: 
+              value: 0.01
+              uom: "g"
+              desc: "16:1 undifferentiated"
+            CA: 
+              value: 19.5
+              uom: "mg"
+              desc: "Calcium, Ca"
+            FAMS: 
+              value: 0.58
+              uom: "g"
+              desc: "Fatty acids, total monounsaturated"
+            F14D0: 
+              value: 0.01
+              uom: "g"
+              desc: "14:0"
+            P: 
+              value: 150.15
+              uom: "mg"
+              desc: "Phosphorus, P"
+            CHOCDF: 
+              value: 45.84
+              uom: "g"
+              desc: "Carbohydrate, by difference"
+            VITC: 
+              value: 0
+              uom: "mg"
+              desc: "Vitamin C, total ascorbic acid"
+            ENERC_KJ: 
+              value: 914.55
+              uom: "kJ"
+              desc: "Energy"
+            ENERC_KCAL: 
+              value: 218.4
+              uom: "kcal"
+              desc: "Energy"
+            CU: 
+              value: 0.16
+              uom: "mg"
+              desc: "Copper, Cu"
+            VITD: 
+              value: 0
+              uom: "IU"
+              desc: "Vitamin D"
+            MG: 
+              value: 85.8
+              uom: "mg"
+              desc: "Magnesium, Mg"
+            F12D0: 
+              value: 0
+              uom: "g"
+              desc: "12:0"
+            FAPU: 
+              value: 0.57
+              uom: "g"
+              desc: "Fatty acids, total polyunsaturated"
+            MN: 
+              value: 2.13
+              uom: "mg"
+              desc: "Manganese, Mn"
+            PRO_G: 
+              value: 0.2
+              uom: "g"
+              desc: "Proline"
+            WATER: 
+              value: 142.27
+              uom: "g"
+              desc: "Water"
+            TRP_G: 
+              value: 0.06
+              uom: "g"
+              desc: "Tryptophan"
+            ALA_G: 
+              value: 0.25
+              uom: "g"
+              desc: "Alanine"
+            TYR_G: 
+              value: 0.16
+              uom: "g"
+              desc: "Tyrosine"
+            THIA: 
+              value: 0.2
+              uom: "mg"
+              desc: "Thiamin"
+            HISTN_G: 
+              value: 0.1
+              uom: "g"
+              desc: "Histidine"
+    - 
+      id: 120
+      name: "Mung beans, mature seeds, sprouted, cooked, stir"
+      group: null
+      created_at: "2014-10-30T01:26:11.152Z"
+      updated_at: "2014-10-30T01:26:11.152Z"
+      allergen_contains_eggs: null
+      allergen_contains_tree_nuts: null
+      allergen_contains_shellfish: null
+      allergen_contains_peanuts: null
+      allergen_contains_wheat: null
+      allergen_contains_gluten: null
+      allergen_contains_fish: null
+      allergen_contains_soybeans: null
+      allergen_contains_milk: null
+      ingredients_units: 
+        - 
+          id: 166
+          unit_id: 5
+          ingredient_id: 120
+          nutri_id: "513fceb575b8dbbc2100146f"
+      amount: 0.5
+      notes: "1/2 cup bean sprouts"
+      update: false
+      profile: null
+      combinedData: 
+        Mung beans, mature seeds, sprouted, cooked, stir: 
+          old_api_id: null
+          item_id: "513fceb575b8dbbc2100146f"
+          item_name: "Mung beans, mature seeds, sprouted, cooked, stir - 1 cup"
+          leg_loc_id: 328
+          brand_id: "513fcc648110a4cafb90ca5e"
+          brand_name: "USDA"
+          item_description: null
+          updated_at: "2014-05-10T20:19:06.000Z"
+          nf_ingredient_statement: null
+          nf_water_grams: 104.53
+          nf_calories: 62
+          nf_calories_from_fat: 2.34
+          nf_total_fat: 0.26
+          nf_saturated_fat: 0.05
+          nf_trans_fatty_acid: null
+          nf_polyunsaturated_fat: 0.08
+          nf_monounsaturated_fat: 0.07
+          nf_cholesterol: 0
+          nf_sodium: 11.16
+          nf_total_carbohydrate: 13.13
+          nf_dietary_fiber: 2.36
+          nf_sugars: 0
+          nf_protein: 5.33
+          nf_vitamin_a_dv: 1
+          nf_vitamin_c_dv: 33
+          nf_calcium_dv: 2
+          nf_iron_dv: 13
+          nf_refuse_pct: null
+          nf_servings_per_container: null
+          nf_serving_size_qty: 1
+          nf_serving_size_unit: "cup"
+          nf_serving_weight_grams: 124
+          allergen_contains_milk: null
+          allergen_contains_eggs: null
+          allergen_contains_fish: null
+          allergen_contains_shellfish: null
+          allergen_contains_tree_nuts: null
+          allergen_contains_peanuts: null
+          allergen_contains_wheat: null
+          allergen_contains_soybeans: null
+          allergen_contains_gluten: null
+          usda_fields: 
+            VITA_IU: 
+              value: 38.44
+              uom: "IU"
+              desc: "Vitamin A, IU"
+            NIA: 
+              value: 1.49
+              uom: "mg"
+              desc: "Niacin"
+            SER_G: 
+              value: 0.06
+              uom: "g"
+              desc: "Serine"
+            ARG_G: 
+              value: 0.37
+              uom: "g"
+              desc: "Arginine"
+            GLU_G: 
+              value: 0.31
+              uom: "g"
+              desc: "Glutamic acid"
+            F18D0: 
+              value: 0.01
+              uom: "g"
+              desc: "18:0"
+            F18D1: 
+              value: 0.06
+              uom: "g"
+              desc: "18:1 undifferentiated"
+            F18D2: 
+              value: 0.06
+              uom: "g"
+              desc: "18:2 undifferentiated"
+            F18D3: 
+              value: 0.01
+              uom: "g"
+              desc: "18:3 undifferentiated"
+            FE: 
+              value: 2.36
+              uom: "mg"
+              desc: "Iron, Fe"
+            MET_G: 
+              value: 0.06
+              uom: "g"
+              desc: "Methionine"
+            LYS_G: 
+              value: 0.32
+              uom: "g"
+              desc: "Lysine"
+            PANTAC: 
+              value: 0.68
+              uom: "mg"
+              desc: "Pantothenic acid"
+            ILE_G: 
+              value: 0.25
+              uom: "g"
+              desc: "Isoleucine"
+            PROCNT: 
+              value: 5.33
+              uom: "g"
+              desc: "Protein"
+            VITB6A: 
+              value: 0.16
+              uom: "mg"
+              desc: "Vitamin B-6"
+            PHE_G: 
+              value: 0.22
+              uom: "g"
+              desc: "Phenylalanine"
+            NA: 
+              value: 11.16
+              uom: "mg"
+              desc: "Sodium, Na"
+            FASAT: 
+              value: 0.04
+              uom: "g"
+              desc: "Fatty acids, total saturated"
+            FAT: 
+              value: 0.26
+              uom: "g"
+              desc: "Total lipid (fat)"
+            THR_G: 
+              value: 0.15
+              uom: "g"
+              desc: "Threonine"
+            ASP_G: 
+              value: 0.93
+              uom: "g"
+              desc: "Aspartic acid"
+            VAL_G: 
+              value: 0.25
+              uom: "g"
+              desc: "Valine"
+            LEU_G: 
+              value: 0.33
+              uom: "g"
+              desc: "Leucine"
+            CHOLE: 
+              value: 0
+              uom: "mg"
+              desc: "Cholesterol"
+            GLY_G: 
+              value: 0.11
+              uom: "g"
+              desc: "Glycine"
+            ASH: 
+              value: 0.74
+              uom: "g"
+              desc: "Ash"
+            K: 
+              value: 271.56
+              uom: "mg"
+              desc: "Potassium, K"
+            F16D0: 
+              value: 0.02
+              uom: "g"
+              desc: "16:0"
+            RIBF: 
+              value: 0.22
+              uom: "mg"
+              desc: "Riboflavin"
+            CYS_G: 
+              value: 0.02
+              uom: "g"
+              desc: "Cystine"
+            ZN: 
+              value: 1.12
+              uom: "mg"
+              desc: "Zinc, Zn"
+            FIBTG: 
+              value: 2.36
+              uom: "g"
+              desc: "Fiber, total dietary"
+            F16D1: 
+              value: 0
+              uom: "g"
+              desc: "16:1 undifferentiated"
+            CA: 
+              value: 16.12
+              uom: "mg"
+              desc: "Calcium, Ca"
+            FAMS: 
+              value: 0.06
+              uom: "g"
+              desc: "Fatty acids, total monounsaturated"
+            F14D0: 
+              value: 0
+              uom: "g"
+              desc: "14:0"
+            P: 
+              value: 97.96
+              uom: "mg"
+              desc: "Phosphorus, P"
+            CHOCDF: 
+              value: 13.13
+              uom: "g"
+              desc: "Carbohydrate, by difference"
+            VITC: 
+              value: 19.84
+              uom: "mg"
+              desc: "Vitamin C, total ascorbic acid"
+            ENERC_KJ: 
+              value: 259.16
+              uom: "kJ"
+              desc: "Energy"
+            ENERC_KCAL: 
+              value: 62
+              uom: "kcal"
+              desc: "Energy"
+            CU: 
+              value: 0.31
+              uom: "mg"
+              desc: "Copper, Cu"
+            VITD: 
+              value: 0
+              uom: "IU"
+              desc: "Vitamin D"
+            MG: 
+              value: 40.92
+              uom: "mg"
+              desc: "Magnesium, Mg"
+            FAPU: 
+              value: 0.07
+              uom: "g"
+              desc: "Fatty acids, total polyunsaturated"
+            MN: 
+              value: 0.36
+              uom: "mg"
+              desc: "Manganese, Mn"
+            WATER: 
+              value: 104.53
+              uom: "g"
+              desc: "Water"
+            TRP_G: 
+              value: 0.06
+              uom: "g"
+              desc: "Tryptophan"
+            ALA_G: 
+              value: 0.19
+              uom: "g"
+              desc: "Alanine"
+            TYR_G: 
+              value: 0.1
+              uom: "g"
+              desc: "Tyrosine"
+            THIA: 
+              value: 0.17
+              uom: "mg"
+              desc: "Thiamin"
+            HISTN_G: 
+              value: 0.12
+              uom: "g"
+              desc: "Histidine"
+      units: 
+        - 
+          id: 5
+          name: "cup"
+          text: "cup"
+          multiplier: 1
+      unit: 
+        id: 5
+        text: "cup"
+        abbr: "C"
+  attributes: 
+    courses: 
+      - 
+        id: 1
+        text: "Main Dishes"
+    cuisines: 
+      - 
+        id: 3
+        text: "Asian"
+    diets: 
+      - 
+        id: 1
+        text: "Vegan"
+      - 
+        id: 5
+        text: "Vegetarian"
+      - 
+        id: 4
+        text: "Pescetarian"
+  subdomain: "admin"
+  controller: "admin/recipe"
+  action: "update"
+  recipe: 
+    id: 62
+    name: "Kimchi Fried Rice"
+    yummly_id: "Kimchi-Fried-Rice-501964"
+    created_at: "2014-10-30T01:36:41.109Z"
+    updated_at: "2014-10-30T01:36:41.109Z"
+    portion_size: 4
+    time: 1500
+    photo: null
+    source: "http://foxeslovelemons.com/2013/03/kimchi-fried-rice.html"
+    source_name: "Foxes Love Lemons"
+    yield: "4 servings"
+    algo_count: 0
+    nutritionix_id: null
+    ingredient_lines: null
+    instructions: "Heat oil over medium-high heat in wok or large skillet. Add carrots, celery and kimchi. Cook 2 minutes or until vegetables begin to soften, stirring constantly.\nAdd cooked rice, bean sprouts and peas. Cook 3 to 4 minutes or until rice begins to brown and all vegetables are cooked through, stirring frequently. Season with soy sauce and white pepper, to taste."
+    veganize: null
+    added_by: null
+    review: false
+    public: false

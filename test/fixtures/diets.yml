@@ -1,0 +1,9 @@
+vegan:
+  name: 'Vegan'
+  yummly_attr: '386^Vegan'
+vegetarian:
+  name: 'Vegetarian'
+  yummly_attr: '387^Lacto-ovo vegetarian'
+pescetarian:
+  name: 'Pescetarian'
+  yummly_attr: '390^Pescetarian'

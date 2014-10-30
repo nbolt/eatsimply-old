@@ -90,36 +90,43 @@ class Admin::RecipeController < AdminController
       recipe_image.remote_image_url = params[:images][0][:hostedLargeUrl]
       if recipe_image.save
         recipe.recipe_images.first.destroy if recipe.recipe_images.count > 1
-        HTTParty.post("#{params[:images][0][:hostedLargeUrl]}/remove?key=#{ENV['FILEPICKER_KEY']}")
+        HTTParty.post("#{params[:images][0][:hostedLargeUrl]}/remove?key=#{ENV['FILEPICKER_KEY']}") unless Rails.env.test?
       end
     end
     if params[:ingredients] && params[:ingredients][0]
-      recipe.nutrient_profile.destroy
+      recipe.nutrient_profile.destroy if recipe.nutrient_profile
       recipe.nutrient_profile = NutrientProfile.new
       Nutrient.all.each do |nutrient|
         serving = recipe.nutrient_profile.servings.build
         serving.nutrient = nutrient
         serving.value = 0
       end
-      recipe.ingredients.each do |i|
-        recipe.ingredients.delete i
+      recipe.ingredients.each do |ingredient|
+        recipe.ingredients.delete ingredient unless params[:ingredients].find {|i| i['id'].to_i == ingredient.id}
       end
       params[:ingredients].each do |i|
         if i[:profile] || i[:name]
-          name = i[:profile][:text] || i[:name]
+          name = i.chain(:profile, :text) || i[:name]
           if i[:amount].class == String
             i[:amount] = i[:amount].to_frac
           else
             i[:amount] = i[:amount].to_f
           end
+          orig = i[:amount]
           if i[:unit][:multiplier]
-            i[:amount] *= i[:unit][:multiplier]
+            i[:unit][:multiplier] = i[:unit][:multiplier].to_f if i[:unit][:multiplier].class == String
+            i[:amount] *= i[:unit][:multiplier] unless i[:unit][:multiplier] == 1.0
             i[:unit][:multiplier] = 1
           end
           ingredient = Ingredient.find_or_create_by(name: name)
-          ingredient.recipes.push recipe
           ilink = IngredientLink.where(ingredient_id: ingredient.id, recipe_id: recipe.id)[0]
-          ilink.update_attribute :description, i[:notes]
+          if ilink
+            orig_amount = ilink.amount
+          else
+            orig_amount = i[:amount]
+            ingredient.recipes.push recipe
+            ilink = IngredientLink.where(ingredient_id: ingredient.id, recipe_id: recipe.id)[0]
+          end
           unit = Unit.where(id: i.chain(:unit, :id)).first
           unless unit
             unit = Unit.where(name: i.chain(:unit, :name)).first || Unit.where(name: i.chain(:unit, :name, :pluralize)).first || Unit.where(abbr: i.chain(:unit, :name)).first
@@ -137,14 +144,13 @@ class Admin::RecipeController < AdminController
           else
             data = i[:combinedData]["#{name}"]
           end
-          link.nutri_id = data['_id'] if data['_id']
-          ilink.update_attributes(unit_id: unit.id, amount: i[:amount])
+          ilink.update_attributes(unit_id: unit.id, nutri_id: data['_id'] || ilink.nutri_id, amount: orig_amount, display_amount: i[:amount], description: i[:notes])
           unless ingredient.id
             [:eggs, :tree_nuts, :shellfish, :peanuts, :wheat, :gluten, :fish, :soybeans, :milk].each do |allergen|
               ingredient["allergen_contains_#{allergen}"] = data["allergen_contains_#{allergen}"]
             end       
           end
-          rsp = nutritionix_item(link.nutri_id)
+          rsp = nutritionix_item(ilink.nutri_id)
           usda = rsp['usda_fields']
           if usda
             Nutrient.all.each do |nutrient|
@@ -161,7 +167,7 @@ class Admin::RecipeController < AdminController
                   value = usda[nutrient.attr]['value']
                   unit = Unit.where(abbr: usda[nutrient.attr]['uom'])[0] || Unit.where(abbr_no_period: usda[nutrient.attr]['uom'])[0]
                 end
-                value *= (i[:unit][:multiplier] || 1) * i[:amount]
+                value *= ilink.amount
 
                 recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient.id}
                 recipe_serving.unit = unit
@@ -198,21 +204,19 @@ class Admin::RecipeController < AdminController
                   end
                 end
               end
-              value *= (i[:unit][:multiplier] || 1) * i[:amount]
-
+              value *= ilink.amount
               recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient[0].id}
               recipe_serving.unit = Unit.where(abbr_no_period: nutrient[0].dv_unit)[0]
               recipe_serving.value += value
               recipe_serving.save
             end
           end
-          link.save
           ingredient.save
         end
       end
       recipe.save
     end
-    render json: { success: true }
+    render json: { success: true, id: recipe.id }
   end
 
   def create
@@ -251,14 +255,15 @@ class Admin::RecipeController < AdminController
             else
               i[:amount] = i[:amount].to_f
             end
+            orig_amount = i[:amount]
             if i[:unit][:multiplier]
-              i[:amount] *= i[:unit][:multiplier]
+              i[:unit][:multiplier] = i[:unit][:multiplier].to_f if i[:unit][:multiplier].class == String
+              i[:amount] *= i[:unit][:multiplier] unless i[:unit][:multiplier] == 1.0
               i[:unit][:multiplier] = 1
             end
             ingredient = Ingredient.find_or_create_by(name: i[:profile][:text])
             ingredient.recipes.push recipe
             ilink = IngredientLink.where(ingredient_id: ingredient.id, recipe_id: recipe.id)[0]
-            ilink.update_attribute :description, i[:notes]
             unit = Unit.where(id: i.chain(:unit, :id)).first
             unless unit
               unit = Unit.where(name: i.chain(:unit, :name)).first || Unit.where(name: i.chain(:unit, :name, :pluralize)).first || Unit.where(abbr: i.chain(:unit, :name)).first
@@ -272,8 +277,7 @@ class Admin::RecipeController < AdminController
               link = IngredientsUnits.where(ingredient_id: ingredient.id, unit_id: unit.id)[0]
             end
             data = i[:combinedData]["#{i[:profile][:text]}"].find{|d|d[:_id] == i[:unit][:id]}
-            link.nutri_id = data['_id']
-            ilink.update_attributes(unit_id: unit.id, amount: i[:amount])
+            ilink.update_attributes(unit_id: unit.id, nutri_id: data['_id'], amount: orig_amount, display_amount: i[:amount], description: i[:notes])
             unless ingredient.id
               [:eggs, :tree_nuts, :shellfish, :peanuts, :wheat, :gluten, :fish, :soybeans, :milk].each do |allergen|
                 ingredient["allergen_contains_#{allergen}"] = data["allergen_contains_#{allergen}"]
@@ -295,7 +299,7 @@ class Admin::RecipeController < AdminController
                     value = usda[nutrient.attr]['value']
                     unit = Unit.where(abbr: usda[nutrient.attr]['uom'])[0] || Unit.where(abbr_no_period: usda[nutrient.attr]['uom'])[0]
                   end
-                  value *= (i[:unit][:multiplier] || 1) * i[:amount]
+                  value *= ilink.amount
 
                   recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient.id}
                   recipe_serving.unit = unit
@@ -332,22 +336,20 @@ class Admin::RecipeController < AdminController
                     end
                   end
                 end
-                value *= (i[:unit][:multiplier] || 1) * i[:amount]
-
+                value *= ilink.amount
                 recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient[0].id}
                 recipe_serving.unit = Unit.where(abbr_no_period: nutrient[0].dv_unit)[0]
                 recipe_serving.value += value
                 recipe_serving.save
               end
             end
-            link.save
             ingredient.save
           end
         end
         if params[:images].chain(:first, :hostedLargeUrl)
           recipe_image = recipe.recipe_images.build
           recipe_image.remote_image_url = params[:images][0][:hostedLargeUrl]
-          HTTParty.post("#{params[:images].chain(:first, :hostedLargeUrl)}/remove?key=#{ENV['FILEPICKER_KEY']}") if recipe_image.save
+          HTTParty.post("#{params[:images].chain(:first, :hostedLargeUrl)}/remove?key=#{ENV['FILEPICKER_KEY']}") if recipe_image.save && !Rails.env.test?
         end
         if recipe.save
           render json: { success: true, id: recipe.id }

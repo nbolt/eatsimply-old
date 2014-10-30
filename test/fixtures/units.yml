@@ -1,0 +1,96 @@
+teaspoon:
+    id: 1
+    name: "teaspoon"
+    abbr: "tsp."
+    generic: true
+    abbr_no_period: "tsp"
+drop:
+    id: 2
+    name: "drop"
+    abbr: null
+    generic: true
+    abbr_no_period: null
+tablespoon:
+    id: 3
+    name: "tablespoon"
+    abbr: "tbsp."
+    generic: true
+    abbr_no_period: "tbsp"
+ounce:
+    id: 4
+    name: "ounce"
+    abbr: "oz."
+    generic: true
+    abbr_no_period: "oz"
+cup:
+    id: 5
+    name: "cup"
+    abbr: "C"
+    generic: true
+    abbr_no_period: "C"
+pint:
+    id: 6
+    name: "pint"
+    abbr: "pt."
+    generic: true
+    abbr_no_period: "pt"
+quart:
+    id: 7
+    name: "quart"
+    abbr: "qt."
+    generic: null
+    abbr_no_period: "qt"
+gallon:
+    id: 8
+    name: "gallon"
+    abbr: "gal."
+    generic: null
+    abbr_no_period: "gal"
+liter:
+    id: 9
+    name: "liter"
+    abbr: "L"
+    generic: null
+    abbr_no_period: "L"
+pound:
+    id: 10
+    name: "pound"
+    abbr: "lb."
+    generic: true
+    abbr_no_period: "lb"
+milligram:
+    id: 11
+    name: "milligram"
+    abbr: "mg."
+    generic: true
+    abbr_no_period: "mg"
+microgram:
+    id: 12
+    name: "microgram"
+    abbr: "mcg."
+    generic: true
+    abbr_no_period: "mcg"
+gram:
+    id: 13
+    name: "gram"
+    abbr: "g."
+    generic: true
+    abbr_no_period: "g"
+international_unit:
+    id: 14
+    name: "international unit"
+    abbr: "IU"
+    generic: true
+    abbr_no_period: "IU"
+calorie:
+    id: 15
+    name: "kilocalorie"
+    abbr: "kcal."
+    generic: true
+    abbr_no_period: "kcal"
+stalk:
+    id: 16
+    name: "stalk, medium (7-1/2\" - 8\" long)"
+medium:
+    id: 17
+    name: 'medium'

@@ -1,0 +1,90 @@
+one:
+  id: 115
+  name: "Canola Oil"
+  group: null
+  created_at: "2014-10-30T01:24:26.697Z"
+  updated_at: "2014-10-30T01:24:26.697Z"
+  allergen_contains_eggs: null
+  allergen_contains_tree_nuts: null
+  allergen_contains_shellfish: null
+  allergen_contains_peanuts: null
+  allergen_contains_wheat: null
+  allergen_contains_gluten: null
+  allergen_contains_fish: null
+  allergen_contains_soybeans: null
+  allergen_contains_milk: null
+two:
+  id: 116
+  name: "Carrot, Raw"
+  group: null
+  created_at: "2014-10-30T01:25:03.400Z"
+  updated_at: "2014-10-30T01:25:03.400Z"
+  allergen_contains_eggs: null
+  allergen_contains_tree_nuts: null
+  allergen_contains_shellfish: null
+  allergen_contains_peanuts: null
+  allergen_contains_wheat: null
+  allergen_contains_gluten: null
+  allergen_contains_fish: null
+  allergen_contains_soybeans: null
+  allergen_contains_milk: null
+three:
+  id: 117
+  name: "Celery, Raw"
+  group: null
+  created_at: "2014-10-30T01:25:03.999Z"
+  updated_at: "2014-10-30T01:25:03.999Z"
+  allergen_contains_eggs: null
+  allergen_contains_tree_nuts: null
+  allergen_contains_shellfish: null
+  allergen_contains_peanuts: null
+  allergen_contains_wheat: null
+  allergen_contains_gluten: null
+  allergen_contains_fish: null
+  allergen_contains_soybeans: null
+  allergen_contains_milk: null
+four:
+  id: 118
+  name: "Kimchi, Radish"
+  group: null
+  created_at: "2014-10-30T01:25:04.685Z"
+  updated_at: "2014-10-30T01:25:04.685Z"
+  allergen_contains_eggs: null
+  allergen_contains_tree_nuts: null
+  allergen_contains_shellfish: null
+  allergen_contains_peanuts: null
+  allergen_contains_wheat: null
+  allergen_contains_gluten: null
+  allergen_contains_fish: null
+  allergen_contains_soybeans: null
+  allergen_contains_milk: null
+five:
+  id: 119
+  name: "Brown Rice"
+  group: null
+  created_at: "2014-10-30T01:26:10.582Z"
+  updated_at: "2014-10-30T01:26:10.582Z"
+  allergen_contains_eggs: null
+  allergen_contains_tree_nuts: null
+  allergen_contains_shellfish: null
+  allergen_contains_peanuts: null
+  allergen_contains_wheat: null
+  allergen_contains_gluten: null
+  allergen_contains_fish: null
+  allergen_contains_soybeans: null
+  allergen_contains_milk: null
+six:
+  id: 120
+  name: "Mung beans, mature seeds, sprouted, cooked, stir"
+  group: null
+  created_at: "2014-10-30T01:26:11.152Z"
+  updated_at: "2014-10-30T01:26:11.152Z"
+  allergen_contains_eggs: null
+  allergen_contains_tree_nuts: null
+  allergen_contains_shellfish: null
+  allergen_contains_peanuts: null
+  allergen_contains_wheat: null
+  allergen_contains_gluten: null
+  allergen_contains_fish: null
+  allergen_contains_soybeans: null
+  allergen_contains_milk: null

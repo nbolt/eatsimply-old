@@ -11,7 +11,7 @@ class Recipe < ActiveRecord::Base
   validates_uniqueness_of :nutritionix_id, allow_nil: true
 
   def as_json(options = {})
-    super options.merge(include: [:recipe_images, :courses, :cuisines, :diets, :ingredient_links, ingredients: {include: :ingredients_units}])
+    super options.merge(include: [:recipe_images, :courses, :cuisines, :diets, :ingredient_links, :ingredients])
   end
 
   def self.no_ingredients
@@ -68,7 +68,6 @@ class Recipe < ActiveRecord::Base
         recipe_image = recipe.recipe_images.build
         recipe_image.remote_image_url = params['images'][0]['hostedLargeUrl']
         recipe_image.save
-        puts recipe_image.image.url
         if recipe.save
           { success: true, recipe: recipe }
         else
