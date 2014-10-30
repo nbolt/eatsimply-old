@@ -442,6 +442,18 @@ RecipeManage = ['$scope', '$http', ($scope, $http) ->
     else
       recipe.public = true
 
+  $scope.yummly = ->
+    el = angular.element('#admin-content > .filters .filter.yummly')
+    if el.hasClass('active')
+      el.removeClass('active')
+      $scope.filters = _($scope.filters).reject (f) -> f == 'yummly'
+    else
+      el.addClass('active')
+      $scope.filters.push 'yummly'
+    
+    $scope.page = 1
+    $http.get("/recipe/recipes?page=#{$scope.page}&filters=#{$scope.filters}").success (recipes) -> $scope.recipes = recipes
+
   $scope.review = ->
     el = angular.element('#admin-content > .filters .filter.review')
     if el.hasClass('active')

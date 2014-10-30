@@ -14,6 +14,14 @@ class Recipe < ActiveRecord::Base
     super options.merge(include: [:recipe_images, :courses, :cuisines, :diets, :ingredient_links, ingredients: {include: :ingredients_units}])
   end
 
+  def self.no_ingredients
+    where(<<-SQL)
+      NOT EXISTS (SELECT 1 
+        FROM   ingredient_links
+        WHERE  recipes.id = ingredient_links.recipe_id) 
+    SQL
+  end
+
   def self.import id, attrs={}, opts={}
     if Recipe.where(yummly_id: id).first
       { success: false, message: 'Recipe already imported' }
@@ -205,7 +213,7 @@ class Recipe < ActiveRecord::Base
     recipes = []
 
     all_recipes = Recipe.includes(:ingredients, :diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
-    all_recipes = all_recipes.where("public is true or public is false and added_by = ?", opts[:user].id)
+    all_recipes = all_recipes.where("public is true or public is false and added_by = ?", opts[:user].id) if opts[:user]
     all_recipes = all_recipes.where(diets: { id: opts[:attrs][:diets] }) if opts[:attrs][:diets]
     all_recipes = all_recipes.where(veganize: nil) if opts[:attrs][:diets] && opts[:attrs][:diets].to_i != 1
 

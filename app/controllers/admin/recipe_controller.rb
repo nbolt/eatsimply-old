@@ -42,6 +42,8 @@ class Admin::RecipeController < AdminController
           recipes = recipes.where(review: true)
         when 'hidden'
           recipes = recipes.where(public: false)
+        when 'yummly'
+          recipes = recipes.no_ingredients
         end
       end
     end
@@ -214,6 +216,7 @@ class Admin::RecipeController < AdminController
   end
 
   def create
+    binding.pry
     if params[:id].present? && Recipe.where(yummly_id: params[:id]).first
       render json: { success: false, message: 'Recipe exists' }
     else
@@ -277,7 +280,6 @@ class Admin::RecipeController < AdminController
                 ingredient["allergen_contains_#{allergen}"] = data["allergen_contains_#{allergen}"]
               end       
             end
-            link.nutrient_profile = NutrientProfile.new
             rsp = nutritionix_item(data['_id'])
             usda = rsp['usda_fields']
             if usda
@@ -321,6 +323,7 @@ class Admin::RecipeController < AdminController
               ]
 
               nutrients.each do |nutrient|
+                value = 0
                 nutrient[1..-1].each do |field|
                   if rsp["nf_#{field}"]
                     if nutrient[-1][-3..-1] == '_dv'
@@ -333,7 +336,7 @@ class Admin::RecipeController < AdminController
                 value *= (i[:unit][:multiplier] || 1) * i[:amount]
 
                 recipe_serving = recipe.nutrient_profile.servings.find {|s| s.nutrient_id == nutrient[0].id}
-                recipe_serving.unit = Unit.where(abbr_no_period: nutrient.dv_unit)[0]
+                recipe_serving.unit = Unit.where(abbr_no_period: nutrient[0].dv_unit)[0]
                 recipe_serving.value += value
                 recipe_serving.save
               end
