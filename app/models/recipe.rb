@@ -33,7 +33,6 @@ class Recipe < ActiveRecord::Base
       elsif Recipe.where(yummly_id: params['id']).first
         { success: false, message: 'Recipe already imported' }
       elsif !params['nutritionEstimates'] || !params['nutritionEstimates'][0]
-        puts params
         { success: false, message: 'No nutrition estimates available' }
       else
         recipe = Recipe.new(
