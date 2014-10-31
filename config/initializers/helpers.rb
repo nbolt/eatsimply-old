@@ -16,7 +16,7 @@ class Object
       self && yield(self)
     else
       if self
-        if self[method] != nil
+        if self.class.ancestors.include? Hash
           self[method]
         elsif self.respond_to? method
           self.send method
