@@ -16,10 +16,12 @@ class Object
       self && yield(self)
     else
       if self
-        if self.respond_to?(method)
+        if self[method] != nil
+          self[method]
+        elsif self.respond_to? method
           self.send method
         else
-          self[method]
+          nil
         end
       else
         nil

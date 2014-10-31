@@ -81,20 +81,21 @@ class Recipe < ActiveRecord::Base
   end
 
   def self.nutrient_values bmr, recipes
-    targets = Nutrient.where('dv_unit is not null').map do |nutrient|
-      { nutrient: nutrient, value: bmr / 2000 * nutrient.daily_value }
+    targets = Nutrient.where('dv_unit is not null and daily_value is not null').map do |nutrient|
+      { nutrient: nutrient, value: bmr / 2000.0 * nutrient.daily_value }
     end
 
     targets.map! do |target|
-      values = recipes.map do |recipe|
-        serving = recipe.nutrient_profile.servings.find{|s| s.nutrient_id == target[:nutrient].id}
+      values = recipes.map do |r|
+        serving = r[:recipe].nutrient_profile.servings.find{|s| s.nutrient_id == target[:nutrient].id}
         if serving && serving.unit.abbr != 'IU'
-          Unitwise(serving.value, serving.unit.abbr_no_period).send("to_#{target[:nutrient].unitwise_method || target[:nutrient].dv_unit}").to_f
+          value = Unitwise(serving.value, serving.unit.abbr_no_period).send("to_#{target[:nutrient].unitwise_method || target[:nutrient].dv_unit}").to_f
+          value * r[:servings]
         else
           nil
         end
       end
-      [(values.compact.sum / target[:value]).round(2) * 100, target[:nutrient].name]
+      [((values.compact.sum / target[:value]).round(2) * 100).to_i, target[:nutrient].name]
     end
   end
 
@@ -104,17 +105,17 @@ class Recipe < ActiveRecord::Base
     final_recipes = []
     recipe_count = opts[:all_recipes].count
 
-
     targets = Nutrient.where('dv_unit is not null').where(yummly_supported: true).map do |nutrient|
-      orig_daily_value = opts[:bmr] / 2000 * nutrient.daily_value
-      serving_value = opts[:days_eaten_recipes].compact.map{|r| r.nutrient_profile.servings.find{|s|s.nutrient_id == nutrient.id}.then(:value)}.compact.sum
+      orig_daily_value = opts[:bmr] / 2000.0 * nutrient.daily_value
+      serving_value = opts[:days_eaten_recipes].compact.map{|r| v=r[:recipe].nutrient_profile.servings.find{|s|s.nutrient_id == nutrient.id}.then(:value); v && v * r[:servings] || nil}.compact.sum
       remaining_value = orig_daily_value - serving_value
+      remaining_value = 0 if remaining_value < 0 && !nutrient.prime
       meal_value = orig_daily_value / opts[:meals]
       daily_value = [meal_value, remaining_value].min
       { id: nutrient.id, unitwise_method: nutrient.unitwise_method, dv_unit: nutrient.dv_unit, daily_value: daily_value, num: 0 }
     end
 
-    all_recipes = opts[:all_recipes].map {|recipe| { recipe: recipe, value: 0.0, num: 0 }}
+    all_recipes = opts[:all_recipes].map {|recipe| [{ recipe: recipe, value: 0.0, num: 0, servings: 1 }, { recipe: recipe, value: 0.0, num: 0, servings: 2 }]}.flatten
     all_recipes.each_with_index do |r, i|
       if r[:recipe].nutrient_profile
         progress = (i.to_f / all_recipes.count * 100).round
@@ -129,6 +130,7 @@ class Recipe < ActiveRecord::Base
             else
               serving_value = Unitwise(serving.value, serving.unit.name).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
             end
+            serving_value *= r[:servings]
 
             unless serving.nutrient.minimize
               if serving_value < target[:daily_value]
@@ -149,7 +151,7 @@ class Recipe < ActiveRecord::Base
       breadth -= 0.1
       recipes = all_recipes.select do |recipe|
         recipe[:value] >= all_recipes[0][:value] * breadth &&
-        (opts[:all_eaten_recipes].empty? && true || !opts[:all_eaten_recipes].map(&:id).index(recipe[:recipe].id))
+        (opts[:all_eaten_recipes].empty? && true || !opts[:all_eaten_recipes].map{|r| r[:recipe].id}.index(recipe[:recipe].id))
       end
     end
 
@@ -169,6 +171,7 @@ class Recipe < ActiveRecord::Base
           else
             serving_value = Unitwise(serving.value, serving.unit.name).send("to_#{target[:unitwise_method] || target[:dv_unit]}").to_f
           end
+          serving_value *= r[:servings]
 
           unless serving.nutrient.minimize
             if serving_value < target[:daily_value]
@@ -193,11 +196,11 @@ class Recipe < ActiveRecord::Base
       end
     end
 
-    recipe = final_recipes.shuffle[0].then(:recipe)
-    recipe = recipes.shuffle[0].then(:recipe) unless recipe
-    if recipe
-      recipe.update_attribute :algo_count, recipe.algo_count + 1
-      rsp = { success: true, recipe: recipe }
+    r = final_recipes.shuffle[0]
+    r = recipes.shuffle[0] unless r
+    if r
+      r[:recipe].update_attribute :algo_count, r[:recipe].algo_count + 1
+      rsp = { success: true, recipe: { recipe: r[:recipe], servings: r[:servings] } }
     else
       rsp = { success: false, message: 'No recipes found.' }
       eOpts = opts.merge({
@@ -216,7 +219,11 @@ class Recipe < ActiveRecord::Base
     recipes = []
 
     all_recipes = Recipe.includes(:ingredients, :diets, :cuisines, nutrient_profile: { servings: [:unit, :nutrient] })
-    all_recipes = all_recipes.where("public is true or public is false and added_by = ?", opts[:user].id) if opts[:user]
+    if opts[:user]
+      all_recipes = all_recipes.where("public is true or added_by = ?", opts[:user].id)
+    else
+      all_recipes = all_recipes.where(public: true)
+    end
     all_recipes = all_recipes.where(diets: { id: opts[:attrs][:diets] }) if opts[:attrs][:diets]
     all_recipes = all_recipes.where(veganize: nil) if opts[:attrs][:diets] && opts[:attrs][:diets].to_i != 1
 

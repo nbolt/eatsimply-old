@@ -74,7 +74,7 @@ class DataController < ApplicationController
 
     if params[:recipes]
       opts.merge!({
-        recipes: params[:recipes]['meals'].map{|m|m['recipes']}.flatten.compact.map{|r|Recipe.find r['id']}
+        recipes: params[:recipes]['meals'].map{|m|m['recipes']}.flatten.compact.map{|r| Recipe.find r['recipe']['id']}
       })
     end
 

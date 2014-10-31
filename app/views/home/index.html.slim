@@ -150,7 +150,7 @@
         .text
           | We will be testing our own healthy gourmet food delivery service in 
           strong Las Vegas 
-          | later this year.
+          | later next year.
         .input
           input type='text' placeholder='Your email' spellcheck='false' ng:model='vegas_email'
           .button ng:click='openMealFormV()' Go
@@ -275,11 +275,11 @@
           .recipes
             #spinner ng:if='!meal.recipes[0] && !meal.message'
             .message ng:if='meal.message' ng:bind='meal.message'
-            .recipe ng:repeat='recipe in meal.recipes'
-              .photo style='background-image:url({{recipe.recipe_images[0].image.url}})'
+            .recipe ng:repeat='r in meal.recipes'
+              .photo style='background-image:url({{r.recipe.recipe_images[0].image.url}})'
               .info
-                a hrefs='{{recipe.source}}' target='_window' ng:click='openRecipe(recipe)'
-                  .title ng:bind='recipe.name'
+                a hrefs='{{r.recipe.source}}' target='_window' ng:click='openRecipe(r)'
+                  .title ng:bind='r.recipe.name'
 
 javascript:
   $(window).scroll(function(){

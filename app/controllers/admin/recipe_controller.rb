@@ -115,11 +115,13 @@ class Admin::RecipeController < AdminController
       end
     end
     if params[:images].chain(:first, :hostedLargeUrl)
-      recipe_image = recipe.recipe_images.build
-      recipe_image.remote_image_url = params[:images][0][:hostedLargeUrl]
-      if recipe_image.save
-        recipe.recipe_images.first.destroy if recipe.recipe_images.count > 1
-        HTTParty.post("#{params[:images][0][:hostedLargeUrl]}/remove?key=#{ENV['FILEPICKER_KEY']}") unless Rails.env.test?
+      unless recipe.recipe_images[0].image.url == params[:images].chain(:first, :hostedLargeUrl)
+        recipe_image = recipe.recipe_images.build
+        recipe_image.remote_image_url = params[:images][0][:hostedLargeUrl]
+        if recipe_image.save
+          recipe.recipe_images.first.destroy if recipe.recipe_images.count > 1
+          HTTParty.post("#{params[:images][0][:hostedLargeUrl]}/remove?key=#{ENV['FILEPICKER_KEY']}") unless Rails.env.test?
+        end
       end
     end
     if params[:ingredients] && params[:ingredients][0]
@@ -131,7 +133,7 @@ class Admin::RecipeController < AdminController
         serving.value = 0
       end
       recipe.ingredients.each do |ingredient|
-        recipe.ingredients.delete ingredient unless params[:ingredients].find {|i| i['id'].to_i == ingredient.id}
+        recipe.ingredients.delete ingredient if params[:ingredients].find{|i| i['id'].to_i == ingredient.id}.then('update')
       end
       params[:ingredients].each do |i|
         if i[:profile] || i[:name]
