@@ -167,13 +167,18 @@
             input id='gender' type='hidden' ui-select2='genderHash()' ng:model='form.gender'
           .text weighing
           .input
-            input id='weight' type='text' ng:model='form.weight' style='width:40px'
-          .text kgs and
+            input id='weight' type='text' ng:model='form.weight' ng:class='weight_length()'
+          .input
+            input id='weight_unit' type='hidden' ui-select2='weightHash()' ng:model='form.weight_unit'
         .row
           .text and am
+          .input.feet ng:class='display_inches()'
+            input id='feet' type='text' ng:model='form.feet' ng:class='display_feet()'
           .input
-            input id='height' type='text' ng:model='form.height' style='width:60px'
-          .text#aan cm tall. I'm a
+            input id='height' type='text' ng:model='form.height' ng:class='height_length()'
+          .input
+            input id='weight_unit' type='hidden' ng:model='form.height_unit' ui-select2='heightHash()'
+          .text#aan tall. I'm a
           .input
             input id='diet' type='hidden' ui-select2='dietHash()' ng:model='form.diet'
         .row

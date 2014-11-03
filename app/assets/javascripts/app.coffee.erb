@@ -52,8 +52,8 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         $scope.email_id = rsp.email_id
         angular.element('#modal').css('opacity', 0)
         angular.element('#meal-form').css('display', 'block')
-        $timeout(-> $.scrollTo('#meal-form', 800, 'swing'))
-        $timeout(-> angular.element('#meal-form').css('opacity', 1))
+        $timeout((-> $.scrollTo('#meal-form', 800, 'swing')),50)
+        $timeout((-> angular.element('#meal-form').css('opacity', 1)),50)
         $timeout(
           (->
             angular.element('#modal').css('display', 'none')
@@ -74,8 +74,8 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         $scope.email_id = rsp.email_id
         angular.element('#vegas-modal').css('opacity', 0)
         angular.element('#meal-form').css('display', 'block')
-        $timeout(-> $.scrollTo('#meal-form', 800, 'swing'))
-        $timeout(-> angular.element('#meal-form').css('opacity', 1))
+        $timeout((-> $.scrollTo('#meal-form', 800, 'swing')),50)
+        $timeout((-> angular.element('#meal-form').css('opacity', 1)),50)
         $timeout(
           (->
             angular.element('#vegas-modal').css('display', 'none')
@@ -217,9 +217,29 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
 
   $scope.$watch 'form.diet', (n,o) ->
     if n && _(['a','e','i','o','u']).indexOf(n.text[0]) == -1
-      angular.element('#aan').text "cm tall. I'm a"
+      angular.element('#aan').text "tall. I'm a"
     else
-      angular.element('#aan').text "cm tall. I'm an"
+      angular.element('#aan').text "tall. I'm an"
+
+  $scope.weight_length = ->
+    switch $scope.form.height_unit.id
+      when 'metric'   then 'two'
+      when 'imperial' then 'three'
+
+  $scope.height_length = ->
+    switch $scope.form.weight_unit.id
+      when 'metric'   then 'three'
+      when 'imperial' then 'one'
+
+  $scope.display_feet = ->
+    switch $scope.form.weight_unit.id
+      when 'metric'   then 'zero'
+      when 'imperial' then 'one'
+
+  $scope.display_inches = ->
+    switch $scope.form.weight_unit.id
+      when 'metric'   then 'hidden'
+      when 'imperial' then ''
 
   $scope.goalHash = ->
     {
@@ -269,6 +289,23 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
         data: (term) -> { term: term }
         quietMillis: 400
         results: (data) -> { results: _(data).map (i) -> { id: i.id, text: i.name } }
+    }
+
+  $scope.weightHash = ->
+    {
+      minimumResultsForSearch: 8
+      dropdownCssClass: 'meal-plan-natural'
+      data: [{ id: 'metric', text: 'kgs' }, { id: 'imperial', text: 'lbs' }]
+      initSelection: (elem, cb) -> cb { id: 'metric', text: 'kgs' }
+    }
+
+  $scope.heightHash = ->
+    {
+      minimumResultsForSearch: 8
+      dropdownCssClass: 'meal-plan-natural'
+      formatSelection: (obj) -> obj.display || obj.text
+      data: [{ id: 'metric', text: 'cm' }, { id: 'imperial', text: 'feet', display: '"' }]
+      initSelection: (elem, cb) -> cb { id: 'metric', text: 'cm' }
     }
 ]
 

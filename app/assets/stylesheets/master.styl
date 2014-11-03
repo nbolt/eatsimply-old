@@ -520,6 +520,12 @@ footer
           font-weight: 300
         .input
           font-weight: 500
+          &.hidden
+            display: none
+          &.feet::after
+            content: "'"
+            position: absolute
+            margin-top: -2px
           input
             box-shadow: none
             border: none
@@ -529,6 +535,14 @@ footer
             padding: 0 0 2px
             margin: 2px 8px 0
             border-bottom: 2px solid white
+            &.zero
+              display: none
+            &.one
+              width: 19px
+            &.two
+              width: 40px
+            &.three
+              width: 55px
         .select2-container
           vertical-align: top
           margin: 6px 10px 0

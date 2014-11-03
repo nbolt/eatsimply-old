@@ -28,11 +28,24 @@ class DataController < ApplicationController
   def recipes
     email = Email.where(email: params[:email])[0]
 
+    weight =
+      case params[:weight_unit]
+      when 'metric'   then params[:weight]
+      when 'imperial' then params[:weight].convert_to_kg
+      end
+
+    height =
+      case params[:height_unit]
+      when 'metric'   then params[:height]
+      when 'imperial' then ((params[:feet] * 12) + params[:height]).convert_to_cm
+      end
+
+
     bmr =
       if params[:gender][:id] == 'f'
-        447.593 + (9.247 * params[:weight].to_i) + (3.098 * params[:height].to_i) - (4.330 * params[:age].to_i)
+        447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * params[:age].to_i)
       else
-        88.362 + (13.397 * params[:weight].to_i) + (4.799 * params[:height].to_i) - (5.677 * params[:age].to_i)
+        88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * params[:age].to_i)
       end
 
     bmr *= 1.2 if params[:activity_level][:id].to_i == 0
