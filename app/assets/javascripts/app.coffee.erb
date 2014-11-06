@@ -17,6 +17,8 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     $scope.days = []
     d = new Date()
     _([0,1,2,3,4,5]).each (i) ->
+      d.setDate(d.getDate() + 1)
+      
       month =
         switch d.getMonth()
           when 0 then 'Jan.'
@@ -43,7 +45,6 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
           when 6 then 'Saturday'
 
       $scope.days.push { name: name, date: "#{month} #{ordinal(d.getDate())}" }
-      d.setDate(d.getDate() + 1)
       
     $scope.days[0].meals = []
     $scope.days[0].meals[0] = {}
