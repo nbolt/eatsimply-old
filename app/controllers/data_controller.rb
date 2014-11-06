@@ -29,15 +29,15 @@ class DataController < ApplicationController
     email = Email.where(email: params[:email])[0]
 
     weight =
-      case params[:weight_unit]
-      when 'metric'   then params[:weight]
-      when 'imperial' then params[:weight].convert_to_kg
+      case params[:weight_unit][:id]
+      when 'metric'   then params[:weight].to_i
+      when 'imperial' then params[:weight].to_i * 0.453592
       end
 
     height =
-      case params[:height_unit]
-      when 'metric'   then params[:height]
-      when 'imperial' then ((params[:feet] * 12) + params[:height]).convert_to_cm
+      case params[:height_unit][:id]
+      when 'metric'   then params[:height].to_i
+      when 'imperial' then ((params[:feet].to_i * 12) + params[:height].to_i) * 2.54
       end
 
 
@@ -87,7 +87,7 @@ class DataController < ApplicationController
 
     if params[:recipes]
       opts.merge!({
-        recipes: params[:recipes]['meals'].map{|m|m['recipes']}.flatten.compact.map{|r| Recipe.find r['recipe']['id']}
+        recipes: params[:recipes]['meals'].map{|m|m['recipes']}.flatten.compact.map{|r| { servings: r['servings'], recipe: Recipe.find(r['recipe']['id']) } }
       })
     end
 

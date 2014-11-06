@@ -34,7 +34,7 @@ class YummlyJob
       FirebaseJob.new.perform firebase_key, {
         event: 'new-recipe',
         success: rsp[:success],
-        recipe: rsp[:recipe],
+        recipe: { servings: 1, rsp[:recipe] },
         message: rsp[:message],
         nums: nums,
         clear_next: false,

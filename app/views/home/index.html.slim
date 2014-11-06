@@ -246,7 +246,9 @@
         .typcn.typcn-chevron-right
     #meals
       .day id='{{day.name}}' ng:repeat='day in days'
-        .title ng:bind='day.name'
+        .title
+          .name ng:bind='day.name'
+          .date ng:bind='day.date'
         .meal ng:repeat='meal in day.meals'
           .top
             .right

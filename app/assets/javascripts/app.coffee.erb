@@ -1,3 +1,8 @@
+ordinal = (n) ->
+  s=["th","st","nd","rd"]
+  v=n%100
+  n+(s[(v-20)%10]||s[v]||s[0])
+
 EmptyCtrl = ['$scope', ($scope) ->]
 
 AppCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
@@ -9,7 +14,37 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
   if localStorage && localStorage['recipes']
     $scope.days = JSON.parse localStorage['recipes']
   else
-    $scope.days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
+    $scope.days = []
+    d = new Date()
+    _([0,1,2,3,4,5]).each (i) ->
+      month =
+        switch d.getMonth()
+          when 0 then 'Jan.'
+          when 1 then 'Feb.'
+          when 2 then 'Mar.'
+          when 3 then 'Apr.'
+          when 4 then 'May'
+          when 5 then 'June'
+          when 6 then 'July'
+          when 7 then 'Aug.'
+          when 8 then 'Sep.'
+          when 9 then 'Oct.'
+          when 10 then 'Nov.'
+          when 11 then 'Dec.'
+
+      name =
+        switch d.getDay()
+          when 0 then 'Sunday'
+          when 1 then 'Monday'
+          when 2 then 'Tuesday'
+          when 3 then 'Wednesday'
+          when 4 then 'Thursday'
+          when 5 then 'Friday'
+          when 6 then 'Saturday'
+
+      $scope.days.push { name: name, date: "#{month} #{ordinal(d.getDate())}" }
+      d.setDate(d.getDate() + 1)
+      
     $scope.days[0].meals = []
     $scope.days[0].meals[0] = {}
     $scope.days[0].meals[0].recipes = []
@@ -114,7 +149,37 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
           new_recipe(data)
     )
 
-    $scope.days = [{name:'Monday'}, {name:'Tuesday'}, {name:'Wednesday'}, {name:'Thursday'}, {name:'Friday'}, {name:'Saturday'}, {name:'Sunday'}]
+    $scope.days = []
+    d = new Date()
+    _([0,1,2,3,4,5]).each (i) ->
+      month =
+        switch d.getMonth()
+          when 0 then 'Jan.'
+          when 1 then 'Feb.'
+          when 2 then 'Mar.'
+          when 3 then 'Apr.'
+          when 4 then 'May'
+          when 5 then 'June'
+          when 6 then 'July'
+          when 7 then 'Aug.'
+          when 8 then 'Sep.'
+          when 9 then 'Oct.'
+          when 10 then 'Nov.'
+          when 11 then 'Dec.'
+
+      name =
+        switch d.getDay()
+          when 0 then 'Sunday'
+          when 1 then 'Monday'
+          when 2 then 'Tuesday'
+          when 3 then 'Wednesday'
+          when 4 then 'Thursday'
+          when 5 then 'Friday'
+          when 6 then 'Saturday'
+
+      $scope.days.push { name: name, date: "#{month} #{ordinal(d.getDate())}" }
+      d.setDate(d.getDate() + 1)
+
     $scope.days[0].meals = []
     $scope.days[0].meals[0] = {}
     $scope.days[0].meals[0].recipes = []
@@ -128,6 +193,9 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         activity_level: $scope.form.activity_level,
         weight: $scope.form.weight,
         height: $scope.form.height,
+        weight_unit: $scope.form.weight_unit,
+        height_unit: $scope.form.height_unit,
+        feet: $scope.form.feet,
         age: $scope.form.age,
         cuisines: $scope.form.cuisines,
         days: 7,
@@ -192,6 +260,9 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
           activity_level: $scope.form.activity_level,
           weight: $scope.form.weight,
           height: $scope.form.height,
+          weight_unit: $scope.form.weight_unit,
+          height_unit: $scope.form.height_unit,
+          feet: $scope.form.feet,
           age: $scope.form.age,
           cuisines: $scope.form.cuisines,
           days: 1,
@@ -221,23 +292,42 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
     else
       angular.element('#aan').text "tall. I'm an"
 
+  $scope.$watch 'form.weight_unit', (n,o) ->
+    if n && n.id != o.id
+      switch o.id
+        when 'metric'
+          $scope.form.weight = Math.round($scope.form.weight * 2.2)
+        when 'imperial'
+          $scope.form.weight = Math.round($scope.form.weight * 0.453)
+
+  $scope.$watch 'form.height_unit', (n,o) ->
+    if n && n.id != o.id
+      switch o.id
+        when 'metric'
+          inches = $scope.form.height * 0.4
+          $scope.form.feet = Math.floor(inches / 12)
+          $scope.form.height = Math.round(inches - $scope.form.feet * 12)
+        when 'imperial'
+          inches = ($scope.form.feet * 12) + $scope.form.height
+          $scope.form.height = Math.round(inches * 2.54)
+
   $scope.weight_length = ->
-    switch $scope.form.height_unit.id
+    switch $scope.form.weight_unit.id
       when 'metric'   then 'two'
       when 'imperial' then 'three'
 
   $scope.height_length = ->
-    switch $scope.form.weight_unit.id
+    switch $scope.form.height_unit.id
       when 'metric'   then 'three'
       when 'imperial' then 'one'
 
   $scope.display_feet = ->
-    switch $scope.form.weight_unit.id
+    switch $scope.form.height_unit.id
       when 'metric'   then 'zero'
       when 'imperial' then 'one'
 
   $scope.display_inches = ->
-    switch $scope.form.weight_unit.id
+    switch $scope.form.height_unit.id
       when 'metric'   then 'hidden'
       when 'imperial' then ''
 
@@ -330,6 +420,9 @@ PlanCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         activity_level: $scope.form.activity_level,
         weight: $scope.form.weight,
         height: $scope.form.height,
+        weight_unit: $scope.form.weight_unit,
+        height_unit: $scope.form.height_unit,
+        feet: $scope.form.feet,
         age: $scope.form.age,
         cuisines: $scope.form.cuisines,
         days: 1,
@@ -734,23 +827,31 @@ app = angular.module('eatt', ['ngCookies', 'ui.select2'])
   .config ['$httpProvider', ($httpProvider) ->
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = angular.element('meta[name=csrf-token]').attr 'content'
   ]
-  .directive('arrowNext', -> (scope, element) ->
+  .directive('arrowNext', ($timeout) -> (scope, element) ->
+    scope.motion = false
     element.on 'click', ->
-      if parseInt(angular.element('#meals').css('margin-left')) == -1340
-        angular.element('.day:first').insertAfter '.day:last'
-        angular.element('#meals').css 'margin-left', -1005
-      angular.element('#meals').animate({
-        'margin-left': '-=335'
-      }, 400, 'swing')
+      unless scope.motion
+        scope.motion = true
+        $timeout((-> scope.motion = false), 600)
+        if parseInt(angular.element('#meals').css('margin-left')) == -1340
+          angular.element('.day:first').insertAfter '.day:last'
+          angular.element('#meals').css 'margin-left', -1005
+        angular.element('#meals').animate({
+          'margin-left': '-=335'
+        }, 400, 'swing')
   )
-  .directive('arrowPrev', -> (scope, element) ->
+  .directive('arrowPrev', ($timeout) -> (scope, element) ->
+    scope.motion = false
     element.on 'click', ->
-      if parseInt(angular.element('#meals').css('margin-left')) == 0
-        angular.element('.day:last').insertBefore '.day:first'
-        angular.element('#meals').css 'margin-left', -335
-      angular.element('#meals').animate({
-        'margin-left': '+=335'
-      }, 400, 'swing')
+      unless scope.motion
+        scope.motion = true
+        $timeout((-> scope.motion = false), 600)
+        if parseInt(angular.element('#meals').css('margin-left')) == 0
+          angular.element('.day:last').insertBefore '.day:first'
+          angular.element('#meals').css 'margin-left', -335
+        angular.element('#meals').animate({
+          'margin-left': '+=335'
+        }, 400, 'swing')
   )
   .directive('fetchRecipe', ['$http', ($http) -> (scope, element, attrs) ->
     $http.get("/recipe/#{attrs.fetchRecipe}/fetch").success (rsp) ->

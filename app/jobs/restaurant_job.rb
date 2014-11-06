@@ -88,7 +88,7 @@ class RestaurantJob
       FirebaseJob.new.perform key, {
         event: 'new-recipe',
         success: rsp[:success],
-        recipe: rsp[:recipe],
+        recipe: { servings: 1, recipe: rsp[:recipe] },
         message: rsp[:message],
         nums: nums,
         clear_next: false,
