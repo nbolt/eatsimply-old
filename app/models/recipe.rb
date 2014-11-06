@@ -204,8 +204,8 @@ class Recipe < ActiveRecord::Base
     else
       rsp = { success: false, message: 'No recipes found.' }
       eOpts = opts.merge({
-        days_eaten_recipes: opts[:days_eaten_recipes].map{|r|r.id},
-        all_eaten_recipes: opts[:all_eaten_recipes].map{|r|r.id}
+        days_eaten_recipes: opts[:days_eaten_recipes].map{|r|r[:recipe].id},
+        all_eaten_recipes: opts[:all_eaten_recipes].map{|r|r[:recipe].id}
       })
       eOpts.delete(:all_recipes)
       Appsignal.send_exception(RecipeNotFound.new(eOpts))
@@ -245,13 +245,15 @@ class Recipe < ActiveRecord::Base
         }
 
         if block_given?
-          recipe = self.meal(meal_opts, &Proc.new)[:recipe]
+          recipe = self.meal(meal_opts, &Proc.new)
         else
-          recipe = self.meal(meal_opts)[:recipe]
+          recipe = self.meal(meal_opts)
         end
         # handle recipe not found
-        days_recipes.push recipe
-        recipes.last.push recipe
+        if recipe[:success]
+          days_recipes.push recipe[:recipe]
+          recipes.last.push recipe[:recipe]
+        end
       end
     end
 

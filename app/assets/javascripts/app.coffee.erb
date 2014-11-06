@@ -18,7 +18,7 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     d = new Date()
     _([0,1,2,3,4,5]).each (i) ->
       d.setDate(d.getDate() + 1)
-      
+
       month =
         switch d.getMonth()
           when 0 then 'Jan.'
@@ -152,7 +152,9 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
     $scope.days = []
     d = new Date()
-    _([0,1,2,3,4,5]).each (i) ->
+    _([0,1,2,3,4,5,6]).each (i) ->
+      d.setDate(d.getDate() + 1)
+
       month =
         switch d.getMonth()
           when 0 then 'Jan.'
@@ -179,7 +181,6 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
           when 6 then 'Saturday'
 
       $scope.days.push { name: name, date: "#{month} #{ordinal(d.getDate())}" }
-      d.setDate(d.getDate() + 1)
 
     $scope.days[0].meals = []
     $scope.days[0].meals[0] = {}
@@ -224,7 +225,7 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
 
   new_recipe = (rsp) -> $scope.$apply ->
     nums = rsp.nums
-    $scope.days[nums[0]].meals = [] unless $scope.days[nums[0]].meals
+    $scope.days[nums[0]].meals = [] unless $scope.days[nums[0]] && $scope.days[nums[0]].meals
     $scope.days[nums[0]].meals[nums[1]] = {} unless $scope.days[nums[0]].meals[nums[1]]
     $scope.days[nums[0]].meals[nums[1]].recipes = [] unless $scope.days[nums[0]].meals[nums[1]].recipes
 
@@ -313,22 +314,26 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
           $scope.form.height = Math.round(inches * 2.54)
 
   $scope.weight_length = ->
-    switch $scope.form.weight_unit.id
+    id = $scope.form.weight_unit && $scope.form.weight_unit.id
+    switch id
       when 'metric'   then 'two'
       when 'imperial' then 'three'
 
   $scope.height_length = ->
-    switch $scope.form.height_unit.id
+    id = $scope.form.height_unit && $scope.form.height_unit.id
+    switch id
       when 'metric'   then 'three'
       when 'imperial' then 'one'
 
   $scope.display_feet = ->
-    switch $scope.form.height_unit.id
+    id = $scope.form.height_unit && $scope.form.height_unit.id
+    switch id
       when 'metric'   then 'zero'
       when 'imperial' then 'one'
 
   $scope.display_inches = ->
-    switch $scope.form.height_unit.id
+    id = $scope.form.height_unit && $scope.form.height_unit.id
+    switch id
       when 'metric'   then 'hidden'
       when 'imperial' then ''
 
@@ -828,7 +833,7 @@ app = angular.module('eatt', ['ngCookies', 'ui.select2'])
   .config ['$httpProvider', ($httpProvider) ->
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = angular.element('meta[name=csrf-token]').attr 'content'
   ]
-  .directive('arrowNext', ($timeout) -> (scope, element) ->
+  .directive('arrowNext', ['$timeout', ($timeout) -> (scope, element) ->
     scope.motion = false
     element.on 'click', ->
       unless scope.motion
@@ -840,8 +845,8 @@ app = angular.module('eatt', ['ngCookies', 'ui.select2'])
         angular.element('#meals').animate({
           'margin-left': '-=335'
         }, 400, 'swing')
-  )
-  .directive('arrowPrev', ($timeout) -> (scope, element) ->
+  ])
+  .directive('arrowPrev', ['$timeout', ($timeout) -> (scope, element) ->
     scope.motion = false
     element.on 'click', ->
       unless scope.motion
@@ -853,7 +858,7 @@ app = angular.module('eatt', ['ngCookies', 'ui.select2'])
         angular.element('#meals').animate({
           'margin-left': '+=335'
         }, 400, 'swing')
-  )
+  ])
   .directive('fetchRecipe', ['$http', ($http) -> (scope, element, attrs) ->
     $http.get("/recipe/#{attrs.fetchRecipe}/fetch").success (rsp) ->
       info = rsp

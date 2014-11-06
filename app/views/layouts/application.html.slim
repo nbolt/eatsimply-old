@@ -15,9 +15,9 @@ html
     = stylesheet_link_tag 'application'
     = stylesheet_link_tag 'css_imports'
     = javascript_include_tag :application, 'data-turbolinks-track' => true
-    = javascript_include_tag 'https://cdn.ravenjs.com/1.1.15/jquery,native/raven.min.js'
-    = javascript_include_tag 'https://cdn.firebase.com/js/client/1.1.2/firebase.js'
-    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700'
+    /= javascript_include_tag 'https://cdn.ravenjs.com/1.1.15/jquery,native/raven.min.js', async: true
+    = javascript_include_tag 'https://cdn.firebase.com/js/client/1.1.2/firebase.js', async: true
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700', async: true
     = csrf_meta_tags
     = yield :head
 
