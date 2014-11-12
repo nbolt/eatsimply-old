@@ -18,8 +18,7 @@ class UserMailer < ActionMailer::Base
   private
 
   def mailchimp email
-    gb = Gibbon::API.new(ENV['MAILCHIMP_API'])
-    gb.lists.subscribe({:id => 'ee35460d90', :email => {:email => email}, :double_optin => false})
+    MailchimpJob.new.async.perform email
   end
 
 end
