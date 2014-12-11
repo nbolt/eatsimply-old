@@ -191,7 +191,6 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     $scope.days[0].meals[0].recipes = []
 
     if bmr
-      console.log 'hey'
       $http.post('/data/recipes',
         {
           key: $scope.firebase_endpoint,
@@ -205,7 +204,6 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
         }
       )
     else
-      console.log 'fool'
       $http.post('/data/recipes',
         {
           key: $scope.firebase_endpoint,
@@ -334,28 +332,32 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
           $scope.form.height = Math.round(inches * 2.54)
 
   $scope.weight_length = ->
-    id = $scope.form.weight_unit && $scope.form.weight_unit.id
-    switch id
-      when 'metric'   then 'two'
-      when 'imperial' then 'three'
+    if $scope.form
+      id = $scope.form.weight_unit && $scope.form.weight_unit.id
+      switch id
+        when 'metric'   then 'two'
+        when 'imperial' then 'three'
 
   $scope.height_length = ->
-    id = $scope.form.height_unit && $scope.form.height_unit.id
-    switch id
-      when 'metric'   then 'three'
-      when 'imperial' then 'one'
+    if $scope.form
+      id = $scope.form.height_unit && $scope.form.height_unit.id
+      switch id
+        when 'metric'   then 'three'
+        when 'imperial' then 'one'
 
   $scope.display_feet = ->
-    id = $scope.form.height_unit && $scope.form.height_unit.id
-    switch id
-      when 'metric'   then 'zero'
-      when 'imperial' then 'one'
+    if $scope.form
+      id = $scope.form.height_unit && $scope.form.height_unit.id
+      switch id
+        when 'metric'   then 'zero'
+        when 'imperial' then 'one'
 
   $scope.display_inches = ->
-    id = $scope.form.height_unit && $scope.form.height_unit.id
-    switch id
-      when 'metric'   then 'hidden'
-      when 'imperial' then ''
+    if $scope.form
+      id = $scope.form.height_unit && $scope.form.height_unit.id
+      switch id
+        when 'metric'   then 'hidden'
+        when 'imperial' then ''
 
   $scope.goalHash = ->
     {
