@@ -28,36 +28,40 @@ class DataController < ApplicationController
   def recipes
     email = Email.where(email: params[:email])[0]
 
-    weight =
-      case params[:weight_unit][:id]
-      when 'metric'   then params[:weight].to_i
-      when 'imperial' then params[:weight].to_i * 0.453592
+    if params[:bmr]
+      bmr = params[:bmr].to_i
+    else
+      weight =
+        case params[:weight_unit][:id]
+        when 'metric'   then params[:weight].to_i
+        when 'imperial' then params[:weight].to_i * 0.453592
+        end
+
+      height =
+        case params[:height_unit][:id]
+        when 'metric'   then params[:height].to_i
+        when 'imperial' then ((params[:feet].to_i * 12) + params[:height].to_i) * 2.54
+        end
+
+
+      bmr =
+        if params[:gender][:id] == 'f'
+          447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * params[:age].to_i)
+        else
+          88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * params[:age].to_i)
+        end
+
+      bmr *= 1.2 if params[:activity_level][:id].to_i == 0
+      bmr *= 1.375 if params[:activity_level][:id].to_i == 1
+      bmr *= 1.55 if params[:activity_level][:id].to_i == 2
+      bmr *= 1.725 if params[:activity_level][:id].to_i == 3
+      bmr *= 1.9 if params[:activity_level][:id].to_i == 4
+
+      if params[:goal][:text] == 'lose'
+        bmr -= 500
+      elsif params[:goal][:text] == 'gain'
+        bmr += 500
       end
-
-    height =
-      case params[:height_unit][:id]
-      when 'metric'   then params[:height].to_i
-      when 'imperial' then ((params[:feet].to_i * 12) + params[:height].to_i) * 2.54
-      end
-
-
-    bmr =
-      if params[:gender][:id] == 'f'
-        447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * params[:age].to_i)
-      else
-        88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * params[:age].to_i)
-      end
-
-    bmr *= 1.2 if params[:activity_level][:id].to_i == 0
-    bmr *= 1.375 if params[:activity_level][:id].to_i == 1
-    bmr *= 1.55 if params[:activity_level][:id].to_i == 2
-    bmr *= 1.725 if params[:activity_level][:id].to_i == 3
-    bmr *= 1.9 if params[:activity_level][:id].to_i == 4
-
-    if params[:goal][:text] == 'lose'
-      bmr -= 500
-    elsif params[:goal][:text] == 'gain'
-      bmr += 500
     end
 
     calories = Nutrient.where(name:'Calories')[0]

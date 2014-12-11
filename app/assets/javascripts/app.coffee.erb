@@ -87,8 +87,9 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       if rsp.success
         $scope.email_id = rsp.email_id
         angular.element('#modal').css('opacity', 0)
-        angular.element('#meal-form').css('display', 'block')
-        $timeout((-> $.scrollTo('#meal-form', 800, 'swing')),50)
+        angular.element('#meal-form').css('display', 'block').css('opacity', 1)
+        # $timeout((-> $.scrollTo('#meal-form', 800, 'swing')),50)
+        $scope.openMealPlan(2000)
         $timeout((-> angular.element('#meal-form').css('opacity', 1)),50)
         $timeout(
           (->
@@ -109,8 +110,9 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       if rsp.success
         $scope.email_id = rsp.email_id
         angular.element('#vegas-modal').css('opacity', 0)
-        angular.element('#meal-form').css('display', 'block')
-        $timeout((-> $.scrollTo('#meal-form', 800, 'swing')),50)
+        angular.element('#meal-form').css('display', 'block').css('opacity', 1)
+        #$timeout((-> $.scrollTo('#meal-form', 800, 'swing')),50)
+        $scope.openMealPlan(2000)
         $timeout((-> angular.element('#meal-form').css('opacity', 1)),50)
         $timeout(
           (->
@@ -118,7 +120,9 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
           ), 400
         )
 
-  $scope.toMealForm = -> $.scrollTo('#meal-form', 800, 'swing')
+  $scope.toMealForm = ->
+    $.scrollTo('#meal-form', 800, 'swing')
+    null
 
   $scope.emailGroceries = ->
     $http.post('/data/groceries',
@@ -132,7 +136,7 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
       $('.action.pdf .text').fadeIn().text('Grocery list emailed!')
     ), 600)
 
-  $scope.openMealPlan = ->
+  $scope.openMealPlan = (bmr) ->
     angular.element('#meal-plan').css('display', 'block')
     $timeout(-> angular.element('#meal-plan').css('opacity', 1))
     $timeout(->$.scrollTo('#meal-plan', 800, 'swing'))
@@ -186,26 +190,42 @@ HomeCtrl = ['$scope', '$http', '$timeout', ($scope, $http, $timeout) ->
     $scope.days[0].meals[0] = {}
     $scope.days[0].meals[0].recipes = []
 
-    $http.post('/data/recipes',
-      {
-        key: $scope.firebase_endpoint,
-        diet: $scope.form.diet,
-        gender: $scope.form.gender,
-        goal: $scope.form.weight_goal,
-        activity_level: $scope.form.activity_level,
-        weight: $scope.form.weight,
-        height: $scope.form.height,
-        weight_unit: $scope.form.weight_unit,
-        height_unit: $scope.form.height_unit,
-        feet: $scope.form.feet,
-        age: $scope.form.age,
-        cuisines: $scope.form.cuisines,
-        days: 7,
-        meals: 3,
-        clear_next: true,
-        email: $scope.email
-      }
-    )
+    if bmr
+      console.log 'hey'
+      $http.post('/data/recipes',
+        {
+          key: $scope.firebase_endpoint,
+          diet: $scope.form.diet,
+          bmr: 2000,
+          cuisines: $scope.form.cuisines,
+          days: 7,
+          meals: 3,
+          clear_next: true,
+          email: $scope.email
+        }
+      )
+    else
+      console.log 'fool'
+      $http.post('/data/recipes',
+        {
+          key: $scope.firebase_endpoint,
+          diet: $scope.form.diet,
+          gender: $scope.form.gender,
+          goal: $scope.form.weight_goal,
+          activity_level: $scope.form.activity_level,
+          weight: $scope.form.weight,
+          height: $scope.form.height,
+          weight_unit: $scope.form.weight_unit,
+          height_unit: $scope.form.height_unit,
+          feet: $scope.form.feet,
+          age: $scope.form.age,
+          cuisines: $scope.form.cuisines,
+          days: 7,
+          meals: 3,
+          clear_next: true,
+          email: $scope.email
+        }
+      )
 
   $scope.toMealPlan = ->
     angular.element('#meal-form, #meal-plan').css('display', 'block').css('opacity', 1)

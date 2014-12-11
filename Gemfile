@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.3'
+ruby '2.1.5'
 
 gem 'rails'
 gem 'puma'
@@ -18,6 +18,8 @@ end
 
 group :development do
   gem 'seed_dump'
+  gem 'binding_of_caller'
+  gem 'better_errors'
 end
 
 group :production do
