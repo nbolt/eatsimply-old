@@ -332,28 +332,28 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
           $scope.form.height = Math.round(inches * 2.54)
 
   $scope.weight_length = ->
-    if $scope.form
+    if $scope.form && $scope.form.weight_unit
       id = $scope.form.weight_unit && $scope.form.weight_unit.id
       switch id
         when 'metric'   then 'two'
         when 'imperial' then 'three'
 
   $scope.height_length = ->
-    if $scope.form
+    if $scope.form && $scope.form.height_unit
       id = $scope.form.height_unit && $scope.form.height_unit.id
       switch id
         when 'metric'   then 'three'
         when 'imperial' then 'one'
 
   $scope.display_feet = ->
-    if $scope.form
+    if $scope.form && $scope.form.height_unit
       id = $scope.form.height_unit && $scope.form.height_unit.id
       switch id
         when 'metric'   then 'zero'
         when 'imperial' then 'one'
 
   $scope.display_inches = ->
-    if $scope.form
+    if $scope.form && $scope.form.height_unit
       id = $scope.form.height_unit && $scope.form.height_unit.id
       switch id
         when 'metric'   then 'hidden'
@@ -388,7 +388,7 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
       minimumResultsForSearch: 8
       dropdownCssClass: 'meal-plan-natural'
       data: []
-      #initSelection: (el, cb) -> $http.get('/data/diets').success (rsp) -> cb { id: rsp[rsp.length-1].id, text: rsp[rsp.length-1].name.toLowerCase() }
+      initSelection: (el, cb) -> $http.get('/data/diets').success (rsp) -> cb { id: rsp[rsp.length-1].id, text: rsp[rsp.length-1].name.toLowerCase() }
       ajax:
         url: "/data/diets"
         data: (term) -> { term: term }
@@ -734,9 +734,9 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
       formatResultCssClass: -> 'recipe-creation-unit'
       formatSelection: (obj, con) -> obj.abbr || obj.text
       minimumResultsForSearch: 10
-      #initSelection: (element, callback) ->
-      #  if $(element).val() && !_(ingredient.units).find((u) -> u.id == $(element).val())
-      #    $http.get('/recipe/unit?id=' + $(element).val()).success (unit) -> callback({id:unit.id,text:unit.name,abbr:unit.abbr})
+      initSelection: (element, callback) ->
+        if $(element).val() && !_(ingredient.units).find((u) -> u.id == $(element).val())
+          $http.get('/recipe/unit?id=' + $(element).val()).success (unit) -> callback({id:unit.id,text:unit.name,abbr:unit.abbr})
       query: (query) -> query.callback({ results: ingredient.units })
     }
 
