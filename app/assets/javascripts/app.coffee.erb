@@ -388,7 +388,9 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
       minimumResultsForSearch: 8
       dropdownCssClass: 'meal-plan-natural'
       data: []
-      initSelection: (el, cb) -> $http.get('/data/diets').success (rsp) -> cb { id: rsp[rsp.length-1].id, text: rsp[rsp.length-1].name.toLowerCase() }
+      initSelection: (el, cb) -> $http.get('/data/diets').success (rsp) ->
+        if rsp && rsp.length > 0
+          cb { id: rsp[rsp.length-1].id, text: rsp[rsp.length-1].name.toLowerCase() }
       ajax:
         url: "/data/diets"
         data: (term) -> { term: term }
