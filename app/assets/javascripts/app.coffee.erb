@@ -388,9 +388,7 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
       minimumResultsForSearch: 8
       dropdownCssClass: 'meal-plan-natural'
       data: []
-      initSelection: (el, cb) -> $http.get('/data/diets').success (rsp) ->
-        if rsp && rsp.length > 0
-          cb { id: rsp[rsp.length-1].id, text: rsp[rsp.length-1].name.toLowerCase() }
+      #initSelection: (el, cb) -> $http.get('/data/diets').success (rsp) -> cb { id: rsp[rsp.length-1].id, text: rsp[rsp.length-1].name.toLowerCase() }
       ajax:
         url: "/data/diets"
         data: (term) -> { term: term }
@@ -736,9 +734,9 @@ RecipeEntry = ['$scope', '$http', '$timeout', '$window', ($scope, $http, $timeou
       formatResultCssClass: -> 'recipe-creation-unit'
       formatSelection: (obj, con) -> obj.abbr || obj.text
       minimumResultsForSearch: 10
-      initSelection: (element, callback) ->
-        if $(element).val() && !_(ingredient.units).find((u) -> u.id == $(element).val())
-          $http.get('/recipe/unit?id=' + $(element).val()).success (unit) -> callback({id:unit.id,text:unit.name,abbr:unit.abbr})
+      #initSelection: (element, callback) ->
+      #  if $(element).val() && !_(ingredient.units).find((u) -> u.id == $(element).val())
+      #    $http.get('/recipe/unit?id=' + $(element).val()).success (unit) -> callback({id:unit.id,text:unit.name,abbr:unit.abbr})
       query: (query) -> query.callback({ results: ingredient.units })
     }
 
