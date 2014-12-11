@@ -313,7 +313,7 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
       angular.element('#aan').text "tall. I'm an"
 
   $scope.$watch 'form.weight_unit', (n,o) ->
-    if n && n.id != o.id
+    if n && o && n.id != o.id
       switch o.id
         when 'metric'
           $scope.form.weight = Math.round($scope.form.weight * 2.2)
@@ -321,7 +321,7 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
           $scope.form.weight = Math.round($scope.form.weight * 0.453)
 
   $scope.$watch 'form.height_unit', (n,o) ->
-    if n && n.id != o.id
+    if n && o && n.id != o.id
       switch o.id
         when 'metric'
           inches = $scope.form.height * 0.4
@@ -332,10 +332,18 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
           $scope.form.height = Math.round(inches * 2.54)
 
   $scope.weight_length = ->
-    'two'
+    if $scope.form
+      id = $scope.form.weight_unit && $scope.form.weight_unit.id
+      switch id
+        when 'metric'   then 'two'
+        when 'imperial' then 'three'
 
   $scope.height_length = ->
-    'one'
+    if $scope.form
+      id = $scope.form.height_unit && $scope.form.height_unit.id
+      switch id
+        when 'metric'   then 'three'
+        when 'imperial' then 'one'
 
   $scope.display_feet = ->
     if $scope.form
