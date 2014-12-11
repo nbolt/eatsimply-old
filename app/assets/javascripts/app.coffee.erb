@@ -332,28 +332,20 @@ MealCtrl = ['$scope', '$http', ($scope, $http) ->
           $scope.form.height = Math.round(inches * 2.54)
 
   $scope.weight_length = ->
-    if $scope.form && $scope.form.weight_unit
-      id = $scope.form.weight_unit && $scope.form.weight_unit.id
-      switch id
-        when 'metric'   then 'two'
-        when 'imperial' then 'three'
+    'two'
 
   $scope.height_length = ->
-    if $scope.form && $scope.form.height_unit
-      id = $scope.form.height_unit && $scope.form.height_unit.id
-      switch id
-        when 'metric'   then 'three'
-        when 'imperial' then 'one'
+    'one'
 
   $scope.display_feet = ->
-    if $scope.form && $scope.form.height_unit
+    if $scope.form
       id = $scope.form.height_unit && $scope.form.height_unit.id
       switch id
         when 'metric'   then 'zero'
         when 'imperial' then 'one'
 
   $scope.display_inches = ->
-    if $scope.form && $scope.form.height_unit
+    if $scope.form
       id = $scope.form.height_unit && $scope.form.height_unit.id
       switch id
         when 'metric'   then 'hidden'
